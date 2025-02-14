@@ -2,8 +2,9 @@
 name = "nicegui-atlas"
 version = "0.1.0"
 description = "A tool for exploring and documenting NiceGUI components"
-authors = ["Your Name <your.email@example.com>"]
+authors = ["Michael Ikemann <michael@ikemann.de>"]
 readme = "README.md"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -17,6 +18,9 @@ nicegui = "^2.11.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
+
+[tool.poetry.scripts]
+niceat = "nicegui_atlas.__main__:main"
 
 [build-system]
 requires = ["poetry-core"]

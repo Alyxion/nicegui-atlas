@@ -1,14 +1,13 @@
-"""Command for fetching Quasar component information."""
+"""Info command plugin for displaying component information."""
 
 import argparse
-from typing import List, Optional
-
+from typing import List
 from .base import CommandPlugin, registry
-from ..quasar_verifier import get_cached_web_types
+from ..atlas import ComponentAtlas
 
 
 class InfoCommand(CommandPlugin):
-    """Command plugin for getting Quasar component information."""
+    """Command for displaying component information."""
     
     @property
     def name(self) -> str:
@@ -16,126 +15,92 @@ class InfoCommand(CommandPlugin):
     
     @property
     def help(self) -> str:
-        return "Get information about Quasar components"
+        return "Show information about specific components"
     
     @property
     def examples(self) -> List[str]:
         return [
-            "nicegui-atlas info QBtn",
-            "nicegui-atlas info QTable QSelect --sections properties",
-            "nicegui-atlas info QInput --sections events"
+            "Show info for a single component:",
+            "  python -m nicegui_atlas info ui.button",
+            "",
+            "Show info for multiple components:",
+            "  python -m nicegui_atlas info \"ui.button;ui.checkbox;ui.card\"",
+            "",
+            "Show filtered components:",
+            "  python -m nicegui_atlas info \"ui.button;ui.checkbox\" --filter \"form,input\""
         ]
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
-        parser.add_argument(
-            'components',
-            nargs='+',
-            help='Names of components to get info for (with or without Q prefix)'
-        )
-        parser.add_argument(
-            '--sections',
-            nargs='+',
-            choices=['properties', 'events'],
-            help='Specific sections to include (default: all)'
-        )
+        parser.add_argument('components', help='Component names (semicolon-separated, e.g., "ui.button;ui.checkbox")')
+        parser.add_argument('-f', '--filter', help='Filter components by terms (comma-separated)')
+        parser.add_argument('-o', '--output', help='Output file path')
+    
+    def format_component(self, component):
+        """Format a component for display."""
+        tech_parts = []
+        if component.direct_ancestors:
+            tech_parts.append(f"Python: {', '.join(component.direct_ancestors)}")
+        if component.quasar_components:
+            if isinstance(component.quasar_components[0], dict):
+                tech_parts.append(f"Quasar: {', '.join(c['name'] for c in component.quasar_components)}")
+            else:
+                tech_parts.append(f"Quasar: {', '.join(component.quasar_components)}")
+        if component.libraries:
+            tech_parts.append(f"Library: {', '.join(lib['name'] for lib in component.libraries)}")
+        if component.internal_components:
+            tech_parts.append(f"Internal: {', '.join(component.internal_components)}")
+        if component.html_element:
+            tech_parts.append(f"HTML: {component.html_element}")
+        
+        tech_info = ' | '.join(tech_parts)
+        
+        # Build the full line
+        js_part = f" + {component.js_file}" if component.js_file else ""
+        source = f"elements/{component.source_path.split('/')[-1]}"
+        name = component.name.replace('nicegui.', '')  # Convert nicegui.ui.button to ui.button
+        
+        return f"`{name}` - [{source}{js_part}] ({tech_info}) {component.description}"
     
     def execute(self, args: argparse.Namespace) -> None:
-        web_types = get_cached_web_types()
+        # Split components by semicolon and strip whitespace
+        components = [c.strip() for c in args.components.split(';')]
         
-        for component in args.components:
-            info = get_component_info(web_types, component, args.sections)
-            if info:
-                print(f"\n=== {info['name']} ===")
-                if info['doc_url']:
-                    print(f"Documentation: {info['doc_url']}\n")
-                
-                if 'properties' in info and (not args.sections or 'properties' in args.sections):
-                    print("Properties:")
-                    for name, prop in info['properties'].items():
-                        desc = prop['description'].split('\n')[0].split('Examples:')[0].strip()
-                        # Truncate description if too long
-                        if len(desc) > 60:
-                            desc = desc.split(';')[0].strip()
-                        print(f"  {name} ({prop['type']}): {desc}")
-                    print()
-                
-                if 'events' in info and (not args.sections or 'events' in args.sections):
-                    print("Events:")
-                    for name, event in info['events'].items():
-                        desc = event['description'].split('\n')[0].split('Examples:')[0].strip()
-                        if len(desc) > 60:
-                            desc = desc.split(';')[0].strip()
-                        print(f"  {name}: {desc}")
-                        if event['args']:
-                            print("    Arguments:")
-                            for arg in event['args']:
-                                arg_desc = arg['description'].split('\n')[0].split('Examples:')[0].strip()
-                                if len(arg_desc) > 60:
-                                    arg_desc = arg_desc.split(';')[0].strip()
-                                print(f"      {arg['name']} ({arg['type']}): {arg_desc}")
-                    print()
-            else:
-                print(f"\nComponent {component} not found.")
+        # Apply filter if provided
+        if args.filter:
+            filter_terms = [term.lower() for term in args.filter.split(',')]
+            filtered_components = []
+            for comp_name in components:
+                component = ComponentAtlas.get_component(comp_name)
+                if component:
+                    # Check if any filter term is in name, description, or tech info
+                    component_text = (
+                        f"{component.name} {component.description} "
+                        f"{' '.join(component.direct_ancestors or [])} "
+                        f"{' '.join(str(c) for c in (component.quasar_components or []))} "
+                        f"{' '.join(lib['name'] for lib in (component.libraries or []))}"
+                    ).lower()
+                    if any(term in component_text for term in filter_terms):
+                        filtered_components.append(component)
+            components_to_show = filtered_components
+        else:
+            components_to_show = [ComponentAtlas.get_component(name) for name in components]
+            components_to_show = [c for c in components_to_show if c]  # Remove None values
+        
+        if not components_to_show:
+            print("No components found matching the criteria.")
+            return
+        
+        # Format each component and join with newlines
+        lines = [f"- {self.format_component(component)}" for component in components_to_show]
+        output = '\n'.join(lines)
+        
+        if args.output:
+            with open(args.output, 'w') as f:
+                f.write(output + '\n')
+            print(f"Output written to {args.output}")
+        else:
+            print(output)
 
 
-def get_component_info(web_types: dict, component_name: str, 
-                      sections: Optional[List[str]] = None) -> dict:
-    """Get information about a specific component.
-    
-    Args:
-        web_types: The web-types.json data
-        component_name: Name of the component (with or without Q prefix)
-        sections: Optional list of sections to include ('properties', 'events', etc.)
-                 If None, includes all sections
-    
-    Returns:
-        Dictionary containing the requested component information
-    """
-    # Ensure component name starts with Q
-    if not component_name.startswith('Q'):
-        component_name = 'Q' + component_name
-
-    # Find the component in web-types
-    for tag in web_types.get('contributions', {}).get('html', {}).get('tags', []):
-        if tag.get('name') == component_name:
-            result = {
-                'name': component_name,
-                'doc_url': None,
-                'properties': {},
-                'events': {},
-            }
-            
-            # Extract properties if requested or if no sections specified
-            if not sections or 'properties' in sections:
-                for attr in tag.get('attributes', []):
-                    name = attr.get('name', '')
-                    if name:
-                        value_info = attr.get('value', {})
-                        result['properties'][name] = {
-                            'type': value_info.get('type', ''),
-                            'kind': value_info.get('kind', ''),
-                            'description': attr.get('description', ''),
-                            'default': attr.get('default', None),
-                            'required': attr.get('required', False),
-                            'doc_url': attr.get('doc-url', None)
-                        }
-                        # Get doc_url from first property that has it
-                        if not result['doc_url'] and 'doc-url' in attr:
-                            result['doc_url'] = attr['doc-url']
-            
-            # Extract events if requested or if no sections specified
-            if not sections or 'events' in sections:
-                for event in tag.get('events', []):
-                    name = event.get('name', '')
-                    if name:
-                        result['events'][name] = {
-                            'description': event.get('description', ''),
-                            'args': event.get('arguments', [])
-                        }
-            
-            return result
-    
-    return None
-
-# Register the command
+# Register the plugin
 registry.register(InfoCommand())
