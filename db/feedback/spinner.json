@@ -1,0 +1,15 @@
+{
+  "name": "nicegui.ui.spinner",
+  "source_path": "elements/spinner.py",
+  "description": "Use for indicating background operations or loading states.",
+  "direct_ancestors": [
+    "TextColorElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QSpinner",
+      "url": "https://quasar.dev/vue-components/spinners"
+    }
+  ],
+  "category": "Feedback"
+}

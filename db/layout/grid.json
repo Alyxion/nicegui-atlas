@@ -1,0 +1,100 @@
+{
+  "name": "nicegui.ui.grid",
+  "source_path": "elements/grid.py",
+  "description": "Use for responsive layouts that need to arrange items in rows and columns.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "rows": {
+        "type": "Optional[Union[int, str]]",
+        "description": "Number of rows or grid-template-rows CSS value",
+        "default": "None",
+        "css_prop": "grid-template-rows",
+        "examples": [
+          "3 (creates 3 equal rows)",
+          "'auto 1fr' (auto-sized first row, remaining space to second)"
+        ]
+      },
+      "columns": {
+        "type": "Optional[Union[int, str]]",
+        "description": "Number of columns or grid-template-columns CSS value",
+        "default": "None",
+        "css_prop": "grid-template-columns",
+        "examples": [
+          "2 (creates 2 equal columns)",
+          "'200px 1fr' (fixed first column, remaining space to second)"
+        ]
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_grid": {
+      "description": "Simple 2x2 grid",
+      "code": [
+        "with ui.grid(rows=2, columns=2):",
+        "    ui.label('Top Left')",
+        "    ui.label('Top Right')",
+        "    ui.label('Bottom Left')",
+        "    ui.label('Bottom Right')"
+      ]
+    },
+    "custom_sizing": {
+      "description": "Grid with custom column sizes",
+      "code": [
+        "with ui.grid(columns='200px 1fr'):",
+        "    ui.label('Sidebar')",
+        "    ui.label('Main Content')"
+      ]
+    },
+    "responsive_grid": {
+      "description": "Grid with auto-fit columns",
+      "code": [
+        "with ui.grid():",
+        "    ui.style('grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))')",
+        "    for i in range(6):",
+        "        ui.card().style('padding: 1rem')"
+      ]
+    },
+    "complex_layout": {
+      "description": "Grid with mixed sizing",
+      "code": [
+        "with ui.grid(rows='auto 1fr auto', columns='200px 1fr'):",
+        "    ui.label('Header').style('grid-column: span 2')",
+        "    ui.label('Sidebar')",
+        "    ui.label('Main')",
+        "    ui.label('Footer').style('grid-column: span 2')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS Grid properties",
+    "examples": {
+      "classes": [
+        "gap-{size} (grid gap)",
+        "p-{size} (padding)",
+        "w-{size} (width)",
+        "h-{size} (height)"
+      ],
+      "grid_properties": {
+        "grid-auto-flow": "Control auto-placement algorithm",
+        "grid-auto-rows": "Size of auto-generated rows",
+        "grid-auto-columns": "Size of auto-generated columns",
+        "gap": "Space between grid items",
+        "place-items": "Alignment of items in their cells",
+        "place-content": "Alignment of grid within container"
+      }
+    }
+  },
+  "common_use_cases": [
+    "Dashboard layouts",
+    "Photo galleries",
+    "Card grids",
+    "Form layouts",
+    "Complex page structures"
+  ],
+  "quasar_components": [],
+  "quasar_props": {}
+}

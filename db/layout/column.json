@@ -1,0 +1,84 @@
+{
+  "name": "nicegui.ui.column",
+  "source_path": "elements/column.py",
+  "description": "Use to stack elements vertically with consistent spacing and alignment.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "wrap": {
+        "type": "bool",
+        "description": "Whether to wrap the content",
+        "default": "False",
+        "css_prop": "flex-wrap: wrap"
+      },
+      "align_items": {
+        "type": "Optional[Literal['start', 'end', 'center', 'baseline', 'stretch']]",
+        "description": "Alignment of items in the column",
+        "default": "None",
+        "css_class": "items-{value}"
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_column": {
+      "description": "Simple vertical stack",
+      "code": [
+        "with ui.column():",
+        "    ui.label('First')",
+        "    ui.label('Second')",
+        "    ui.label('Third')"
+      ]
+    },
+    "aligned_column": {
+      "description": "Column with centered items",
+      "code": [
+        "with ui.column(align_items='center'):",
+        "    ui.button('Centered')",
+        "    ui.label('Also centered')"
+      ]
+    },
+    "wrapping_column": {
+      "description": "Column with content wrapping",
+      "code": [
+        "with ui.column(wrap=True):",
+        "    for i in range(10):",
+        "        ui.label(f'Item {i}')"
+      ]
+    },
+    "mixed_content": {
+      "description": "Column with different element types",
+      "code": [
+        "with ui.column(align_items='stretch'):",
+        "    ui.label('Header')",
+        "    ui.button('Action')",
+        "    with ui.card():",
+        "        ui.label('Card content')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "gap-{size} (spacing between items)",
+        "p-{size} (padding)",
+        "w-{size} (width)",
+        "h-{size} (height)",
+        "justify-{value} (start|end|center|between|around|evenly)",
+        "items-{value} (start|end|center|baseline|stretch)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Form layouts",
+    "Navigation menus",
+    "Content sections",
+    "Card content",
+    "Sidebar layouts"
+  ],
+  "quasar_components": [],
+  "quasar_props": {}
+}

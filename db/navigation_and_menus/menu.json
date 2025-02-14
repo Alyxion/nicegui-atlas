@@ -1,0 +1,15 @@
+{
+  "name": "nicegui.ui.menu",
+  "source_path": "elements/menu.py",
+  "description": "Use for dropdown or sidebar navigation menus with auto-closing items.",
+  "direct_ancestors": [
+    "ValueElement"
+  ],
+  "quasar_components": [
+    "QMenu"
+  ],
+  "internal_components": [
+    "MenuItem"
+  ],
+  "category": "Navigation and Menus"
+}

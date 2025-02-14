@@ -1,0 +1,114 @@
+{
+  "name": "nicegui.ui.color_input",
+  "source_path": "elements/color_input.py",
+  "description": "Use to collect color values with an integrated color picker.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QInput",
+      "url": "https://quasar.dev/vue-components/input"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "label": {
+        "type": "Optional[str]",
+        "description": "Label text above input",
+        "default": "None",
+        "quasar_prop": "label"
+      },
+      "placeholder": {
+        "type": "Optional[str]",
+        "description": "Placeholder when no color selected",
+        "default": "None",
+        "quasar_prop": "placeholder"
+      },
+      "value": {
+        "type": "str",
+        "description": "Initial color value",
+        "default": "''"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for color changes",
+        "default": "None"
+      },
+      "preview": {
+        "type": "bool",
+        "description": "Show color in button background",
+        "default": "False"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when color is changed",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "quasar_props": {
+    "label": "Input label",
+    "placeholder": "Placeholder text",
+    "disable": "Disable input",
+    "readonly": "Make read-only",
+    "clearable": "Show clear button",
+    "filled": "Use filled design",
+    "outlined": "Use outlined design",
+    "borderless": "Remove border",
+    "standout": "Standout design",
+    "dense": "Reduce padding",
+    "input-class": "Classes for input element",
+    "input-style": "Styles for input element"
+  },
+  "usage_examples": {
+    "basic_input": {
+      "description": "Simple color input",
+      "code": [
+        "color = ui.color_input('Choose color')",
+        "def on_change(e):",
+        "    print(f'Color changed to: {e.value}')",
+        "color.on_change(on_change)"
+      ]
+    },
+    "with_preview": {
+      "description": "Color input with preview",
+      "code": [
+        "ui.color_input('Theme color', preview=True)"
+      ]
+    },
+    "initial_value": {
+      "description": "Color input with initial value",
+      "code": [
+        "ui.color_input('Background', value='#ff0000')"
+      ]
+    },
+    "styled_input": {
+      "description": "Customized color input",
+      "code": [
+        "ui.color_input('Custom').props('filled dense')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "border-{width}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Theme customization",
+    "Design tools",
+    "Style editors",
+    "Branding settings",
+    "UI customization"
+  ]
+}

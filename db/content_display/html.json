@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.html",
+  "source_path": "elements/html.py",
+  "description": "Use for rendering raw HTML content with custom styling and Tailwind support.",
+  "direct_ancestors": [
+    "ContentElement"
+  ],
+  "libraries": [
+    {
+      "name": "Tailwind"
+    }
+  ],
+  "category": "Content Display"
+}

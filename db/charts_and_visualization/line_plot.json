@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.line_plot",
+  "source_path": "elements/line_plot.py",
+  "description": "Use for simple line graphs and data visualization with live updating support.",
+  "direct_ancestors": [
+    "Pyplot"
+  ],
+  "libraries": [
+    {
+      "name": "matplotlib"
+    }
+  ],
+  "category": "Charts and Visualization"
+}

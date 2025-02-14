@@ -1,0 +1,16 @@
+{
+  "name": "nicegui.ui.codemirror",
+  "source_path": "elements/codemirror.py",
+  "description": "Use for in-browser code editing with syntax highlighting and autocompletion.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "libraries": [
+    {
+      "name": "CodeMirror"
+    }
+  ],
+  "js_file": "codemirror.js",
+  "category": "Content Display"
+}

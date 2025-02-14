@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.chat_message",
+  "source_path": "elements/chat_message.py",
+  "description": "Use for displaying messages in a chat-like interface with avatars and timestamps.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    "QChatMessage"
+  ],
+  "category": "Content Display"
+}

@@ -1,0 +1,79 @@
+{
+  "name": "nicegui.ui.button",
+  "source_path": "elements/button.py",
+  "description": "Use for primary actions that users can take, such as submitting forms or triggering operations.",
+  "direct_ancestors": [
+    "IconElement",
+    "TextElement",
+    "DisableableElement",
+    "BackgroundColorElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QBtn",
+      "url": "https://quasar.dev/vue-components/button"
+    }
+  ],
+  "category": "Basic Elements",
+  "quasar_props": {
+    "label": "Button label (text)",
+    "icon": "Icon name from icon set",
+    "color": "Color name from Quasar palette",
+    "disable": "Whether button is disabled",
+    "flat": "Applies a flat design",
+    "outline": "Applies an outline design",
+    "round": "Makes button round",
+    "square": "Makes button square",
+    "size": "Button size (xs, sm, md, lg, xl)",
+    "loading": "Display loading spinner",
+    "padding": "Apply custom padding (in CSS units)",
+    "ripple": "Configure material ripple effect"
+  },
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "Button label text",
+        "quasar_prop": "label"
+      },
+      "on_click": {
+        "type": "Optional[Handler[ClickEventArguments]]",
+        "description": "Callback for click events"
+      },
+      "color": {
+        "type": "Optional[str]",
+        "description": "Button color (Quasar, Tailwind, or CSS)",
+        "quasar_prop": "color",
+        "default": "primary"
+      },
+      "icon": {
+        "type": "Optional[str]",
+        "description": "Icon name to display",
+        "quasar_prop": "icon",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "__init__": {
+      "on_click": {
+        "description": "Called when button is clicked",
+        "arguments": "ClickEventArguments(sender=self, client=self.client)"
+      }
+    },
+    "methods": {
+      "on_click": {
+        "description": "Add callback for click events",
+        "arguments": "ClickEventArguments(sender=self, client=self.client)",
+        "returns": "Self (for method chaining)"
+      },
+      "clicked": {
+        "description": "Async method to wait for button click",
+        "returns": "None",
+        "details": "Useful for async/await patterns"
+      }
+    }
+  },
+  "usage_examples": {},
+  "common_use_cases": []
+}

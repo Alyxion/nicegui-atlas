@@ -1,0 +1,28 @@
+{
+  "name": "nicegui.ui.table",
+  "source_path": "elements/table.py",
+  "description": "Use for displaying tabular data with sorting, filtering, and pagination support.",
+  "direct_ancestors": [
+    "FilterElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QTable",
+      "url": "https://quasar.dev/vue-components/table"
+    },
+    {
+      "name": "QTr",
+      "url": "https://quasar.dev/vue-components/table"
+    },
+    {
+      "name": "QTh",
+      "url": "https://quasar.dev/vue-components/table"
+    },
+    {
+      "name": "QTd",
+      "url": "https://quasar.dev/vue-components/table"
+    }
+  ],
+  "js_file": "table.js",
+  "category": "Content Display"
+}

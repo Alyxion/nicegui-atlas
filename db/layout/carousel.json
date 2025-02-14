@@ -1,0 +1,124 @@
+{
+  "name": "nicegui.ui.carousel",
+  "source_path": "elements/carousel.py",
+  "description": "Use for cycling through a series of images or content panels.",
+  "direct_ancestors": [
+    "ValueElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QCarousel",
+      "url": "https://quasar.dev/vue-components/carousel"
+    },
+    {
+      "name": "QCarouselSlide",
+      "url": "https://quasar.dev/vue-components/carousel"
+    }
+  ],
+  "category": "Layout",
+  "quasar_props": {
+    "animated": "Enable slide transition animation",
+    "arrows": "Show navigation arrows",
+    "navigation": "Show navigation dots",
+    "infinite": "Enable infinite slides loop",
+    "autoplay": "Auto-advance slides",
+    "transition-prev": "Transition animation for previous slide",
+    "transition-next": "Transition animation for next slide",
+    "swipeable": "Enable swipe navigation",
+    "vertical": "Enable vertical mode",
+    "dark": "Apply dark theme"
+  },
+  "python_props": {
+    "__init__": {
+      "value": {
+        "type": "Union[str, CarouselSlide, None]",
+        "description": "Initially selected slide (name or slide object)",
+        "default": "None"
+      },
+      "on_value_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for slide changes",
+        "default": "None"
+      },
+      "animated": {
+        "type": "bool",
+        "description": "Enable slide transition animation",
+        "default": "False",
+        "quasar_prop": "animated"
+      },
+      "arrows": {
+        "type": "bool",
+        "description": "Show navigation arrows",
+        "default": "False",
+        "quasar_prop": "arrows"
+      },
+      "navigation": {
+        "type": "bool",
+        "description": "Show navigation dots",
+        "default": "False",
+        "quasar_prop": "navigation"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when selected slide changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "usage_examples": {
+    "basic_carousel": {
+      "description": "Simple carousel with navigation",
+      "code": [
+        "with ui.carousel(animated=True, arrows=True, navigation=True):",
+        "    with ui.carousel_slide():",
+        "        ui.label('Slide 1')",
+        "    with ui.carousel_slide():",
+        "        ui.label('Slide 2')"
+      ]
+    },
+    "image_carousel": {
+      "description": "Carousel with images",
+      "code": [
+        "with ui.carousel(animated=True):",
+        "    for i in range(3):",
+        "        with ui.carousel_slide():",
+        "            ui.image(f'image_{i}.jpg')"
+      ]
+    },
+    "named_slides": {
+      "description": "Carousel with named slides",
+      "code": [
+        "carousel = ui.carousel()",
+        "with carousel:",
+        "    with ui.carousel_slide('intro'):",
+        "        ui.label('Introduction')",
+        "    with ui.carousel_slide('details'):",
+        "        ui.label('Details')",
+        "# Navigate programmatically",
+        "carousel.value = 'details'"
+      ]
+    },
+    "with_controls": {
+      "description": "Carousel with custom controls",
+      "code": [
+        "carousel = ui.carousel()",
+        "ui.button('Previous', on_click=carousel.previous)",
+        "ui.button('Next', on_click=carousel.next)"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "h-{size} (height)",
+        "rounded-{size}",
+        "shadow-{size}",
+        "overflow-hidden"
+      ]
+    }
+  },
+  "common_use_cases": []
+}

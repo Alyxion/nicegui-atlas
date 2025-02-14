@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.tree",
+  "source_path": "elements/tree.py",
+  "description": "Use for displaying hierarchical data structures with expand/collapse and checkbox functionality.",
+  "direct_ancestors": [
+    "FilterElement"
+  ],
+  "quasar_components": [
+    "QTree"
+  ],
+  "category": "Content Display"
+}

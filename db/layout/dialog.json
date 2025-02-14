@@ -1,0 +1,99 @@
+{
+  "name": "nicegui.ui.dialog",
+  "source_path": "elements/dialog.py",
+  "description": "Use to create modal dialogs that overlay the main content and require user interaction.",
+  "direct_ancestors": [
+    "ValueElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QDialog",
+      "url": "https://quasar.dev/vue-components/dialog"
+    }
+  ],
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "value": {
+        "type": "bool",
+        "description": "Whether dialog is initially opened",
+        "default": "False"
+      }
+    }
+  },
+  "quasar_props": {
+    "persistent": "Prevent dismissal by outside click/ESC",
+    "maximized": "Make dialog fill screen",
+    "position": "Dialog position (standard|top|right|bottom|left)",
+    "seamless": "Remove padding and background",
+    "full-height": "Make dialog full height",
+    "full-width": "Make dialog full width",
+    "transition-show": "Transition when showing",
+    "transition-hide": "Transition when hiding"
+  },
+  "usage_examples": {
+    "basic_dialog": {
+      "description": "Simple dialog with content",
+      "code": [
+        "with ui.dialog() as dialog:",
+        "    ui.label('Dialog content')",
+        "    ui.button('Close', on_click=dialog.close)"
+      ]
+    },
+    "persistent_dialog": {
+      "description": "Dialog that requires explicit action",
+      "code": [
+        "dialog = ui.dialog()",
+        "dialog.props('persistent')",
+        "with dialog:",
+        "    ui.label('You must click a button')",
+        "    ui.button('OK', on_click=dialog.close)"
+      ]
+    },
+    "async_dialog": {
+      "description": "Dialog with result handling",
+      "code": [
+        "async def show_dialog():",
+        "    dialog = ui.dialog()",
+        "    with dialog:",
+        "        ui.label('Choose an option')",
+        "        ui.button('Yes', on_click=lambda: dialog.submit('yes'))",
+        "        ui.button('No', on_click=lambda: dialog.submit('no'))",
+        "    result = await dialog",
+        "    print(f'User chose: {result}')"
+      ]
+    },
+    "form_dialog": {
+      "description": "Dialog with form submission",
+      "code": [
+        "async def show_form():",
+        "    dialog = ui.dialog()",
+        "    with dialog:",
+        "        name = ui.input('Name')",
+        "        ui.button('Submit', on_click=lambda: dialog.submit(name.value))",
+        "    result = await dialog",
+        "    if result:",
+        "        ui.notify(f'Hello {result}!')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "shadow-{size}",
+        "bg-{color}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Confirmation dialogs",
+    "Form inputs",
+    "Information displays",
+    "Settings panels",
+    "Alert messages"
+  ]
+}

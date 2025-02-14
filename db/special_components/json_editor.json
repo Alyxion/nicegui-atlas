@@ -1,0 +1,18 @@
+{
+  "name": "nicegui.ui.json_editor",
+  "source_path": "elements/json_editor.py",
+  "description": "Use for editing JSON data with schema validation and selection events.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "libraries": [
+    {
+      "name": "svelte-jsoneditor"
+    }
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "json_editor.js",
+  "category": "Special Components"
+}

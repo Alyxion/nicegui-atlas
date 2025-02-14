@@ -1,0 +1,77 @@
+{
+  "name": "nicegui.ui.button_group",
+  "source_path": "elements/button_group.py",
+  "description": "Use to visually group related buttons that form a single control unit.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    {
+      "name": "QBtnGroup",
+      "url": "https://quasar.dev/vue-components/button-group"
+    }
+  ],
+  "category": "Basic Elements",
+  "quasar_props": {
+    "spread": "Spread horizontally to parent's width",
+    "outline": "Use outline design for all buttons",
+    "flat": "Use flat design for all buttons",
+    "rounded": "Use rounded design for all buttons",
+    "push": "Use push design for all buttons",
+    "stretch": "Stretch content to parent's height",
+    "glossy": "Apply glossy effect to all buttons",
+    "unelevated": "Remove elevation for all buttons"
+  },
+  "usage_examples": {
+    "basic_group": {
+      "description": "Simple button group",
+      "code": [
+        "with ui.button_group():",
+        "    ui.button('Left')",
+        "    ui.button('Center')",
+        "    ui.button('Right')"
+      ]
+    },
+    "styled_group": {
+      "description": "Button group with consistent styling",
+      "code": [
+        "group = ui.button_group()",
+        "group.props('outline')",
+        "with group:",
+        "    ui.button('One').props('outline')",
+        "    ui.button('Two').props('outline')",
+        "    ui.button('Three').props('outline')"
+      ]
+    },
+    "navigation_group": {
+      "description": "Button group for navigation",
+      "code": [
+        "with ui.button_group():",
+        "    ui.button('Previous', icon='chevron_left')",
+        "    ui.button('Current')",
+        "    ui.button('Next', icon='chevron_right')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-full (full width)",
+        "rounded-{size}",
+        "shadow-{size}",
+        "border-{width}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Navigation controls (prev/next)",
+    "Toggle button groups",
+    "Segmented controls",
+    "Toolbar button groups",
+    "Pagination controls"
+  ],
+  "python_props": {
+    "__init__": {}
+  }
+}

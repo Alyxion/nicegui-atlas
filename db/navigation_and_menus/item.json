@@ -1,0 +1,23 @@
+{
+  "name": "nicegui.ui.item",
+  "source_path": "elements/item.py",
+  "description": "Use as clickable items within lists and menus with customizable sections.",
+  "direct_ancestors": [
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QItem",
+      "url": "https://quasar.dev/vue-components/list-and-list-items"
+    },
+    {
+      "name": "QItemSection",
+      "url": "https://quasar.dev/vue-components/list-and-list-items"
+    },
+    {
+      "name": "QItemLabel",
+      "url": "https://quasar.dev/vue-components/list-and-list-items"
+    }
+  ],
+  "category": "Navigation and Menus"
+}

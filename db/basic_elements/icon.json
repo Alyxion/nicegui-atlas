@@ -1,0 +1,63 @@
+{
+  "name": "nicegui.ui.icon",
+  "source_path": "elements/icon.py",
+  "description": "Use for adding visual cues or decorative elements using standard icon sets.",
+  "direct_ancestors": [
+    "NameElement",
+    "TextColorElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QIcon",
+      "url": "https://quasar.dev/vue-components/icon"
+    }
+  ],
+  "category": "Basic Elements",
+  "quasar_props": {
+    "name": "Icon name from Material Icons or other icon libraries",
+    "size": "Icon size (xs|sm|md|lg|xl) or CSS size with units",
+    "color": "Icon color from Quasar palette",
+    "left": "Align to the left, when used in a QBtn",
+    "right": "Align to the right, when used in a QBtn",
+    "tag": "HTML tag to render (default: 'i')"
+  },
+  "python_props": {
+    "__init__": {
+      "name": {
+        "type": "str",
+        "description": "Name of the icon (snake case, e.g. add_circle)",
+        "quasar_prop": "name"
+      },
+      "size": {
+        "type": "Optional[str]",
+        "description": "Size in CSS units or standard size name (xs|sm|md|lg|xl)",
+        "quasar_prop": "size",
+        "default": "None",
+        "examples": [
+          "16px",
+          "2rem",
+          "md"
+        ]
+      },
+      "color": {
+        "type": "Optional[str]",
+        "description": "Icon color (Quasar, Tailwind, or CSS color)",
+        "quasar_prop": "color",
+        "default": "None"
+      }
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "text-{color}",
+        "rotate-{angle}",
+        "scale-{size}",
+        "opacity-{value}"
+      ]
+    }
+  },
+  "usage_examples": {},
+  "common_use_cases": []
+}

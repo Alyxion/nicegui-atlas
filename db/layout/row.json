@@ -1,0 +1,82 @@
+{
+  "name": "nicegui.ui.row",
+  "source_path": "elements/row.py",
+  "description": "Use to arrange elements horizontally with flexible spacing and alignment options.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "wrap": {
+        "type": "bool",
+        "description": "Whether to wrap the content",
+        "default": "True",
+        "css_prop": "flex-wrap: nowrap (when False)"
+      },
+      "align_items": {
+        "type": "Optional[Literal['start', 'end', 'center', 'baseline', 'stretch']]",
+        "description": "Alignment of items in the row",
+        "default": "None",
+        "css_class": "items-{value}"
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_row": {
+      "description": "Simple row with items",
+      "code": [
+        "with ui.row():",
+        "    ui.label('First')",
+        "    ui.label('Second')",
+        "    ui.label('Third')"
+      ]
+    },
+    "aligned_row": {
+      "description": "Row with centered items",
+      "code": [
+        "with ui.row(align_items='center'):",
+        "    ui.icon('star')",
+        "    ui.label('Centered with icon')"
+      ]
+    },
+    "no_wrap": {
+      "description": "Row without wrapping",
+      "code": [
+        "with ui.row(wrap=False):",
+        "    for i in range(10):",
+        "        ui.button(f'Button {i}')"
+      ]
+    },
+    "responsive_columns": {
+      "description": "Row with responsive Quasar columns",
+      "code": [
+        "with ui.row():",
+        "    ui.label('Sidebar').classes('col-12 col-sm-3')",
+        "    ui.label('Main').classes('col-12 col-sm-9')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "gap-{size} (spacing between items)",
+        "justify-{value} (start|end|center|between|around|evenly)",
+        "items-{value} (start|end|center|baseline|stretch)",
+        "p-{size} (padding)",
+        "w-{size} (width)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Navigation bars",
+    "Toolbars",
+    "Form layouts",
+    "Card headers",
+    "Button groups",
+    "Responsive grids (with col-* classes)"
+  ],
+  "quasar_components": [],
+  "quasar_props": {}
+}

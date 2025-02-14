@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.context_menu",
+  "source_path": "elements/context_menu.py",
+  "description": "Use for right-click menus with custom actions and touch support.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    "QMenu"
+  ],
+  "category": "Navigation and Menus"
+}

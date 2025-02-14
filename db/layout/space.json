@@ -1,0 +1,71 @@
+{
+  "name": "nicegui.ui.space",
+  "source_path": "elements/space.py",
+  "description": "Use to add consistent spacing between elements without creating visual elements.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    {
+      "name": "QSpace",
+      "url": "https://quasar.dev/vue-components/space"
+    }
+  ],
+  "category": "Layout",
+  "usage_examples": {
+    "toolbar_spacing": {
+      "description": "Push items to opposite ends of a toolbar",
+      "code": [
+        "with ui.row():",
+        "    ui.button('Left')",
+        "    ui.space()",
+        "    ui.button('Right')"
+      ]
+    },
+    "multiple_groups": {
+      "description": "Distribute groups evenly",
+      "code": [
+        "with ui.row():",
+        "    ui.button('Group 1')",
+        "    ui.button('Group 1')",
+        "    ui.space()",
+        "    ui.button('Group 2')",
+        "    ui.button('Group 2')",
+        "    ui.space()",
+        "    ui.button('Group 3')",
+        "    ui.button('Group 3')"
+      ]
+    },
+    "vertical_spacing": {
+      "description": "Push items to top and bottom",
+      "code": [
+        "with ui.column().style('height: 300px'):",
+        "    ui.label('Top')",
+        "    ui.space()",
+        "    ui.label('Bottom')"
+      ]
+    },
+    "navigation_bar": {
+      "description": "Create a navigation bar with centered title",
+      "code": [
+        "with ui.row():",
+        "    ui.button('Menu', icon='menu')",
+        "    ui.space()",
+        "    ui.label('Title').classes('text-h6')",
+        "    ui.space()",
+        "    ui.button('Settings', icon='settings')"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Navigation bars",
+    "Toolbars",
+    "Content distribution",
+    "Centered layouts",
+    "Justified alignments"
+  ],
+  "python_props": {
+    "__init__": {}
+  },
+  "quasar_props": {}
+}

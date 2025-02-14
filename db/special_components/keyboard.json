@@ -1,0 +1,13 @@
+{
+  "name": "nicegui.ui.keyboard",
+  "source_path": "elements/keyboard.py",
+  "description": "Use for global keyboard event tracking with modifier and repeat support.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "keyboard.js",
+  "category": "Special Components"
+}

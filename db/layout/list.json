@@ -1,0 +1,122 @@
+{
+  "name": "nicegui.ui.list",
+  "source_path": "elements/list.py",
+  "description": "Use to create structured lists with customizable items, sections, and labels.",
+  "quasar_props": {
+    "list": {
+      "bordered": "Add border to list",
+      "dense": "Reduce padding",
+      "separator": "Add separator between items",
+      "padding": "Add default padding",
+      "tag": "HTML tag to render"
+    },
+    "item": {
+      "clickable": "Enable click interactions",
+      "dense": "Reduce padding",
+      "inset-level": "Indentation level",
+      "active": "Highlight as active",
+      "manual-focus": "Remove auto-focus on click",
+      "focused": "Show focused state",
+      "dark": "Apply dark theme"
+    },
+    "item_section": {
+      "avatar": "Format for avatar content",
+      "thumbnail": "Format for thumbnail content",
+      "side": "Place section on side",
+      "top": "Align to top",
+      "no-wrap": "Prevent text wrapping"
+    },
+    "item_label": {
+      "overline": "Display above normal text",
+      "caption": "Display as caption",
+      "header": "Display as header",
+      "lines": "Number of lines to show"
+    }
+  },
+  "usage_examples": {
+    "basic_list": {
+      "description": "Simple list with items",
+      "code": [
+        "with ui.list():",
+        "    ui.item('First item')",
+        "    ui.item('Second item')",
+        "    ui.item('Third item')"
+      ]
+    },
+    "custom_sections": {
+      "description": "List with custom item sections",
+      "code": [
+        "with ui.list():",
+        "    with ui.item():",
+        "        with ui.item_section('avatar'):",
+        "            ui.icon('person')",
+        "        with ui.item_section():",
+        "            ui.item_label('Title').props('header')",
+        "            ui.item_label('Subtitle').props('caption')"
+      ]
+    },
+    "clickable_items": {
+      "description": "List with interactive items",
+      "code": [
+        "with ui.list():",
+        "    ui.item('Click me', on_click=lambda: print('clicked'))",
+        "    ui.item('Also clickable', on_click=lambda: print('clicked too'))"
+      ]
+    },
+    "complex_layout": {
+      "description": "List with rich content structure",
+      "code": [
+        "with ui.list().props('bordered separator'):",
+        "    with ui.item():",
+        "        with ui.item_section('side'):",
+        "            ui.icon('star')",
+        "        with ui.item_section():",
+        "            ui.item_label('Main content')",
+        "        with ui.item_section('side'):",
+        "            ui.button('Action')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "shadow-{size}",
+        "divide-y (add dividers)",
+        "space-y-{size} (vertical spacing)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Navigation menus",
+    "Settings lists",
+    "Contact lists",
+    "Message threads",
+    "Option selections"
+  ],
+  "direct_ancestors": [],
+  "quasar_components": [
+    {
+      "name": "QList",
+      "url": "https://quasar.dev/vue-components/list-and-list-items"
+    },
+    {
+      "name": "QItem",
+      "url": "https://quasar.dev/vue-components/list-and-list-items"
+    },
+    {
+      "name": "QItemSection",
+      "url": "https://quasar.dev/vue-components/list-and-list-items"
+    },
+    {
+      "name": "QItemLabel",
+      "url": "https://quasar.dev/vue-components/list-and-list-items"
+    }
+  ],
+  "python_props": {
+    "__init__": {}
+  }
+}

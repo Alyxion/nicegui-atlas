@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.list",
+  "source_path": "elements/list.py",
+  "description": "Use for displaying items in an ordered or unordered list format.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    "QList"
+  ],
+  "category": "Content Display"
+}

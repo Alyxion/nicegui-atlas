@@ -1,0 +1,114 @@
+{
+  "name": "nicegui.ui.tabs",
+  "source_path": "elements/tabs.py",
+  "description": "Use to organize content into multiple panels that can be switched between.",
+  "quasar_props": {
+    "tabs": {
+      "align": "Tab alignment (left|right|center|justify)",
+      "breakpoint": "Breakpoint for switching to mobile behavior",
+      "dense": "Reduce tab padding",
+      "shrink": "Shrink to content width",
+      "stretch": "Stretch tabs to full width",
+      "switch-indicator": "Show sliding indicator",
+      "narrow-indicator": "Use narrow sliding indicator",
+      "inline-label": "Show icon and label inline",
+      "no-caps": "Don't capitalize labels",
+      "active-color": "Active tab color",
+      "active-bg-color": "Active tab background"
+    },
+    "tab": {
+      "name": "Tab identifier",
+      "label": "Display text",
+      "icon": "Icon name",
+      "alert": "Show alert indicator",
+      "no-caps": "Don't capitalize label",
+      "ripple": "Show ripple effect"
+    },
+    "tab_panels": {
+      "animated": "Enable transitions",
+      "infinite": "Enable infinite swipe",
+      "keep-alive": "Preserve content",
+      "swipeable": "Enable touch swipe",
+      "transition-prev": "Previous transition",
+      "transition-next": "Next transition"
+    }
+  },
+  "events": {
+    "tabs": {
+      "value_change": {
+        "description": "Emitted when active tab changes",
+        "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+      }
+    },
+    "tab_panels": {
+      "value_change": {
+        "description": "Emitted when visible panel changes",
+        "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_tabs": {
+      "description": "Simple tabs with content",
+      "code": [
+        "with ui.tabs() as tabs:",
+        "    ui.tab('tab1', 'First Tab')",
+        "    ui.tab('tab2', 'Second Tab')",
+        "with ui.tab_panels(tabs):",
+        "    with ui.tab_panel('tab1'):",
+        "        ui.label('Content 1')",
+        "    with ui.tab_panel('tab2'):",
+        "        ui.label('Content 2')"
+      ]
+    },
+    "tabs_with_icons": {
+      "description": "Tabs with icons and labels",
+      "code": [
+        "with ui.tabs() as tabs:",
+        "    ui.tab('info', 'Info', icon='info')",
+        "    ui.tab('settings', 'Settings', icon='settings')",
+        "with ui.tab_panels(tabs):",
+        "    with ui.tab_panel('info'):",
+        "        ui.label('Information content')",
+        "    with ui.tab_panel('settings'):",
+        "        ui.label('Settings content')"
+      ]
+    },
+    "programmatic_control": {
+      "description": "Control tabs programmatically",
+      "code": [
+        "def switch_tab():",
+        "    tabs.value = 'tab2'",
+        "",
+        "with ui.tabs() as tabs:",
+        "    ui.tab('tab1', 'First')",
+        "    ui.tab('tab2', 'Second')",
+        "ui.button('Switch to second', on_click=switch_tab)"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "bg-{color}",
+        "text-{color}",
+        "rounded-{size}",
+        "shadow-{size}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Navigation interfaces",
+    "Settings panels",
+    "Form organization",
+    "Content sections",
+    "Dashboard views"
+  ],
+  "direct_ancestors": [],
+  "quasar_components": [],
+  "python_props": {
+    "__init__": {}
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "nicegui.ui.router_frame",
+  "source_path": "elements/router_frame.py",
+  "description": "Use for client-side routing and view management with browser history support.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "router_frame.js",
+  "category": "Navigation and Menus"
+}

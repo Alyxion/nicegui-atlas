@@ -1,0 +1,18 @@
+{
+  "name": "nicegui.ui.plotly",
+  "source_path": "elements/plotly.py",
+  "description": "Use for scientific plotting and data visualization with Plotly library support.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "libraries": [
+    {
+      "name": "Plotly"
+    }
+  ],
+  "internal_components": [
+    "Vue Component"
+  ],
+  "js_file": "plotly.vue",
+  "category": "Charts and Visualization"
+}

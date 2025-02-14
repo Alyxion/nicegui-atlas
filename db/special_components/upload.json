@@ -1,0 +1,16 @@
+{
+  "name": "nicegui.ui.upload",
+  "source_path": "elements/upload.py",
+  "description": "Use for file uploads with size limits and batch support.",
+  "direct_ancestors": [
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    "QUploader"
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "upload.js",
+  "category": "Special Components"
+}

@@ -1,0 +1,73 @@
+{
+  "name": "nicegui.ui.link",
+  "source_path": "elements/link.py",
+  "description": "Use for navigation or opening external resources in a new window.",
+  "direct_ancestors": [
+    "TextElement"
+  ],
+  "category": "Basic Elements",
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "Display text",
+        "default": ""
+      },
+      "target": {
+        "type": "Union[Callable[..., Any], str, Element]",
+        "description": "Page function, NiceGUI element, absolute URL, or relative path",
+        "default": "#",
+        "examples": [
+          "'/about'",
+          "'https://example.com'",
+          "'#section1'",
+          "some_page_function",
+          "ui.button('Target')"
+        ]
+      },
+      "new_tab": {
+        "type": "bool",
+        "description": "Open link in new tab",
+        "default": "False"
+      }
+    }
+  },
+  "usage_examples": {
+    "external_link": {
+      "description": "Link to external website",
+      "code": "ui.link('Visit Google', 'https://google.com', new_tab=True)"
+    },
+    "page_function": {
+      "description": "Link to another page in the app",
+      "code": "ui.link('Go to About', about_page)"
+    },
+    "element_link": {
+      "description": "Link to element on same page",
+      "code": [
+        "target = ui.button('Target')",
+        "ui.link('Jump to button', target)"
+      ]
+    },
+    "anchor_link": {
+      "description": "Link to named anchor",
+      "code": [
+        "ui.link_target('section1')",
+        "ui.link('Jump to section', '#section1')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "text-{color}",
+        "underline",
+        "hover:text-{color}",
+        "font-{weight}"
+      ]
+    }
+  },
+  "quasar_components": [],
+  "quasar_props": {},
+  "common_use_cases": []
+}

@@ -1,0 +1,113 @@
+{
+  "name": "nicegui.ui.color_picker",
+  "source_path": "elements/color_picker.py",
+  "description": "Use to create a popup color selection interface with a comprehensive color picker.",
+  "direct_ancestors": [
+    "Menu"
+  ],
+  "quasar_components": [
+    {
+      "name": "QMenu",
+      "url": "https://quasar.dev/vue-components/menu"
+    },
+    {
+      "name": "QColor",
+      "url": "https://quasar.dev/vue-components/color-picker"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "on_pick": {
+        "type": "Optional[Handler[ColorPickEventArguments]]",
+        "description": "Callback for color selection",
+        "default": "None"
+      },
+      "value": {
+        "type": "bool",
+        "description": "Whether menu is initially opened",
+        "default": "False"
+      }
+    }
+  },
+  "events": {
+    "pick": {
+      "description": "Emitted when color is selected",
+      "arguments": "ColorPickEventArguments(sender=self, client=self.client, color=selected_color)"
+    }
+  },
+  "quasar_props": {
+    "menu": {
+      "auto-close": "Close on selection",
+      "anchor": "Corner of triggering element",
+      "self": "Corner of menu to align",
+      "offset": "Offset from anchor",
+      "transition-show": "Show animation",
+      "transition-hide": "Hide animation"
+    },
+    "color_picker": {
+      "default-view": "Initial view (spectrum|tune|palette)",
+      "format-model": "Color format (hex|rgb|hexa|rgba)",
+      "no-header": "Hide header",
+      "no-footer": "Hide footer",
+      "dark": "Dark theme",
+      "disable": "Disable picker",
+      "readonly": "Read-only mode",
+      "palette": "Custom color palette",
+      "default-value": "Initial color",
+      "model-value": "Current color value"
+    }
+  },
+  "usage_examples": {
+    "basic_picker": {
+      "description": "Simple color picker",
+      "code": [
+        "picker = ui.color_picker()",
+        "def on_pick(e):",
+        "    print(f'Color picked: {e.color}')",
+        "picker.on_pick(on_pick)"
+      ]
+    },
+    "with_initial_color": {
+      "description": "Picker with preset color",
+      "code": [
+        "picker = ui.color_picker()",
+        "picker.set_color('#ff0000')"
+      ]
+    },
+    "custom_format": {
+      "description": "Picker with specific format",
+      "code": [
+        "picker = ui.color_picker()",
+        "picker.q_color.props('format-model=rgb')"
+      ]
+    },
+    "custom_view": {
+      "description": "Picker with custom view",
+      "code": [
+        "picker = ui.color_picker()",
+        "picker.q_color.props('default-view=palette')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props",
+    "examples": {
+      "menu_classes": [
+        "shadow-{size}",
+        "rounded-{size}"
+      ],
+      "picker_classes": [
+        "w-{size}",
+        "h-{size}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Theme customization",
+    "Color selection dialogs",
+    "Style editors",
+    "Design tools",
+    "Color pickers in forms"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.dialog",
+  "source_path": "elements/dialog.py",
+  "description": "Use for modal interactions requiring user attention or input.",
+  "direct_ancestors": [
+    "ValueElement"
+  ],
+  "quasar_components": [
+    "QDialog"
+  ],
+  "category": "Feedback"
+}

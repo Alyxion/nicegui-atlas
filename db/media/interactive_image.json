@@ -1,0 +1,19 @@
+{
+  "name": "nicegui.ui.interactive_image",
+  "source_path": "elements/interactive_image.py",
+  "description": "Use for images with SVG overlays and mouse event handling.",
+  "direct_ancestors": [
+    "SourceElement",
+    "ContentElement"
+  ],
+  "libraries": [
+    {
+      "name": "PIL"
+    }
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "interactive_image.js",
+  "category": "Media"
+}

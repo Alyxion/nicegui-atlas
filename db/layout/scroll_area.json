@@ -1,0 +1,103 @@
+{
+  "name": "nicegui.ui.scroll_area",
+  "source_path": "elements/scroll_area.py",
+  "description": "Use to create scrollable containers for content that exceeds the viewport.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    {
+      "name": "QScrollArea",
+      "url": "https://quasar.dev/vue-components/scroll-area"
+    }
+  ],
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "on_scroll": {
+        "type": "Optional[Handler[ScrollEventArguments]]",
+        "description": "Callback for scroll position changes",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "scroll": {
+      "description": "Emitted when scroll position changes",
+      "arguments": "ScrollEventArguments with position and size information"
+    }
+  },
+  "quasar_props": {
+    "visible": "Show scrollbars when scrolling",
+    "horizontal": "Enable horizontal scrolling",
+    "thumb-style": "Thumb style (scrollbar handle)",
+    "content-style": "Content style",
+    "content-active-style": "Content style when scrollbar is active",
+    "delay": "Delay (in ms) before showing scrollbars",
+    "bar-style": "Scrollbar style"
+  },
+  "usage_examples": {
+    "basic_scroll": {
+      "description": "Simple scrollable container",
+      "code": [
+        "with ui.scroll_area():",
+        "    for i in range(20):",
+        "        ui.label(f'Item {i}')"
+      ]
+    },
+    "with_scroll_tracking": {
+      "description": "Track scroll position",
+      "code": [
+        "def on_scroll(e):",
+        "    print(f'Scrolled to {e.vertical_percentage}%')",
+        "",
+        "with ui.scroll_area(on_scroll=on_scroll):",
+        "    for i in range(100):",
+        "        ui.label(f'Content {i}')"
+      ]
+    },
+    "programmatic_scroll": {
+      "description": "Control scroll position",
+      "code": [
+        "scroll = ui.scroll_area()",
+        "with scroll:",
+        "    for i in range(50):",
+        "        ui.label(f'Line {i}')",
+        "",
+        "ui.button('Scroll to 50%', on_click=lambda: scroll.scroll_to(percent=50))",
+        "ui.button('Scroll to top', on_click=lambda: scroll.scroll_to(pixels=0))"
+      ]
+    },
+    "animated_scroll": {
+      "description": "Smooth scrolling animation",
+      "code": [
+        "scroll = ui.scroll_area()",
+        "with scroll:",
+        "    for i in range(100):",
+        "        ui.label(f'Content {i}')",
+        "",
+        "ui.button('Smooth scroll to bottom',",
+        "          on_click=lambda: scroll.scroll_to(percent=100, duration=1.0))"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "h-{size} (height)",
+        "max-h-{size} (maximum height)",
+        "rounded-{size}",
+        "border-{width}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Long content containers",
+    "Chat or message windows",
+    "Lists with many items",
+    "Side panels",
+    "Code or text editors"
+  ]
+}

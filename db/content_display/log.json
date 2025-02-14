@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.log",
+  "source_path": "elements/log.py",
+  "description": "Use for displaying system messages or application logs with line-by-line updates.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "internal_components": [
+    "Label"
+  ],
+  "category": "Content Display"
+}

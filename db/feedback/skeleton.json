@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.skeleton",
+  "source_path": "elements/skeleton.py",
+  "description": "Use as animated placeholders for loading content in cards and containers.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    "QSkeleton"
+  ],
+  "category": "Feedback"
+}

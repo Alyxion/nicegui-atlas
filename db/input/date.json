@@ -1,0 +1,128 @@
+{
+  "name": "nicegui.ui.date",
+  "source_path": "elements/date.py",
+  "description": "Use to create date selection inputs with support for single dates, ranges, and multiple selections.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QDate",
+      "url": "https://quasar.dev/vue-components/date"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "value": {
+        "type": "Optional[Union[str, Dict[str, str], List[str], List[Union[str, Dict[str, str]]]]]",
+        "description": "Initial date value(s)",
+        "default": "None",
+        "formats": [
+          "Single date: 'YYYY-MM-DD'",
+          "Date range: {'from': 'YYYY-MM-DD', 'to': 'YYYY-MM-DD'}",
+          "Multiple dates: ['YYYY-MM-DD', ...]",
+          "Multiple with ranges: [{'from': 'YYYY-MM-DD', 'to': 'YYYY-MM-DD'}, 'YYYY-MM-DD', ...]"
+        ]
+      },
+      "mask": {
+        "type": "str",
+        "description": "Date format pattern",
+        "default": "'YYYY-MM-DD'",
+        "quasar_prop": "mask"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for date changes",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when date selection changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "quasar_props": {
+    "mask": "Date format pattern",
+    "locale": "Locale for month/day names",
+    "calendar": "Calendar type (gregorian|persian)",
+    "landscape": "Landscape mode",
+    "minimal": "Minimal interface",
+    "range": "Enable date range selection",
+    "multiple": "Enable multiple date selection",
+    "today-btn": "Show today button",
+    "default-year-month": "Initial year/month",
+    "default-view": "Initial view (Calendar|Months|Years)",
+    "years-in-month-view": "Show years in month view",
+    "navigation-min-year-month": "Min year/month for navigation",
+    "navigation-max-year-month": "Max year/month for navigation",
+    "first-day-of-week": "First day (0=Sunday)",
+    "emit-immediately": "Emit changes immediately",
+    "dark": "Dark theme",
+    "flat": "Remove shadow",
+    "bordered": "Add border",
+    "readonly": "Read-only mode",
+    "disable": "Disable picker",
+    "color": "Color from Quasar palette",
+    "text-color": "Text color from palette",
+    "options": "Function for date validation",
+    "events": "Array of event dates",
+    "event-color": "Event indicator color"
+  },
+  "usage_examples": {
+    "basic_date": {
+      "description": "Simple date picker",
+      "code": [
+        "date = ui.date()",
+        "def on_change(e):",
+        "    print(f'Date selected: {e.value}')",
+        "date.on_change(on_change)"
+      ]
+    },
+    "date_range": {
+      "description": "Date range selection",
+      "code": [
+        "range_picker = ui.date({'from': '2023-01-01', 'to': '2023-01-05'}).props('range')"
+      ]
+    },
+    "multiple_dates": {
+      "description": "Multiple date selection",
+      "code": [
+        "multi_picker = ui.date(['2023-01-01', '2023-01-03']).props('multiple')"
+      ]
+    },
+    "custom_format": {
+      "description": "Custom date format",
+      "code": [
+        "ui.date(mask='MM/DD/YYYY')"
+      ]
+    },
+    "with_validation": {
+      "description": "Date validation",
+      "code": [
+        "ui.date().props('options=(date) => date >= \"2023-01-01\" && date <= \"2023-12-31\"')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "shadow-{size}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Event scheduling",
+    "Booking systems",
+    "Date filters",
+    "Form date inputs",
+    "Calendar views"
+  ]
+}

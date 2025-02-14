@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.restructured_text",
+  "source_path": "elements/restructured_text.py",
+  "description": "Use for rendering formatted text written in reStructuredText syntax with syntax highlighting.",
+  "direct_ancestors": [
+    "Markdown"
+  ],
+  "libraries": [
+    {
+      "name": "docutils"
+    }
+  ],
+  "category": "Content Display"
+}

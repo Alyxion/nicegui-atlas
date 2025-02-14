@@ -1,0 +1,42 @@
+{
+  "url_mappings": {
+    "btn": "button",
+    "btndropdown": "button-dropdown",
+    "btngroup": "button-group",
+    "btntoggle": "button-toggle",
+    "chatmessage": "chat",
+    "linearprogress": "linear-progress",
+    "circularprogress": "circular-progress",
+    "timelineentry": "timeline",
+    "timeline": "timeline",
+    "itemsection": "list-and-list-items",
+    "itemlabel": "list-and-list-items",
+    "item": "list-and-list-items",
+    "list": "list-and-list-items",
+    "tr": "table",
+    "th": "table",
+    "td": "table",
+    "notify": "notify",
+    "carouselslide": "carousel",
+    "cardsection": "card",
+    "cardactions": "card",
+    "step": "stepper",
+    "steppernavigation": "stepper",
+    "stepper": "stepper",
+    "spinner": "spinners"
+  },
+  "shared_pages": {
+    "timelineentry": "Part of timeline docs",
+    "itemsection": "Part of list docs",
+    "itemlabel": "Part of list docs",
+    "item": "Part of list docs",
+    "tr": "Part of table docs",
+    "th": "Part of table docs",
+    "td": "Part of table docs",
+    "carouselslide": "Part of carousel docs",
+    "cardsection": "Part of card docs",
+    "cardactions": "Part of card docs",
+    "step": "Part of stepper docs",
+    "steppernavigation": "Part of stepper docs"
+  }
+}

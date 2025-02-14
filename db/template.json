@@ -1,0 +1,192 @@
+{
+  "name": {
+    "type": "string",
+    "required": true,
+    "description": "Full Python import path of the component",
+    "format": "nicegui.ui.component_name"
+  },
+  "source_path": {
+    "type": "string",
+    "required": true,
+    "description": "Path to source file relative to nicegui package",
+    "format": "elements/component.py"
+  },
+  "description": {
+    "type": "string",
+    "required": true,
+    "description": "Clear, concise description of component purpose",
+    "format": "Use to [action] with [key features]"
+  },
+  "direct_ancestors": {
+    "type": "array",
+    "required": true,
+    "description": "Parent classes the component inherits from",
+    "items": {
+      "type": "string"
+    }
+  },
+  "quasar_components": {
+    "type": "array",
+    "required": true,
+    "description": "Quasar components used in implementation",
+    "items": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Quasar component"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the component's documentation"
+        }
+      }
+    }
+  },
+  "third_party_libs": {
+    "type": "array",
+    "required": false,
+    "description": "Third-party libraries used by the component",
+    "items": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the library"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the library's documentation"
+        }
+      }
+    }
+  },
+  "category": {
+    "type": "string",
+    "required": true,
+    "description": "Component category",
+    "enum": ["Input", "Basic Elements", "Layout"]
+  },
+  "component_file": {
+    "type": "string",
+    "required": false,
+    "description": "Optional JavaScript file for custom components"
+  },
+  "python_props": {
+    "type": "object",
+    "required": true,
+    "description": "Constructor parameters and their details",
+    "properties": {
+      "__init__": {
+        "type": "object",
+        "properties": {
+          "param_name": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Python type annotation"
+              },
+              "description": {
+                "type": "string",
+                "description": "Parameter description"
+              },
+              "default": {
+                "type": "string",
+                "description": "Default value as string"
+              },
+              "quasar_prop": {
+                "type": "string",
+                "description": "Related Quasar prop if any",
+                "required": false
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "events": {
+    "type": "object",
+    "required": false,
+    "description": "Events emitted by the component",
+    "properties": {
+      "event_name": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Event description"
+          },
+          "arguments": {
+            "type": "string",
+            "description": "Event arguments type"
+          }
+        }
+      }
+    }
+  },
+  "quasar_props": {
+    "type": "object",
+    "required": true,
+    "description": "Available Quasar component properties",
+    "additionalProperties": {
+      "type": "string",
+      "description": "Prop description"
+    }
+  },
+  "usage_examples": {
+    "type": "object",
+    "required": true,
+    "description": "Code examples showing common usage patterns",
+    "properties": {
+      "example_name": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Example description"
+          },
+          "code": {
+            "type": "array",
+            "description": "Lines of Python code",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "common_use_cases": {
+    "type": "array",
+    "required": true,
+    "description": "Typical scenarios where component is useful",
+    "items": {
+      "type": "string"
+    }
+  },
+  "styling": {
+    "type": "object",
+    "required": false,
+    "description": "Available styling options and examples",
+    "properties": {
+      "description": {
+        "type": "string",
+        "description": "Styling capabilities description"
+      },
+      "examples": {
+        "type": "object",
+        "properties": {
+          "classes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Available CSS classes"
+            }
+          }
+        }
+      }
+    }
+  }
+}

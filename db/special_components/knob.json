@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.knob",
+  "source_path": "elements/knob.py",
+  "description": "Use for circular value input with mouse/touch panning support.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement",
+    "TextColorElement"
+  ],
+  "quasar_components": [
+    "QKnob"
+  ],
+  "category": "Special Components"
+}

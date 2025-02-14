@@ -1,0 +1,100 @@
+{
+  "name": "nicegui.ui.badge",
+  "source_path": "elements/badge.py",
+  "description": "Use for showing counts, status indicators, or small pieces of information that need visual emphasis.",
+  "direct_ancestors": [
+    "TextElement",
+    "BackgroundColorElement",
+    "TextColorElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QBadge",
+      "url": "https://quasar.dev/vue-components/badge"
+    }
+  ],
+  "category": "Basic Elements",
+  "quasar_props": {
+    "color": "Color name from Quasar palette",
+    "text-color": "Text color from Quasar palette",
+    "floating": "Float badge over other components",
+    "transparent": "Remove background color",
+    "outline": "Use outline design (colored text/borders only)",
+    "rounded": "Use rounded design",
+    "align": "Alignment when floating (top/middle/bottom)",
+    "multi-line": "Allow badge content to wrap to multiple lines",
+    "label": "Badge content/label"
+  },
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "The initial value of the text field",
+        "default": "",
+        "quasar_prop": "label"
+      },
+      "color": {
+        "type": "Optional[str]",
+        "description": "Color name (Quasar, Tailwind, or CSS)",
+        "default": "primary",
+        "quasar_prop": "color"
+      },
+      "text_color": {
+        "type": "Optional[str]",
+        "description": "Text color (Quasar, Tailwind, or CSS)",
+        "default": "None",
+        "quasar_prop": "text-color"
+      },
+      "outline": {
+        "type": "bool",
+        "description": "Use outline design (colored text/borders only)",
+        "default": "False",
+        "quasar_prop": "outline"
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_badge": {
+      "description": "Simple badge with text",
+      "code": "ui.badge('New')"
+    },
+    "notification_badge": {
+      "description": "Badge showing count",
+      "code": "ui.badge('3', color='red')"
+    },
+    "status_badge": {
+      "description": "Badge indicating status",
+      "code": "ui.badge('Active', color='green', outline=True)"
+    },
+    "custom_styled": {
+      "description": "Badge with custom colors",
+      "code": "ui.badge('Custom', color='purple', text_color='white')"
+    },
+    "floating_badge": {
+      "description": "Badge floating over another element",
+      "code": [
+        "button = ui.button('Messages')",
+        "with button:",
+        "    ui.badge('2').props('floating')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "text-{size}",
+        "font-{weight}",
+        "rounded-{size}",
+        "shadow-{size}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Notification counters",
+    "Status indicators",
+    "Feature tags",
+    "Version labels",
+    "Priority markers"
+  ]
+}

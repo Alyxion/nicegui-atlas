@@ -1,0 +1,13 @@
+{
+  "name": "nicegui.ui.video",
+  "source_path": "elements/video.py",
+  "description": "Use for playing video content with controls, autoplay, and seek functionality.",
+  "direct_ancestors": [
+    "SourceElement"
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "video.js",
+  "category": "Media"
+}

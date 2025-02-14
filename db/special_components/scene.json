@@ -1,0 +1,20 @@
+{
+  "name": "nicegui.ui.scene",
+  "source_path": "elements/scene.py",
+  "description": "Use for creating interactive 3D scenes with camera controls and object manipulation.",
+  "direct_ancestors": [
+    "Element",
+    "SceneCamera",
+    "SceneObject"
+  ],
+  "libraries": [
+    {
+      "name": "Three.js"
+    }
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "scene.js",
+  "category": "Special Components"
+}

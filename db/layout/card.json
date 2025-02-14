@@ -1,0 +1,93 @@
+{
+  "name": "nicegui.ui.card",
+  "source_path": "elements/card.py",
+  "description": "Use to group related content in a visually distinct container with optional shadow and border.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    {
+      "name": "QCard",
+      "url": "https://quasar.dev/vue-components/card"
+    },
+    {
+      "name": "QCardSection",
+      "url": "https://quasar.dev/vue-components/card"
+    },
+    {
+      "name": "QCardActions",
+      "url": "https://quasar.dev/vue-components/card"
+    }
+  ],
+  "category": "Layout",
+  "quasar_props": {
+    "flat": "Remove shadow",
+    "bordered": "Add border",
+    "square": "Remove border-radius",
+    "dark": "Apply dark theme",
+    "tag": "HTML tag to render (default: 'div')",
+    "align-items": "Alignment of items (start|end|center|baseline|stretch)"
+  },
+  "python_props": {
+    "__init__": {
+      "align_items": {
+        "type": "Optional[Literal['start', 'end', 'center', 'baseline', 'stretch']]",
+        "description": "Alignment of items in the card",
+        "default": "None",
+        "quasar_prop": "align-items"
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_card": {
+      "description": "Simple card with content",
+      "code": [
+        "with ui.card():",
+        "    ui.label('Card content')"
+      ]
+    },
+    "with_sections": {
+      "description": "Card with sections and actions",
+      "code": [
+        "with ui.card():",
+        "    with ui.card_section():",
+        "        ui.label('Header')",
+        "    with ui.card_section():",
+        "        ui.label('Content')",
+        "    with ui.card_actions():",
+        "        ui.button('Action 1')",
+        "        ui.button('Action 2')"
+      ]
+    },
+    "tight_card": {
+      "description": "Card without padding and gaps",
+      "code": [
+        "with ui.card().tight():",
+        "    ui.label('Compact content')"
+      ]
+    },
+    "aligned_items": {
+      "description": "Card with aligned items",
+      "code": [
+        "with ui.card(align_items='center'):",
+        "    ui.label('Centered content')",
+        "    ui.button('Centered button')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "h-{size} (height)",
+        "bg-{color}",
+        "shadow-{size}",
+        "rounded-{size}",
+        "border-{width}",
+        "border-{color}"
+      ]
+    }
+  },
+  "common_use_cases": []
+}

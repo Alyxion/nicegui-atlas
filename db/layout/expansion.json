@@ -1,0 +1,135 @@
+{
+  "name": "nicegui.ui.expansion",
+  "source_path": "elements/expansion.py",
+  "description": "Use for collapsible sections to hide complex or secondary content.",
+  "direct_ancestors": [
+    "IconElement",
+    "TextElement",
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QExpansionItem",
+      "url": "https://quasar.dev/vue-components/expansion-item"
+    }
+  ],
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "Title text",
+        "default": "",
+        "quasar_prop": "label"
+      },
+      "caption": {
+        "type": "Optional[str]",
+        "description": "Optional caption (sub-label) text",
+        "default": "None",
+        "quasar_prop": "caption"
+      },
+      "icon": {
+        "type": "Optional[str]",
+        "description": "Optional icon name",
+        "default": "None",
+        "quasar_prop": "icon"
+      },
+      "group": {
+        "type": "Optional[str]",
+        "description": "Group name for accordion mode",
+        "default": "None",
+        "quasar_prop": "group"
+      },
+      "value": {
+        "type": "bool",
+        "description": "Whether expansion is initially opened",
+        "default": "False"
+      },
+      "on_value_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for open/close state changes",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when expansion is opened or closed",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "quasar_props": {
+    "label": "Header text",
+    "caption": "Sub-label text",
+    "icon": "Icon name from icon set",
+    "expand-icon": "Custom expand/collapse icon",
+    "group": "Accordion group name",
+    "dense": "Compact mode",
+    "dark": "Apply dark theme",
+    "header-class": "CSS classes for header",
+    "content-class": "CSS classes for content",
+    "switch-toggle-side": "Move expand icon to left side",
+    "expand-separator": "Show separator when expanded",
+    "default-opened": "Initially expanded state",
+    "hide-expand-icon": "Hide expand/collapse icon",
+    "duration": "Animation duration in milliseconds"
+  },
+  "usage_examples": {
+    "basic_expansion": {
+      "description": "Simple expansion panel",
+      "code": [
+        "with ui.expansion('Details'):",
+        "    ui.label('Hidden content')"
+      ]
+    },
+    "with_caption": {
+      "description": "Expansion with caption and icon",
+      "code": [
+        "with ui.expansion('Settings', caption='System preferences', icon='settings'):",
+        "    ui.label('Settings content')"
+      ]
+    },
+    "accordion": {
+      "description": "Accordion with multiple panels",
+      "code": [
+        "with ui.column():",
+        "    with ui.expansion('Section 1', group='accordion'):",
+        "        ui.label('Content 1')",
+        "    with ui.expansion('Section 2', group='accordion'):",
+        "        ui.label('Content 2')",
+        "    with ui.expansion('Section 3', group='accordion'):",
+        "        ui.label('Content 3')"
+      ]
+    },
+    "programmatic_control": {
+      "description": "Control expansion state programmatically",
+      "code": [
+        "exp = ui.expansion('Control me')",
+        "with exp:",
+        "    ui.label('Content')",
+        "ui.button('Open', on_click=exp.open)",
+        "ui.button('Close', on_click=exp.close)"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "rounded-{size}",
+        "shadow-{size}",
+        "border-{width}",
+        "bg-{color}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "FAQ sections",
+    "Settings panels",
+    "Navigation menus",
+    "Detail views",
+    "Collapsible forms"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.timer",
+  "source_path": "elements/timer.py",
+  "description": "Use for periodic updates with client connection management.",
+  "direct_ancestors": [
+    "Element",
+    "BaseTimer"
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "timer.js",
+  "category": "Special Components"
+}

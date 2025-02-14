@@ -1,0 +1,201 @@
+{
+  "name": "nicegui.ui.select",
+  "source_path": "elements/select.py",
+  "description": "Use to create dropdown selection inputs with support for single/multiple selection, filtering, and dynamic options.",
+  "direct_ancestors": [
+    "ValidationElement",
+    "ChoiceElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QSelect",
+      "url": "https://quasar.dev/vue-components/select"
+    }
+  ],
+  "category": "Input",
+  "component_file": "select.js",
+  "python_props": {
+    "__init__": {
+      "options": {
+        "type": "Union[List, Dict]",
+        "description": "Available options",
+        "formats": [
+          "List of values: ['value1', 'value2', ...]",
+          "Dict mapping values to labels: {'value1': 'Label 1', ...}"
+        ]
+      },
+      "label": {
+        "type": "Optional[str]",
+        "description": "Label above select",
+        "default": "None",
+        "quasar_prop": "label"
+      },
+      "value": {
+        "type": "Any",
+        "description": "Initial selection",
+        "default": "None ([] for multiple)",
+        "note": "Converted to list for multiple=True"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Selection change callback",
+        "default": "None"
+      },
+      "with_input": {
+        "type": "bool",
+        "description": "Show filter input field",
+        "default": "False",
+        "affects": [
+          "Enables option filtering",
+          "Sets use-input prop",
+          "Sets hide-selected for multiple",
+          "Sets fill-input and input-debounce"
+        ]
+      },
+      "new_value_mode": {
+        "type": "Optional[Literal['add', 'add-unique', 'toggle']]",
+        "description": "Handle new input values",
+        "default": "None",
+        "options": [
+          "add: Add all new values",
+          "add-unique: Add only unique values",
+          "toggle: Toggle value existence"
+        ],
+        "note": "Requires key_generator for dict options with 'add' mode"
+      },
+      "multiple": {
+        "type": "bool",
+        "description": "Allow multiple selections",
+        "default": "False",
+        "quasar_prop": "multiple"
+      },
+      "clearable": {
+        "type": "bool",
+        "description": "Show clear button",
+        "default": "False",
+        "quasar_prop": "clearable"
+      },
+      "validation": {
+        "type": "Optional[Union[ValidationFunction, ValidationDict]]",
+        "description": "Validation rules",
+        "default": "None",
+        "examples": [
+          "{'Too long!': lambda value: len(value) < 3}",
+          "lambda value: 'Invalid!' if not value else None"
+        ]
+      },
+      "key_generator": {
+        "type": "Optional[Union[Callable[[Any], Any], Iterator[Any]]]",
+        "description": "Generate keys for new values",
+        "default": "None",
+        "note": "Required for dict options with new_value_mode='add'"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted on selection change",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    },
+    "popup_show": {
+      "description": "Emitted when popup opens",
+      "affects": "Updates is_showing_popup"
+    },
+    "popup_hide": {
+      "description": "Emitted when popup closes",
+      "affects": "Updates is_showing_popup"
+    }
+  },
+  "quasar_props": {
+    "label": "Input label",
+    "multiple": "Allow multiple selection",
+    "clearable": "Show clear button",
+    "use-input": "Show filter input",
+    "hide-selected": "Hide selected in dropdown",
+    "fill-input": "Fill input with selection",
+    "input-debounce": "Debounce input events",
+    "new-value-mode": "Handle new values",
+    "options": "Option list",
+    "option-value": "Option value field",
+    "option-label": "Option label field",
+    "emit-value": "Emit raw value",
+    "map-options": "Map options to label/value",
+    "dropdown-icon": "Dropdown arrow icon",
+    "use-chips": "Show selections as chips",
+    "stack-label": "Stack label above",
+    "popup-content-class": "Popup CSS class",
+    "popup-content-style": "Popup CSS style",
+    "behavior": "Popup behavior"
+  },
+  "usage_examples": {
+    "basic_select": {
+      "description": "Simple dropdown",
+      "code": [
+        "options = ['Red', 'Green', 'Blue']",
+        "select = ui.select(options, label='Color')",
+        "def on_change(e):",
+        "    print(f'Selected: {e.value}')",
+        "select.on_change(on_change)"
+      ]
+    },
+    "with_labels": {
+      "description": "Options with custom labels",
+      "code": [
+        "options = {",
+        "    'sm': 'Small (S)',",
+        "    'md': 'Medium (M)',",
+        "    'lg': 'Large (L)'",
+        "}",
+        "ui.select(options, value='md')"
+      ]
+    },
+    "multiple_select": {
+      "description": "Multiple selection",
+      "code": [
+        "ui.select(['A', 'B', 'C'],",
+        "    multiple=True,",
+        "    value=['A', 'B']",
+        ").props('use-chips')"
+      ]
+    },
+    "with_filtering": {
+      "description": "Filterable options",
+      "code": [
+        "ui.select(",
+        "    ['Option 1', 'Option 2', 'Choice A', 'Choice B'],",
+        "    with_input=True,",
+        "    label='Search options'",
+        ")"
+      ]
+    },
+    "with_new_values": {
+      "description": "Allow new values",
+      "code": [
+        "ui.select(",
+        "    ['Red', 'Green', 'Blue'],",
+        "    new_value_mode='add-unique',",
+        "    label='Add colors'",
+        ")"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "border-{width}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Single selection",
+    "Multiple selection",
+    "Searchable dropdowns",
+    "Dynamic options",
+    "Form inputs"
+  ]
+}

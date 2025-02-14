@@ -1,0 +1,111 @@
+{
+  "name": "nicegui.ui.switch",
+  "source_path": "elements/switch.py",
+  "description": "Use to create a toggle switch for binary on/off inputs with an optional label.",
+  "direct_ancestors": [
+    "TextElement",
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QToggle",
+      "url": "https://quasar.dev/vue-components/toggle"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "Label text next to switch",
+        "default": "''",
+        "quasar_prop": "label"
+      },
+      "value": {
+        "type": "bool",
+        "description": "Initial toggle state",
+        "default": "False"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for state changes",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when switch is toggled",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "quasar_props": {
+    "label": "Switch label",
+    "left-label": "Place label on left",
+    "color": "Color from Quasar palette",
+    "keep-color": "Keep color when unchecked",
+    "dark": "Dark theme",
+    "dense": "Reduce padding",
+    "disable": "Disable switch",
+    "icon": "Icon when checked",
+    "checked-icon": "Icon when checked",
+    "unchecked-icon": "Icon when unchecked",
+    "toggle-order": "Toggle sequence",
+    "label-color": "Label text color",
+    "true-value": "Value when checked",
+    "false-value": "Value when unchecked",
+    "size": "Switch size (xs|sm|md|lg|xl)",
+    "readonly": "Read-only mode",
+    "indeterminate": "Show indeterminate state",
+    "toggle-indeterminate": "Allow toggling indeterminate",
+    "tabindex": "Tab index for focus"
+  },
+  "usage_examples": {
+    "basic_switch": {
+      "description": "Simple toggle switch",
+      "code": [
+        "switch = ui.switch('Enable feature')",
+        "def on_change(e):",
+        "    print(f'Feature enabled: {e.value}')",
+        "switch.on_change(on_change)"
+      ]
+    },
+    "initial_state": {
+      "description": "Switch with initial state",
+      "code": [
+        "ui.switch('Active', value=True)"
+      ]
+    },
+    "styled_switch": {
+      "description": "Switch with custom styling",
+      "code": [
+        "ui.switch('Important').props('color=primary size=lg')"
+      ]
+    },
+    "with_icons": {
+      "description": "Switch with custom icons",
+      "code": [
+        "ui.switch('Mode').props('checked-icon=dark_mode unchecked-icon=light_mode')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "m-{size} (margin)",
+        "p-{size} (padding)",
+        "text-{color} (label color)",
+        "font-{weight} (label weight)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Feature toggles",
+    "Settings switches",
+    "Mode selection",
+    "Binary choices",
+    "On/off controls"
+  ]
+}

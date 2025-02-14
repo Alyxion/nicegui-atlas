@@ -1,0 +1,58 @@
+{
+  "categories": [
+    {
+      "id": "basic_elements",
+      "name": "Basic Elements",
+      "priority": 100,
+      "description": "Core UI elements for building interfaces"
+    },
+    {
+      "id": "layout",
+      "name": "Layout",
+      "priority": 90,
+      "description": "Components for structuring and organizing content"
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "priority": 80,
+      "description": "Form elements and user input components"
+    },
+    {
+      "id": "content_display",
+      "name": "Content Display",
+      "priority": 70,
+      "description": "Components for showing various types of content"
+    },
+    {
+      "id": "feedback",
+      "name": "Feedback",
+      "priority": 60,
+      "description": "Components for user feedback and status indication"
+    },
+    {
+      "id": "navigation_and_menus",
+      "name": "Navigation And Menus",
+      "priority": 50,
+      "description": "Components for site navigation and menu structures"
+    },
+    {
+      "id": "charts_and_visualization",
+      "name": "Charts And Visualization",
+      "priority": 40,
+      "description": "Components for data visualization and charting"
+    },
+    {
+      "id": "media",
+      "name": "Media",
+      "priority": 30,
+      "description": "Components for handling audio, video, and images"
+    },
+    {
+      "id": "special_components",
+      "name": "Special Components",
+      "priority": 20,
+      "description": "Specialized components with unique functionality"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "nicegui-atlas"
+version = "0.1.0"
+description = "A tool for exploring and documenting NiceGUI components"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+beautifulsoup4 = "^4.12.3"
+packaging = "^23.2"
+aiohttp = "^3.9.3"
+selenium = "^4.17.2"
+webdriver-manager = "^4.0.1"
+nicegui = "^2.11.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest]
+testpaths = ["tests"]

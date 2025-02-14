@@ -1,0 +1,22 @@
+{
+  "name": "nicegui.ui.toggle",
+  "source_path": "elements/toggle.py",
+  "description": "Use for binary state selection with a button-like interface.",
+  "direct_ancestors": [
+    "ChoiceElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QBtnToggle",
+      "url": "https://quasar.dev/vue-components/button-toggle"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {}
+  },
+  "quasar_props": {},
+  "usage_examples": {},
+  "common_use_cases": []
+}

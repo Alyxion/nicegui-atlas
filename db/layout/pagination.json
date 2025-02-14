@@ -1,0 +1,123 @@
+{
+  "name": "nicegui.ui.pagination",
+  "source_path": "elements/pagination.py",
+  "description": "Use to create page navigation controls for handling large datasets or content sections.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QPagination",
+      "url": "https://quasar.dev/vue-components/pagination"
+    }
+  ],
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "min": {
+        "type": "int",
+        "description": "Minimum page number",
+        "quasar_prop": "min"
+      },
+      "max": {
+        "type": "int",
+        "description": "Maximum page number",
+        "quasar_prop": "max"
+      },
+      "direction_links": {
+        "type": "bool",
+        "description": "Show first/last page links",
+        "default": "False",
+        "quasar_prop": "direction-links"
+      },
+      "value": {
+        "type": "Optional[int]",
+        "description": "Initial page number",
+        "default": "min value",
+        "quasar_prop": "value"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for page changes",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when page number changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "quasar_props": {
+    "min": "Minimum page number",
+    "max": "Maximum page number",
+    "direction-links": "Show first/last page links",
+    "boundary-links": "Show boundary page numbers",
+    "boundary-numbers": "Show boundary page numbers",
+    "ellipses": "Show ellipses when pages omitted",
+    "max-pages": "Maximum pages to show",
+    "disable": "Disable pagination",
+    "input": "Allow direct page input",
+    "input-style": "Style for page input",
+    "color": "Color from Quasar palette",
+    "active-color": "Active page color",
+    "dark": "Apply dark theme",
+    "flat": "Remove shadow",
+    "outline": "Outlined design",
+    "rounded": "Rounded design",
+    "size": "Size of pagination (xs|sm|md|lg|xl)",
+    "padding": "Gutter padding"
+  },
+  "usage_examples": {
+    "basic_pagination": {
+      "description": "Simple pagination control",
+      "code": [
+        "pagination = ui.pagination(1, 10)",
+        "def on_page_change(e):",
+        "    print(f'Page changed to {e.value}')",
+        "pagination.on_value_change(on_page_change)"
+      ]
+    },
+    "with_direction_links": {
+      "description": "Pagination with first/last links",
+      "code": [
+        "ui.pagination(1, 20, direction_links=True)"
+      ]
+    },
+    "styled_pagination": {
+      "description": "Customized pagination appearance",
+      "code": [
+        "ui.pagination(1, 5).props('outline rounded color=primary')"
+      ]
+    },
+    "dynamic_range": {
+      "description": "Pagination with dynamic page range",
+      "code": [
+        "pagination = ui.pagination(1, 10)",
+        "def update_range(total_items: int, items_per_page: int):",
+        "    pagination.max = (total_items + items_per_page - 1) // items_per_page"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "mt-{size} (margin top)",
+        "mb-{size} (margin bottom)",
+        "mx-auto (center horizontally)",
+        "w-{size} (width)",
+        "gap-{size} (spacing between elements)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Data table navigation",
+    "Search results pagination",
+    "Multi-step forms",
+    "Image galleries",
+    "Article listings"
+  ]
+}

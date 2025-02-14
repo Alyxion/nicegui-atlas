@@ -1,0 +1,134 @@
+{
+  "name": "nicegui.ui.slider",
+  "source_path": "elements/slider.py",
+  "description": "Use to select a single value with a draggable handle within a specified range.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QSlider",
+      "url": "https://quasar.dev/vue-components/slider"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "min": {
+        "type": "float",
+        "description": "Lower bound of slider",
+        "required": true,
+        "quasar_prop": "min"
+      },
+      "max": {
+        "type": "float",
+        "description": "Upper bound of slider",
+        "required": true,
+        "quasar_prop": "max"
+      },
+      "step": {
+        "type": "float",
+        "description": "Step size between values",
+        "default": "1.0",
+        "quasar_prop": "step"
+      },
+      "value": {
+        "type": "Optional[float]",
+        "description": "Initial handle position",
+        "default": "None",
+        "quasar_prop": "value"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback on value change",
+        "default": "None",
+        "note": "Called when user releases handle"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when value changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)",
+      "throttle": "0.05 seconds"
+    }
+  },
+  "quasar_props": {
+    "min": "Lower bound",
+    "max": "Upper bound",
+    "step": "Step size",
+    "snap": "Snap to steps",
+    "markers": "Show step markers",
+    "label": "Show value label",
+    "label-always": "Always show label",
+    "label-value": "Custom label function",
+    "color": "Handle color",
+    "track-color": "Track color",
+    "thumb-color": "Thumb color",
+    "track-size": "Track thickness",
+    "thumb-size": "Thumb size",
+    "dark": "Dark theme",
+    "dense": "Reduce size",
+    "disable": "Disable slider",
+    "readonly": "Read-only mode",
+    "vertical": "Vertical orientation",
+    "reverse": "Reverse direction"
+  },
+  "usage_examples": {
+    "basic_slider": {
+      "description": "Simple value selector",
+      "code": [
+        "slider = ui.slider(min=0, max=100)",
+        "def on_change(e):",
+        "    print(f'Value: {e.value}')",
+        "slider.on_change(on_change)"
+      ]
+    },
+    "with_steps": {
+      "description": "Slider with custom steps",
+      "code": [
+        "ui.slider(",
+        "    min=0,",
+        "    max=10,",
+        "    step=0.5,",
+        "    value=5",
+        ").props('markers label-always')"
+      ]
+    },
+    "styled_slider": {
+      "description": "Customized appearance",
+      "code": [
+        "ui.slider(min=0, max=10).props(",
+        "    'color=primary',",
+        "    'track-color=grey-3',",
+        "    'thumb-size=12px'",
+        ")"
+      ]
+    },
+    "vertical_slider": {
+      "description": "Vertical orientation",
+      "code": [
+        "ui.slider(min=0, max=100).props('vertical')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "h-{size} (height for vertical)",
+        "mx-auto (center horizontally)",
+        "my-{size} (vertical margin)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Volume controls",
+    "Numeric inputs",
+    "Scale adjustments",
+    "Progress indicators",
+    "Value selection"
+  ]
+}

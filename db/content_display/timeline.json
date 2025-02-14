@@ -1,0 +1,20 @@
+{
+  "name": "nicegui.ui.timeline",
+  "source_path": "elements/timeline.py",
+  "description": "Use for displaying chronological events or steps in a process with customizable entries.",
+  "direct_ancestors": [
+    "Element",
+    "IconElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QTimeline",
+      "url": "https://quasar.dev/vue-components/timeline"
+    },
+    {
+      "name": "QTimelineEntry",
+      "url": "https://quasar.dev/vue-components/timeline"
+    }
+  ],
+  "category": "Content Display"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "nicegui.ui.aggrid",
+  "source_path": "elements/aggrid.py",
+  "description": "Use for complex data grids requiring sorting, filtering, and custom cell rendering.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "libraries": [
+    {
+      "name": "AG Grid Community"
+    }
+  ],
+  "js_file": "aggrid.js",
+  "category": "Content Display"
+}

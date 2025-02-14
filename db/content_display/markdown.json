@@ -1,0 +1,15 @@
+{
+  "name": "nicegui.ui.markdown",
+  "source_path": "elements/markdown.py",
+  "description": "Use for rendering formatted text written in Markdown syntax with code highlighting.",
+  "direct_ancestors": [
+    "ContentElement"
+  ],
+  "libraries": [
+    {
+      "name": "markdown2"
+    }
+  ],
+  "js_file": "markdown.js",
+  "category": "Content Display"
+}

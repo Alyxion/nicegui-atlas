@@ -1,0 +1,83 @@
+{
+  "name": "nicegui.ui.separator",
+  "source_path": "elements/separator.py",
+  "description": "Use to create visual divisions between different sections of content.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    {
+      "name": "QSeparator",
+      "url": "https://quasar.dev/vue-components/separator"
+    }
+  ],
+  "category": "Layout",
+  "quasar_props": {
+    "dark": "Apply dark theme",
+    "spaced": "Add default margins",
+    "inset": "Inset the separator",
+    "vertical": "Display vertically",
+    "color": "Color name from Quasar palette",
+    "size": "Separator size (thickness)",
+    "orientation": "Separator orientation (horizontal|vertical)"
+  },
+  "usage_examples": {
+    "basic_separator": {
+      "description": "Simple horizontal separator",
+      "code": [
+        "ui.label('Above')",
+        "ui.separator()",
+        "ui.label('Below')"
+      ]
+    },
+    "styled_separator": {
+      "description": "Separator with custom styling",
+      "code": [
+        "ui.label('Section 1')",
+        "sep = ui.separator()",
+        "sep.props('color=primary size=2px spaced')",
+        "ui.label('Section 2')"
+      ]
+    },
+    "vertical_separator": {
+      "description": "Vertical separator between elements",
+      "code": [
+        "with ui.row():",
+        "    ui.label('Left')",
+        "    ui.separator().props('vertical')",
+        "    ui.label('Right')"
+      ]
+    },
+    "inset_separator": {
+      "description": "Separator with inset margin",
+      "code": [
+        "with ui.card():",
+        "    ui.label('Header')",
+        "    ui.separator().props('inset')",
+        "    ui.label('Content')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "my-{size} (vertical margin)",
+        "mx-{size} (horizontal margin)",
+        "w-{size} (width)",
+        "h-{size} (height)",
+        "bg-{color}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Section dividers",
+    "Menu item separators",
+    "Card content divisions",
+    "Form section breaks",
+    "List item dividers"
+  ],
+  "python_props": {
+    "__init__": {}
+  }
+}

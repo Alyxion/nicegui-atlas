@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.pyplot",
+  "source_path": "elements/pyplot.py",
+  "description": "Use for creating matplotlib-style plots with automatic figure management.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "libraries": [
+    {
+      "name": "matplotlib"
+    }
+  ],
+  "category": "Charts and Visualization"
+}

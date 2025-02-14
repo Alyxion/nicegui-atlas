@@ -1,0 +1,35 @@
+{
+  "name": "nicegui.ui.label",
+  "source_path": "elements/label.py",
+  "description": "Use for displaying static text or form field labels.",
+  "direct_ancestors": [
+    "TextElement"
+  ],
+  "category": "Basic Elements",
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "The content of the label",
+        "default": ""
+      }
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "text-{color}",
+        "text-{size}",
+        "font-{weight}",
+        "italic",
+        "underline",
+        "text-center"
+      ]
+    }
+  },
+  "quasar_components": [],
+  "quasar_props": {},
+  "usage_examples": {},
+  "common_use_cases": []
+}

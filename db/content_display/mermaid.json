@@ -1,0 +1,15 @@
+{
+  "name": "nicegui.ui.mermaid",
+  "source_path": "elements/mermaid.py",
+  "description": "Use for rendering diagrams and flowcharts using Mermaid syntax with interactive features.",
+  "direct_ancestors": [
+    "ContentElement"
+  ],
+  "libraries": [
+    {
+      "name": "Mermaid.js"
+    }
+  ],
+  "js_file": "mermaid.js",
+  "category": "Content Display"
+}

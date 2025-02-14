@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.scene_object3d",
+  "source_path": "elements/scene_object3d.py",
+  "description": "Use for creating and manipulating 3D objects with transformation and hierarchy support.",
+  "direct_ancestors": [
+    "Object3D"
+  ],
+  "libraries": [
+    {
+      "name": "Three.js"
+    }
+  ],
+  "category": "Special Components"
+}

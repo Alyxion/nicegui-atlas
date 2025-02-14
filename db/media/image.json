@@ -1,0 +1,21 @@
+{
+  "name": "nicegui.ui.image",
+  "source_path": "elements/image.py",
+  "description": "Use for displaying images from URLs, files, or PIL images with reload support.",
+  "direct_ancestors": [
+    "SourceElement"
+  ],
+  "quasar_components": [
+    "QImg"
+  ],
+  "libraries": [
+    {
+      "name": "PIL"
+    }
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "image.js",
+  "category": "Media"
+}

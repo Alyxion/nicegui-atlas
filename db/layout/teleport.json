@@ -1,0 +1,72 @@
+{
+  "name": "nicegui.ui.teleport",
+  "source_path": "elements/teleport.py",
+  "description": "Use to move content from one location in the DOM to another without changing the logical component hierarchy.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "component_file": "teleport.js",
+  "category": "Layout",
+  "python_props": {
+    "__init__": {
+      "to": {
+        "type": "Union[str, Element]",
+        "description": "Target element or CSS selector for teleported content",
+        "notes": [
+          "If Element is provided, it's converted to '#c{element.id}'",
+          "If string is provided, it should be a valid CSS selector"
+        ]
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_teleport": {
+      "description": "Move content to specific element",
+      "code": [
+        "target = ui.element('div').classes('border p-4')",
+        "with ui.teleport(to=target):",
+        "    ui.label('This content will appear in the target div')"
+      ]
+    },
+    "selector_teleport": {
+      "description": "Move content using CSS selector",
+      "code": [
+        "ui.element('div').classes('target-container')",
+        "with ui.teleport(to='.target-container'):",
+        "    ui.label('This content will move to elements with target-container class')"
+      ]
+    },
+    "dynamic_update": {
+      "description": "Update teleported content after target changes",
+      "code": [
+        "target = ui.element('div')",
+        "teleport = ui.teleport(to=target)",
+        "with teleport:",
+        "    ui.label('Teleported content')",
+        "",
+        "def rebuild_target():",
+        "    target.clear()",
+        "    with target:",
+        "        ui.label('New target content')",
+        "    teleport.update()"
+      ]
+    },
+    "modal_content": {
+      "description": "Move modal content to body level",
+      "code": [
+        "with ui.teleport(to='body'):",
+        "    with ui.card().classes('fixed top-4 right-4'):",
+        "        ui.label('Floating notification')"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Modal dialogs",
+    "Floating notifications",
+    "Portal-style content",
+    "Dynamic content placement",
+    "Layout reorganization"
+  ],
+  "quasar_components": [],
+  "quasar_props": {}
+}

@@ -1,0 +1,177 @@
+{
+  "name": "nicegui.ui.input",
+  "source_path": "elements/input.py",
+  "description": "Use to collect text input from users with optional validation and autocomplete.",
+  "direct_ancestors": [
+    "ValidationElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QInput",
+      "url": "https://quasar.dev/vue-components/input"
+    }
+  ],
+  "category": "Input",
+  "component_file": "input.js",
+  "python_props": {
+    "__init__": {
+      "label": {
+        "type": "Optional[str]",
+        "description": "Label text above input",
+        "default": "None",
+        "quasar_prop": "label"
+      },
+      "placeholder": {
+        "type": "Optional[str]",
+        "description": "Placeholder text when empty",
+        "default": "None",
+        "quasar_prop": "placeholder"
+      },
+      "value": {
+        "type": "str",
+        "description": "Initial input value",
+        "default": "''"
+      },
+      "password": {
+        "type": "bool",
+        "description": "Hide input as password",
+        "default": "False",
+        "affects": "Sets type='password'"
+      },
+      "password_toggle_button": {
+        "type": "bool",
+        "description": "Show visibility toggle",
+        "default": "False",
+        "implementation": "Adds visibility icon in append slot"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for value changes",
+        "default": "None",
+        "note": "Called on every keystroke"
+      },
+      "autocomplete": {
+        "type": "Optional[List[str]]",
+        "description": "Autocompletion suggestions",
+        "default": "None"
+      },
+      "validation": {
+        "type": "Optional[Union[ValidationFunction, ValidationDict]]",
+        "description": "Validation rules or function",
+        "default": "None",
+        "examples": [
+          "{'Too long!': lambda value: len(value) < 3}",
+          "lambda value: 'Too long!' if len(value) >= 3 else None"
+        ]
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted on every keystroke",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    },
+    "keydown.enter": {
+      "description": "Emitted on Enter key",
+      "usage": "Register with .on('keydown.enter', ...)"
+    },
+    "blur": {
+      "description": "Emitted when input loses focus",
+      "usage": "Register with .on('blur', ...)"
+    }
+  },
+  "quasar_props": {
+    "label": "Input label",
+    "placeholder": "Placeholder text",
+    "type": "Input type (text|password)",
+    "mask": "Input mask pattern",
+    "fill-mask": "Character for masked input",
+    "unmasked-value": "Show unmasked value",
+    "error": "Show error state",
+    "error-message": "Error message to display",
+    "rules": "Array of validation rules",
+    "lazy-rules": "Validate on blur only",
+    "dense": "Reduce padding",
+    "disable": "Disable input",
+    "readonly": "Make read-only",
+    "clearable": "Show clear button",
+    "autofocus": "Focus on mount",
+    "input-class": "Classes for input element",
+    "input-style": "Styles for input element"
+  },
+  "usage_examples": {
+    "basic_input": {
+      "description": "Simple text input",
+      "code": [
+        "name = ui.input('Name')",
+        "def on_change(e):",
+        "    print(f'Name changed to: {e.value}')",
+        "name.on_change(on_change)"
+      ]
+    },
+    "password_input": {
+      "description": "Password input with toggle",
+      "code": [
+        "ui.input('Password', password=True, password_toggle_button=True)"
+      ]
+    },
+    "with_validation": {
+      "description": "Input with validation rules",
+      "code": [
+        "validation = {",
+        "    'Too short': lambda v: len(v) >= 3,",
+        "    'Too long': lambda v: len(v) <= 10",
+        "}",
+        "ui.input('Username', validation=validation)"
+      ]
+    },
+    "with_autocomplete": {
+      "description": "Input with autocompletion",
+      "code": [
+        "suggestions = ['apple', 'banana', 'cherry']",
+        "ui.input('Fruit', autocomplete=suggestions)"
+      ]
+    },
+    "delayed_validation": {
+      "description": "Validate on blur or enter",
+      "code": [
+        "input = ui.input('Email').props('lazy-rules')",
+        "def validate(e):",
+        "    if '@' not in input.value:",
+        "        input.props('error error-message=Invalid email')",
+        "input.on('blur', validate)"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "notes": [
+      "Use input-class/input-style for native input element",
+      "Use classes/style for wrapper element"
+    ],
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "border-{width}"
+      ],
+      "input_classes": {
+        "description": "Applied via input-class prop",
+        "examples": [
+          "text-{size}",
+          "font-{weight}",
+          "text-{color}"
+        ]
+      }
+    }
+  },
+  "common_use_cases": [
+    "Form inputs",
+    "Search fields",
+    "Password entry",
+    "Email addresses",
+    "Usernames"
+  ]
+}

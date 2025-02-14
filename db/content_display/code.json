@@ -1,0 +1,12 @@
+{
+  "name": "nicegui.ui.code",
+  "source_path": "elements/code.py",
+  "description": "Use for displaying formatted code snippets with syntax highlighting and copy functionality.",
+  "direct_ancestors": [
+    "ContentElement"
+  ],
+  "internal_components": [
+    "Markdown"
+  ],
+  "category": "Content Display"
+}

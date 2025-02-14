@@ -1,0 +1,156 @@
+{
+  "name": "nicegui.ui.textarea",
+  "source_path": "elements/textarea.py",
+  "description": "Use to create multi-line text input fields with validation and styling capabilities.",
+  "direct_ancestors": [
+    "Input"
+  ],
+  "quasar_components": [
+    {
+      "name": "QInput",
+      "url": "https://quasar.dev/vue-components/input"
+    }
+  ],
+  "category": "Input",
+  "component_file": "input.js",
+  "python_props": {
+    "__init__": {
+      "label": {
+        "type": "Optional[str]",
+        "description": "Label above textarea",
+        "default": "None",
+        "quasar_prop": "label"
+      },
+      "placeholder": {
+        "type": "Optional[str]",
+        "description": "Placeholder when empty",
+        "default": "None",
+        "quasar_prop": "placeholder"
+      },
+      "value": {
+        "type": "str",
+        "description": "Initial text content",
+        "default": "''"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for text changes",
+        "default": "None",
+        "note": "Called on every keystroke"
+      },
+      "validation": {
+        "type": "Optional[Union[Callable[..., Optional[str]], Dict[str, Callable[..., bool]]]]",
+        "description": "Validation rules",
+        "default": "None",
+        "examples": [
+          "{'Too long!': lambda value: len(value) < 100}",
+          "lambda value: 'Required' if not value else None"
+        ]
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted on text changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)",
+      "note": "Triggered per keystroke"
+    },
+    "keydown.enter": {
+      "description": "Emitted on Enter key",
+      "usage": "For input confirmation"
+    },
+    "blur": {
+      "description": "Emitted when focus lost",
+      "usage": "For input completion"
+    }
+  },
+  "quasar_props": {
+    "label": "Input label",
+    "placeholder": "Placeholder text",
+    "type": "Set to 'textarea'",
+    "autogrow": "Auto-adjust height",
+    "clearable": "Show clear button",
+    "filled": "Filled style variant",
+    "outlined": "Outlined style variant",
+    "standout": "Standout style variant",
+    "borderless": "Remove border",
+    "rounded": "Rounded corners",
+    "square": "Square corners",
+    "dense": "Compact size",
+    "disable": "Disable input",
+    "readonly": "Read-only mode",
+    "rows": "Initial number of rows",
+    "max-rows": "Maximum rows before scroll",
+    "input-class": "Classes for input element",
+    "input-style": "Styles for input element",
+    "bg-color": "Background color",
+    "dark": "Dark theme",
+    "error": "Show error state",
+    "error-message": "Error message text",
+    "rules": "Validation rules array",
+    "reactive-rules": "Re-validate on value change",
+    "lazy-rules": "Validate on blur only"
+  },
+  "usage_examples": {
+    "basic_textarea": {
+      "description": "Simple multi-line input",
+      "code": [
+        "textarea = ui.textarea('Comments')",
+        "def on_change(e):",
+        "    print(f'Text: {e.value}')",
+        "textarea.on_change(on_change)"
+      ]
+    },
+    "with_validation": {
+      "description": "Textarea with validation",
+      "code": [
+        "validation = {",
+        "    'Required': lambda v: bool(v),",
+        "    'Too long': lambda v: len(v) <= 500",
+        "}",
+        "ui.textarea('Message', validation=validation)"
+      ]
+    },
+    "with_autogrow": {
+      "description": "Auto-growing textarea",
+      "code": [
+        "ui.textarea('Description').props('autogrow')"
+      ]
+    },
+    "styled_textarea": {
+      "description": "Custom styled textarea",
+      "code": [
+        "ui.textarea('Notes').props(",
+        "    'filled rounded rows=4',",
+        "    'input-class=\"text-lg\"'",
+        ")"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "h-{size} (height)",
+        "rounded-{size}"
+      ],
+      "input_styling": {
+        "description": "Style native input element",
+        "note": "Use input-class and input-style props",
+        "examples": [
+          "input-class=\"text-lg font-bold\"",
+          "input-style=\"line-height: 1.5\""
+        ]
+      }
+    }
+  },
+  "common_use_cases": [
+    "Comments/feedback forms",
+    "Message composition",
+    "Description fields",
+    "Code/text editing",
+    "Multi-line input forms"
+  ]
+}

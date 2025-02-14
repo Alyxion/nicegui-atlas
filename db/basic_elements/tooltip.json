@@ -1,0 +1,79 @@
+{
+  "name": "nicegui.ui.tooltip",
+  "source_path": "elements/tooltip.py",
+  "description": "Use to provide additional context or help text when hovering over elements.",
+  "direct_ancestors": [
+    "TextElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QTooltip",
+      "url": "https://quasar.dev/vue-components/tooltip"
+    }
+  ],
+  "category": "Basic Elements",
+  "quasar_props": {
+    "content": "Tooltip content",
+    "max-width": "Maximum width of the tooltip",
+    "anchor": "Point of origin (top, top-right, right, etc)",
+    "self": "How to position the tooltip relative to target (top, top-right, right, etc)",
+    "offset": "Offset from target in pixels [x, y]",
+    "delay": "Show/hide delay (ms)",
+    "hide-delay": "Hide delay (ms)",
+    "max-height": "Maximum height of the tooltip",
+    "transition-show": "Transition animation when showing",
+    "transition-hide": "Transition animation when hiding",
+    "persistent": "Tooltip stays visible when target is clicked"
+  },
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "The content of the tooltip",
+        "default": "",
+        "quasar_prop": "content"
+      }
+    }
+  },
+  "usage_examples": {
+    "basic_tooltip": {
+      "description": "Simple text tooltip",
+      "code": [
+        "button = ui.button('Hover me')",
+        "with button:",
+        "    ui.tooltip('More information')"
+      ]
+    },
+    "nested_content": {
+      "description": "Tooltip with nested elements",
+      "code": [
+        "button = ui.button('Hover me')",
+        "with button:",
+        "    with ui.tooltip():",
+        "        ui.label('Line 1')",
+        "        ui.label('Line 2')"
+      ]
+    },
+    "styled_tooltip": {
+      "description": "Tooltip with custom styling",
+      "code": [
+        "button = ui.button('Hover me')",
+        "with button:",
+        "    tooltip = ui.tooltip('Custom tooltip')",
+        "    tooltip.props('anchor=top self=bottom transition-show=scale')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "text-{color}",
+        "bg-{color}",
+        "p-{size}",
+        "rounded-{size}"
+      ]
+    }
+  },
+  "common_use_cases": []
+}

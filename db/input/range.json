@@ -1,0 +1,138 @@
+{
+  "name": "nicegui.ui.range",
+  "source_path": "elements/range.py",
+  "description": "Use to select a range between two values with a dual-handle slider.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QRange",
+      "url": "https://quasar.dev/vue-components/range"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "min": {
+        "type": "float",
+        "description": "Lower bound of range",
+        "required": true,
+        "quasar_prop": "min"
+      },
+      "max": {
+        "type": "float",
+        "description": "Upper bound of range",
+        "required": true,
+        "quasar_prop": "max"
+      },
+      "step": {
+        "type": "float",
+        "description": "Step size between values",
+        "default": "1.0",
+        "quasar_prop": "step"
+      },
+      "value": {
+        "type": "Optional[Dict[str, int]]",
+        "description": "Initial min/max positions",
+        "default": "None",
+        "format": "{'min': value1, 'max': value2}"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback on range change",
+        "default": "None",
+        "note": "Called when user releases handles"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when range changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)",
+      "throttle": "0.05 seconds"
+    }
+  },
+  "quasar_props": {
+    "min": "Lower bound",
+    "max": "Upper bound",
+    "step": "Step size",
+    "snap": "Snap to steps",
+    "markers": "Show step markers",
+    "label": "Show value label",
+    "label-always": "Always show label",
+    "label-value": "Custom label function",
+    "drag-range": "Drag both handles",
+    "drag-only-range": "Only drag range",
+    "left-label-color": "Left handle label color",
+    "right-label-color": "Right handle label color",
+    "left-label-value": "Left handle custom label",
+    "right-label-value": "Right handle custom label",
+    "color": "Handle color",
+    "track-color": "Track color",
+    "inner-track-color": "Selected range color",
+    "selection-color": "Selection color",
+    "dark": "Dark theme",
+    "dense": "Reduce size",
+    "disable": "Disable range",
+    "readonly": "Read-only mode",
+    "vertical": "Vertical orientation"
+  },
+  "usage_examples": {
+    "basic_range": {
+      "description": "Simple range selector",
+      "code": [
+        "range = ui.range(min=0, max=100)",
+        "def on_change(e):",
+        "    print(f'Range: {e.value}')",
+        "range.on_change(on_change)"
+      ]
+    },
+    "price_range": {
+      "description": "Price range with custom step",
+      "code": [
+        "ui.range(",
+        "    min=0,",
+        "    max=1000,",
+        "    step=10,",
+        "    value={'min': 200, 'max': 800}",
+        ").props('label-always')"
+      ]
+    },
+    "styled_range": {
+      "description": "Customized appearance",
+      "code": [
+        "ui.range(min=0, max=10).props(",
+        "    'color=primary',",
+        "    'track-color=grey-3',",
+        "    'inner-track-color=primary'",
+        ")"
+      ]
+    },
+    "vertical_range": {
+      "description": "Vertical orientation",
+      "code": [
+        "ui.range(min=0, max=100).props('vertical')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "h-{size} (height for vertical)",
+        "mx-auto (center horizontally)",
+        "my-{size} (vertical margin)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Price ranges",
+    "Date ranges",
+    "Filter ranges",
+    "Numeric ranges",
+    "Min/max selections"
+  ]
+}

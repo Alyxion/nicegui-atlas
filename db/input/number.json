@@ -1,0 +1,175 @@
+{
+  "name": "nicegui.ui.number",
+  "source_path": "elements/number.py",
+  "description": "Use to collect numeric input with validation, formatting, and range constraints.",
+  "direct_ancestors": [
+    "ValidationElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QInput",
+      "url": "https://quasar.dev/vue-components/input"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "label": {
+        "type": "Optional[str]",
+        "description": "Label text above input",
+        "default": "None",
+        "quasar_prop": "label"
+      },
+      "placeholder": {
+        "type": "Optional[str]",
+        "description": "Placeholder when empty",
+        "default": "None",
+        "quasar_prop": "placeholder"
+      },
+      "value": {
+        "type": "Optional[float]",
+        "description": "Initial numeric value",
+        "default": "None"
+      },
+      "min": {
+        "type": "Optional[float]",
+        "description": "Minimum allowed value",
+        "default": "None",
+        "quasar_prop": "min"
+      },
+      "max": {
+        "type": "Optional[float]",
+        "description": "Maximum allowed value",
+        "default": "None",
+        "quasar_prop": "max"
+      },
+      "precision": {
+        "type": "Optional[int]",
+        "description": "Decimal places (negative for before dot)",
+        "default": "None"
+      },
+      "step": {
+        "type": "Optional[float]",
+        "description": "Step size for stepper buttons",
+        "default": "None",
+        "quasar_prop": "step"
+      },
+      "prefix": {
+        "type": "Optional[str]",
+        "description": "Text before number",
+        "default": "None",
+        "quasar_prop": "prefix"
+      },
+      "suffix": {
+        "type": "Optional[str]",
+        "description": "Text after number",
+        "default": "None",
+        "quasar_prop": "suffix"
+      },
+      "format": {
+        "type": "Optional[str]",
+        "description": "Python format string (e.g., '%.2f')",
+        "default": "None"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for value changes",
+        "default": "None"
+      },
+      "validation": {
+        "type": "Optional[Union[ValidationFunction, ValidationDict]]",
+        "description": "Validation rules or function",
+        "default": "None",
+        "examples": [
+          "{'Too small!': lambda value: value > 3}",
+          "lambda value: 'Too small!' if value <= 3 else None"
+        ]
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when value changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    },
+    "blur": {
+      "description": "Emitted when input loses focus",
+      "behavior": "Triggers sanitize()"
+    }
+  },
+  "quasar_props": {
+    "type": "Set to 'number'",
+    "label": "Input label",
+    "placeholder": "Placeholder text",
+    "min": "Minimum value",
+    "max": "Maximum value",
+    "step": "Step size",
+    "prefix": "Prefix text",
+    "suffix": "Suffix text",
+    "disable": "Disable input",
+    "readonly": "Make read-only",
+    "clearable": "Show clear button",
+    "filled": "Use filled design",
+    "outlined": "Use outlined design",
+    "dense": "Reduce padding",
+    "hide-spinner": "Hide step buttons"
+  },
+  "usage_examples": {
+    "basic_number": {
+      "description": "Simple number input",
+      "code": [
+        "number = ui.number('Quantity')",
+        "def on_change(e):",
+        "    print(f'Value changed to: {e.value}')",
+        "number.on_change(on_change)"
+      ]
+    },
+    "with_range": {
+      "description": "Number with range limits",
+      "code": [
+        "ui.number('Age', min=0, max=120)"
+      ]
+    },
+    "with_precision": {
+      "description": "Number with decimal precision",
+      "code": [
+        "ui.number('Price', precision=2, prefix='$')"
+      ]
+    },
+    "with_validation": {
+      "description": "Number with custom validation",
+      "code": [
+        "validation = {",
+        "    'Must be positive': lambda v: v > 0,",
+        "    'Must be even': lambda v: v % 2 == 0",
+        "}",
+        "ui.number('Even number', validation=validation)"
+      ]
+    },
+    "with_format": {
+      "description": "Number with custom format",
+      "code": [
+        "ui.number('Percentage', format='%.1f', suffix='%')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "border-{width}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Quantity inputs",
+    "Price fields",
+    "Percentage inputs",
+    "Age fields",
+    "Numeric settings"
+  ]
+}

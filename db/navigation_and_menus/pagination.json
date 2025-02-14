@@ -1,0 +1,13 @@
+{
+  "name": "nicegui.ui.pagination",
+  "source_path": "elements/pagination.py",
+  "description": "Use for splitting content into pages with customizable navigation controls.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    "QPagination"
+  ],
+  "category": "Navigation and Menus"
+}

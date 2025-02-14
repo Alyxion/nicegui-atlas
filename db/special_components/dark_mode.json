@@ -1,0 +1,13 @@
+{
+  "name": "nicegui.ui.dark_mode",
+  "source_path": "elements/dark_mode.py",
+  "description": "Use for enabling, disabling, or auto-detecting dark mode based on system preference.",
+  "direct_ancestors": [
+    "ValueElement"
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "dark_mode.js",
+  "category": "Special Components"
+}

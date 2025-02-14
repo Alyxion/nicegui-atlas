@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.editor",
+  "source_path": "elements/editor.py",
+  "description": "Use for rich text editing with formatting controls.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    "QEditor"
+  ],
+  "js_file": "editor.js",
+  "category": "Content Display"
+}

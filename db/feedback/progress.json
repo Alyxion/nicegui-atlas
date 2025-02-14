@@ -1,0 +1,20 @@
+{
+  "name": "nicegui.ui.progress",
+  "source_path": "elements/progress.py",
+  "description": "Use for showing the progress of operations or loading states.",
+  "direct_ancestors": [
+    "ValueElement",
+    "TextColorElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QLinearProgress",
+      "url": "https://quasar.dev/vue-components/linear-progress"
+    },
+    {
+      "name": "QCircularProgress",
+      "url": "https://quasar.dev/vue-components/circular-progress"
+    }
+  ],
+  "category": "Feedback"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "nicegui.ui.highchart",
+  "source_path": "elements/highchart.py",
+  "description": "Use for creating interactive charts with Highcharts library (requires separate installation).",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "libraries": [
+    {
+      "name": "Highcharts"
+    }
+  ],
+  "category": "Charts and Visualization"
+}

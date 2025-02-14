@@ -1,0 +1,116 @@
+{
+  "name": "nicegui.ui.checkbox",
+  "source_path": "elements/checkbox.py",
+  "description": "Use to create binary choice inputs with an optional label.",
+  "direct_ancestors": [
+    "TextElement",
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QCheckbox",
+      "url": "https://quasar.dev/vue-components/checkbox"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "Label text next to checkbox",
+        "default": "''",
+        "quasar_prop": "label"
+      },
+      "value": {
+        "type": "bool",
+        "description": "Initial checked state",
+        "default": "False"
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for state changes",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when checkbox is toggled",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "quasar_props": {
+    "label": "Checkbox label",
+    "color": "Color from Quasar palette",
+    "keep-color": "Keep color when unchecked",
+    "dark": "Apply dark theme",
+    "dense": "Reduce padding",
+    "disable": "Disable checkbox",
+    "indeterminate": "Show indeterminate state",
+    "toggle-indeterminate": "Allow toggling indeterminate",
+    "tabindex": "Tab index for focus",
+    "icon": "Custom icon when checked",
+    "checked-icon": "Icon when checked",
+    "unchecked-icon": "Icon when unchecked",
+    "indeterminate-icon": "Icon when indeterminate",
+    "toggle-order": "Toggle sequence (t/f/i)",
+    "label-color": "Label text color",
+    "true-value": "Value when checked",
+    "false-value": "Value when unchecked",
+    "size": "Size of checkbox (xs|sm|md|lg|xl)"
+  },
+  "usage_examples": {
+    "basic_checkbox": {
+      "description": "Simple checkbox with label",
+      "code": [
+        "checkbox = ui.checkbox('Accept terms')",
+        "def on_change(e):",
+        "    print(f'Terms accepted: {e.value}')",
+        "checkbox.on_change(on_change)"
+      ]
+    },
+    "initial_state": {
+      "description": "Checkbox with initial state",
+      "code": [
+        "ui.checkbox('Subscribe', value=True)"
+      ]
+    },
+    "styled_checkbox": {
+      "description": "Checkbox with custom styling",
+      "code": [
+        "ui.checkbox('Important').props('color=primary size=lg')"
+      ]
+    },
+    "indeterminate": {
+      "description": "Checkbox with indeterminate state",
+      "code": [
+        "ui.checkbox('Select all').props('indeterminate toggle-indeterminate')"
+      ]
+    },
+    "custom_icons": {
+      "description": "Checkbox with custom icons",
+      "code": [
+        "ui.checkbox('Custom').props('checked-icon=check_circle unchecked-icon=radio_button_unchecked')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "m-{size} (margin)",
+        "p-{size} (padding)",
+        "text-{color} (label color)",
+        "font-{weight} (label weight)"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Terms acceptance",
+    "Feature toggles",
+    "Multiple selection lists",
+    "Settings options",
+    "Form controls"
+  ]
+}

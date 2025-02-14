@@ -1,0 +1,13 @@
+{
+  "name": "nicegui.ui.audio",
+  "source_path": "elements/audio.py",
+  "description": "Use for playing audio files with controls, autoplay, and loop support.",
+  "direct_ancestors": [
+    "SourceElement"
+  ],
+  "internal_components": [
+    "Custom JS"
+  ],
+  "js_file": "audio.js",
+  "category": "Media"
+}

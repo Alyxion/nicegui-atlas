@@ -1,0 +1,122 @@
+{
+  "name": "nicegui.ui.time",
+  "source_path": "elements/time.py",
+  "description": "Use to create time input fields with flexible formatting and interactive time selection.",
+  "direct_ancestors": [
+    "ValueElement",
+    "DisableableElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QTime",
+      "url": "https://quasar.dev/vue-components/time"
+    }
+  ],
+  "category": "Input",
+  "python_props": {
+    "__init__": {
+      "value": {
+        "type": "Optional[str]",
+        "description": "Initial time value",
+        "default": "None",
+        "format": "String matching mask pattern"
+      },
+      "mask": {
+        "type": "str",
+        "description": "Time format pattern",
+        "default": "'HH:mm'",
+        "quasar_prop": "mask",
+        "patterns": [
+          "HH: Hour in 24h format (00-23)",
+          "H: Hour in 24h format (0-23)",
+          "hh: Hour in 12h format (01-12)",
+          "h: Hour in 12h format (1-12)",
+          "mm: Minutes (00-59)",
+          "m: Minutes (0-59)",
+          "ss: Seconds (00-59)",
+          "s: Seconds (0-59)",
+          "A: AM/PM indicator"
+        ]
+      },
+      "on_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for time changes",
+        "default": "None"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when time changes",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    }
+  },
+  "quasar_props": {
+    "mask": "Time format pattern",
+    "format24h": "Use 24-hour format",
+    "options": "Allowed times function",
+    "now-btn": "Show 'now' button",
+    "calendar": "Calendar type",
+    "landscape": "Landscape mode",
+    "square": "Square style",
+    "flat": "Remove shadow",
+    "bordered": "Add border",
+    "readonly": "Read-only mode",
+    "disable": "Disable picker",
+    "color": "Color from palette",
+    "text-color": "Text color",
+    "dark": "Dark theme",
+    "hour-options": "Allowed hours array",
+    "minute-options": "Allowed minutes array",
+    "second-options": "Allowed seconds array",
+    "with-seconds": "Show seconds",
+    "no-header": "Hide header"
+  },
+  "usage_examples": {
+    "basic_time": {
+      "description": "Simple time picker",
+      "code": [
+        "time = ui.time()",
+        "def on_change(e):",
+        "    print(f'Time selected: {e.value}')",
+        "time.on_change(on_change)"
+      ]
+    },
+    "with_seconds": {
+      "description": "Time picker with seconds",
+      "code": [
+        "ui.time(mask='HH:mm:ss').props('with-seconds')"
+      ]
+    },
+    "twelve_hour": {
+      "description": "12-hour format with AM/PM",
+      "code": [
+        "ui.time(mask='hh:mm A').props('format24h=false')"
+      ]
+    },
+    "styled_time": {
+      "description": "Custom styled picker",
+      "code": [
+        "ui.time().props('color=primary landscape')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Quasar props or Tailwind classes",
+    "examples": {
+      "classes": [
+        "w-{size} (width)",
+        "max-w-{size} (max width)",
+        "rounded-{size}",
+        "shadow-{size}"
+      ]
+    }
+  },
+  "common_use_cases": [
+    "Schedule inputs",
+    "Event timing",
+    "Operating hours",
+    "Time tracking",
+    "Appointment booking"
+  ]
+}

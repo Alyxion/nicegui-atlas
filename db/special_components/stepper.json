@@ -1,0 +1,25 @@
+{
+  "name": "nicegui.ui.stepper",
+  "source_path": "elements/stepper.py",
+  "description": "Use for guiding users through a sequence of steps with navigation controls.",
+  "direct_ancestors": [
+    "ValueElement",
+    "Step",
+    "StepperNavigation"
+  ],
+  "quasar_components": [
+    {
+      "name": "QStepper",
+      "url": "https://quasar.dev/vue-components/stepper/"
+    },
+    {
+      "name": "QStep",
+      "url": "https://quasar.dev/vue-components/stepper/"
+    },
+    {
+      "name": "QStepperNavigation",
+      "url": "https://quasar.dev/vue-components/stepper/"
+    }
+  ],
+  "category": "Special Components"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "nicegui.ui.joystick",
+  "source_path": "elements/joystick.py",
+  "description": "Use for touch-based directional input with start, move, and end events.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "libraries": [
+    {
+      "name": "nipple.js"
+    }
+  ],
+  "internal_components": [
+    "Vue Component"
+  ],
+  "js_file": "joystick.vue",
+  "category": "Special Components"
+}

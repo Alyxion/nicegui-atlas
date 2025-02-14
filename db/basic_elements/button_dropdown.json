@@ -1,0 +1,130 @@
+{
+  "name": "nicegui.ui.button_dropdown",
+  "source_path": "elements/button_dropdown.py",
+  "description": "Use when multiple related actions need to be grouped under a single button to save space.",
+  "direct_ancestors": [
+    "IconElement",
+    "TextElement",
+    "DisableableElement",
+    "BackgroundColorElement",
+    "ValueElement"
+  ],
+  "quasar_components": [
+    {
+      "name": "QBtnDropdown",
+      "url": "https://quasar.dev/vue-components/button-dropdown"
+    }
+  ],
+  "category": "Basic Elements",
+  "quasar_props": {
+    "label": "Button label text",
+    "icon": "Icon name from icon set",
+    "color": "Color name from Quasar palette",
+    "disable": "Whether button is disabled",
+    "split": "Split dropdown icon into separate button",
+    "dropdown-icon": "Icon used for dropdown indicator",
+    "auto-close": "Auto-close dropdown when item clicked",
+    "menu-anchor": "Menu anchor point",
+    "menu-self": "Menu self-alignment",
+    "cover": "Menu covers the button",
+    "persistent": "Menu persists until explicitly closed",
+    "menu-offset": "Offset of menu relative to button"
+  },
+  "python_props": {
+    "__init__": {
+      "text": {
+        "type": "str",
+        "description": "The label of the button",
+        "default": "",
+        "quasar_prop": "label"
+      },
+      "value": {
+        "type": "bool",
+        "description": "If the dropdown is open or not",
+        "default": "False"
+      },
+      "on_value_change": {
+        "type": "Optional[Handler[ValueChangeEventArguments]]",
+        "description": "Callback for when dropdown is opened/closed",
+        "default": "None"
+      },
+      "on_click": {
+        "type": "Optional[Handler[ClickEventArguments]]",
+        "description": "Callback for when button is pressed",
+        "default": "None"
+      },
+      "color": {
+        "type": "Optional[str]",
+        "description": "Button color (Quasar, Tailwind, or CSS)",
+        "default": "primary",
+        "quasar_prop": "color"
+      },
+      "icon": {
+        "type": "Optional[str]",
+        "description": "Icon name to display on button",
+        "default": "None",
+        "quasar_prop": "icon"
+      },
+      "auto_close": {
+        "type": "Optional[bool]",
+        "description": "Auto-close dropdown on item click",
+        "default": "False",
+        "quasar_prop": "auto-close"
+      },
+      "split": {
+        "type": "Optional[bool]",
+        "description": "Split dropdown icon into separate button",
+        "default": "False",
+        "quasar_prop": "split"
+      }
+    }
+  },
+  "events": {
+    "value_change": {
+      "description": "Emitted when dropdown is opened or closed",
+      "arguments": "ValueChangeEventArguments(sender=self, client=self.client, value=new_value)"
+    },
+    "click": {
+      "description": "Emitted when button is clicked",
+      "arguments": "ClickEventArguments(sender=self, client=self.client)"
+    }
+  },
+  "usage_examples": {
+    "basic_dropdown": {
+      "description": "Simple dropdown with items",
+      "code": [
+        "with ui.button_dropdown('Options'):",
+        "    ui.button('Option 1')",
+        "    ui.button('Option 2')"
+      ]
+    },
+    "split_button": {
+      "description": "Split button with separate dropdown",
+      "code": [
+        "with ui.button_dropdown('Actions', split=True):",
+        "    ui.button('Save')",
+        "    ui.button('Delete')"
+      ]
+    },
+    "with_icons": {
+      "description": "Dropdown with icons in items",
+      "code": [
+        "with ui.button_dropdown('Menu', icon='menu'):",
+        "    ui.button('Edit', icon='edit')",
+        "    ui.button('Delete', icon='delete')"
+      ]
+    }
+  },
+  "styling": {
+    "description": "Can be styled using Tailwind CSS classes or custom CSS",
+    "examples": {
+      "classes": [
+        "text-{color}",
+        "bg-{color}",
+        "rounded-{size}",
+        "shadow-{size}"
+      ]
+    }
+  },
+  "common_use_cases": []
+}

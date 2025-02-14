@@ -1,0 +1,13 @@
+{
+  "name": "nicegui.ui.notification",
+  "source_path": "elements/notification.py",
+  "description": "Use for temporary feedback messages that appear and disappear.",
+  "direct_ancestors": [
+    "Element"
+  ],
+  "quasar_components": [
+    "QNotify"
+  ],
+  "js_file": "notification.js",
+  "category": "Feedback"
+}
