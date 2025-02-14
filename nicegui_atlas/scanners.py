@@ -11,8 +11,11 @@ from .models import (
     ComponentIndex,
     ComponentInfo,
     EventInfo,
+    Example,
     FunctionInfo,
+    LibraryInfo,
     PropertyInfo,
+    QuasarComponentInfo,
 )
 
 
@@ -80,18 +83,42 @@ def convert_nicegui_method(method_data: dict, method_name: str) -> FunctionInfo:
     )
 
 
+def convert_examples(examples_data: dict) -> List[Example]:
+    """Convert raw examples data to Example objects."""
+    examples = []
+    if isinstance(examples_data, list):
+        for example in examples_data:
+            if isinstance(example, str):
+                examples.append(Example(code=example))
+            elif isinstance(example, dict):
+                examples.append(Example(
+                    code=example.get("code", ""),
+                    description=example.get("description")
+                ))
+    elif isinstance(examples_data, dict):
+        for code, desc in examples_data.items():
+            examples.append(Example(code=code, description=desc))
+    return examples
+
+
 def scan_nicegui_component(data: dict) -> Optional[ComponentInfo]:
     """Convert NiceGUI component data to ComponentInfo."""
     
     # Convert properties
     properties = {}
     for prop_name, prop_data in data.get("python_props", {}).get("__init__", {}).items():
+        examples = []
+        if "examples" in prop_data:
+            examples = convert_examples(prop_data["examples"])
+        
         properties[prop_name] = PropertyInfo(
             name=prop_name,
             type=prop_data.get("type", "Any"),
             description=prop_data.get("description"),
             default=prop_data.get("default"),
-            required="default" not in prop_data
+            required="default" not in prop_data,
+            examples=examples,
+            quasar_prop=prop_data.get("quasar_prop")
         )
     
     # Convert events
@@ -106,12 +133,34 @@ def scan_nicegui_component(data: dict) -> Optional[ComponentInfo]:
         function_info = convert_nicegui_method(method_data, method_name)
         functions[method_name] = function_info
     
-    # Get documentation URL from first Quasar component if available
-    # Get documentation URL from first Quasar component if available
+    # Convert Quasar components
+    quasar_components = []
+    for qcomp in data.get("quasar_components", []):
+        if isinstance(qcomp, dict):
+            quasar_components.append(QuasarComponentInfo(
+                name=qcomp["name"],
+                url=qcomp.get("url")
+            ))
+        else:
+            quasar_components.append(qcomp)
+    
+    # Convert libraries
+    libraries = []
+    for lib in data.get("libraries", []):
+        libraries.append(LibraryInfo(
+            name=lib["name"],
+            version=lib.get("version"),
+            url=lib.get("url")
+        ))
+    
+    # Get doc URL from first Quasar component if available
     doc_url = None
-    quasar_components = data.get("quasar_components", [])
-    if quasar_components and isinstance(quasar_components[0], dict):
-        doc_url = quasar_components[0].get("url")
+    if quasar_components:
+        qcomp = quasar_components[0]
+        if isinstance(qcomp, QuasarComponentInfo):
+            doc_url = qcomp.url
+        elif isinstance(qcomp, dict):
+            doc_url = qcomp.get('url')
     
     return ComponentInfo(
         name=data["name"],
@@ -121,7 +170,14 @@ def scan_nicegui_component(data: dict) -> Optional[ComponentInfo]:
         properties=properties,
         events=events,
         functions=functions,
-        category=data.get("category")
+        category=data.get("category"),
+        source_path=data["source_path"],
+        direct_ancestors=data.get("direct_ancestors", []),
+        quasar_components=quasar_components,
+        libraries=libraries,
+        internal_components=data.get("internal_components", []),
+        html_element=data.get("html_element"),
+        js_file=data.get("js_file")
     )
 
 
@@ -161,7 +217,6 @@ def create_nicegui_index(db_path: str = "db") -> ComponentIndex:
     # Add components to their categories
     for component in components.values():
         if component.category:
-            # Find category ID by name
             for cat_id, cat_info in categories.items():
                 if cat_info.name == component.category:
                     cat_info.components.append(component.name)
@@ -182,13 +237,18 @@ def scan_quasar_component(tag_data: dict) -> ComponentInfo:
         name = attr.get("name", "")
         if name:
             value_info = attr.get("value", {})
+            examples = []
+            if "examples" in value_info:
+                examples = convert_examples(value_info["examples"])
+            
             properties[name] = PropertyInfo(
                 name=name,
                 type=value_info.get("type", ""),
                 description=attr.get("description", ""),
                 default=attr.get("default"),
                 required=attr.get("required", False),
-                doc_url=attr.get("doc-url")
+                doc_url=attr.get("doc-url"),
+                examples=examples
             )
     
     events = {}
