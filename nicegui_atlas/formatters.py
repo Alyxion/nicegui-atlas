@@ -61,12 +61,14 @@ def format_event(name: str, event, indent: int = 2) -> List[str]:
     """Format an event's information."""
     lines = []
     desc = f": {event.description}" if event.description else ""
-    lines.append(f"{' ' * indent}{name}{desc}")
+    lines.append(f"{' ' * indent}{name or 'on_click'}{desc}")
     
     if event.arguments:
         lines.append(f"{' ' * (indent + 2)}Arguments:")
         for arg in event.arguments:
-            lines.extend(format_argument(arg))
+            type_str = f"({arg.type})" if arg.type else ""
+            desc = f": {arg.description}" if arg.description else ""
+            lines.append(f"{' ' * (indent + 4)}{arg.name} {type_str}{desc}")
     
     if event.examples:
         example_text = format_examples(event.examples, indent + 2)

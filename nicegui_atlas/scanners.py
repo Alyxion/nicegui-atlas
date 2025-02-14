@@ -1,9 +1,12 @@
 """Component scanners for NiceGUI Atlas."""
 
+import inspect
 import json
 import os
 from pathlib import Path
 from typing import Dict, List, Optional
+
+from nicegui import events
 
 from .models import (
     ArgumentInfo,
@@ -34,26 +37,28 @@ def scan_nicegui_categories(categories_data: dict) -> Dict[str, CategoryInfo]:
     return categories
 
 
+from .event_inspector import get_event_arguments
+
+def get_event_argument_info(arg_str: str) -> List[ArgumentInfo]:
+    """Extract event argument information using inspection."""
+    # Parse the event class name from the argument string
+    # Example: "ClickEventArguments(sender=self, client=self.client)"
+    if "(" not in arg_str:
+        return []
+    
+    event_class_name = arg_str.split("(")[0]
+    return get_event_arguments(event_class_name)
+
+
 def convert_nicegui_event(event_data: dict) -> EventInfo:
     """Convert NiceGUI event data to EventInfo model."""
     # Parse argument string into structured data
     # Example: "ClickEventArguments(sender=self, client=self.client)"
     arg_str = event_data.get("arguments", "")
-    arguments = []
-    if arg_str:
-        # Basic parsing of argument string
-        arg_parts = arg_str.strip("()").split(",")
-        for part in arg_parts:
-            if "=" in part:
-                name, value = part.strip().split("=")
-                arguments.append(ArgumentInfo(
-                    name=name,
-                    type="Any",  # We'd need more sophisticated parsing to determine type
-                    description=None
-                ))
+    arguments = get_event_argument_info(arg_str)
     
     return EventInfo(
-        name=event_data.get("name", ""),
+        name=event_data.get("name", "on_click"),  # Default to on_click if not specified
         description=event_data.get("description", ""),
         arguments=arguments
     )
@@ -65,15 +70,7 @@ def convert_nicegui_method(method_data: dict, method_name: str) -> FunctionInfo:
     if "arguments" in method_data:
         # Similar argument parsing as events
         arg_str = method_data["arguments"]
-        arg_parts = arg_str.strip("()").split(",")
-        for part in arg_parts:
-            if "=" in part:
-                name, value = part.strip().split("=")
-                arguments.append(ArgumentInfo(
-                    name=name,
-                    type="Any",
-                    description=None
-                ))
+        arguments = get_event_argument_info(arg_str)
     
     return FunctionInfo(
         name=method_name,
