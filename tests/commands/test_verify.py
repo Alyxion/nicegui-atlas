@@ -51,10 +51,12 @@ def test_verify_command_single_component(mock_join, mock_exists, mock_verify, ve
     
     # Create args
     args = argparse.Namespace(
-        components="ui.button",
+        component="ui.button",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=None
+        output=None,
+        filter=None,
+        all=False
     )
     
     # Execute command
@@ -84,10 +86,12 @@ def test_verify_command_with_issues(mock_join, mock_exists, mock_verify, verify_
     
     # Create args
     args = argparse.Namespace(
-        components="ui.button",
+        component="ui.button",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=None
+        output=None,
+        filter=None,
+        all=False
     )
     
     # Execute command
@@ -104,6 +108,17 @@ def test_verify_command_with_issues(mock_join, mock_exists, mock_verify, verify_
 @patch('builtins.open', new_callable=unittest.mock.mock_open)
 def test_verify_command_with_output_file(mock_open, mock_join, mock_exists, mock_verify, verify_command, tmp_path):
     """Test verify command writing to output file."""
+    # Set up mock for both file operations
+    mapping_content = '{"ui.button": "db/basic_elements/button.json"}'
+    mock_mapping_file = unittest.mock.mock_open(read_data=mapping_content)
+    mock_report_file = unittest.mock.mock_open()
+    
+    def side_effect(filename, mode='r'):
+        if str(filename).endswith('component_mappings.json'):
+            return mock_mapping_file(filename, mode)
+        return mock_report_file(filename, mode)
+    
+    mock_open.side_effect = side_effect
     # Set up mocks
     mock_exists.return_value = True
     mock_join.side_effect = lambda *args: '/'.join(args)
@@ -113,19 +128,26 @@ def test_verify_command_with_output_file(mock_open, mock_join, mock_exists, mock
     
     # Create args
     args = argparse.Namespace(
-        components="ui.button",
+        component="ui.button",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=str(tmp_path / "report.md")
+        output=str(tmp_path / "report.md"),
+        filter=None,
+        all=False
     )
     
     # Execute command
     verify_command.execute(args)
     
-    # Verify file write
-    mock_open.assert_called_once_with(str(tmp_path / "report.md"), 'w')
-    handle = mock_open()
-    assert any("Missing property" in str(call) for call in handle.write.call_args_list)
+    # Verify file operations
+    # Verify the report file was opened for writing
+    assert any(call == unittest.mock.call(str(tmp_path / "report.md"), 'w') 
+              for call in mock_open.call_args_list)
+    
+    # Verify the report content was written
+    report_handle = mock_report_file()
+    assert any("Missing property" in str(call) 
+              for call in report_handle.write.call_args_list)
 
 
 @patch('nicegui_atlas.commands.verify.verify_components')
@@ -145,10 +167,12 @@ def test_verify_command_all_components(mock_listdir, mock_join, mock_exists, moc
     
     # Create args
     args = argparse.Namespace(
-        components=None,
+        component=None,
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=None
+        output=None,
+        filter=None,
+        all=True
     )
     
     # Execute command
@@ -175,10 +199,12 @@ def test_verify_command_component_not_found(mock_join, mock_exists, mock_verify,
     
     # Create args
     args = argparse.Namespace(
-        components="ui.nonexistent",
+        component="ui.nonexistent",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=None
+        output=None,
+        filter=None,
+        all=False
     )
     
     # Execute command
@@ -186,7 +212,7 @@ def test_verify_command_component_not_found(mock_join, mock_exists, mock_verify,
     
     # Check output
     captured = capsys.readouterr()
-    assert "No component files found to verify" in captured.out
+    assert "No component files found matching 'ui.nonexistent'" in captured.out
     
     # Verify verify_components was not called
     mock_verify.assert_not_called()
