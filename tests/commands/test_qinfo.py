@@ -3,7 +3,7 @@
 import argparse
 import pytest
 from unittest.mock import patch, MagicMock
-from nicegui_atlas.commands.qinfo import QInfoCommand, get_component_info
+from nicegui_atlas.commands.qinfo import QInfoCommand
 
 
 @pytest.fixture
@@ -34,34 +34,39 @@ def test_qinfo_command_parser_setup():
     assert args.sections == ['properties', 'events']
 
 
-@patch('nicegui_atlas.commands.qinfo.get_cached_web_types')
-def test_qinfo_command_single_component(mock_get_web_types, qinfo_command, capsys):
+@patch('nicegui_atlas.commands.qinfo.registry')
+def test_qinfo_command_single_component(mock_registry, qinfo_command, capsys):
     """Test qinfo command with a single component."""
-    # Mock web-types data
-    mock_get_web_types.return_value = {
-        'contributions': {
-            'html': {
-                'tags': [{
-                    'name': 'QBtn',
-                    'attributes': [{
-                        'name': 'color',
-                        'description': 'Color name for component',
-                        'value': {'type': 'string'},
-                        'doc-url': 'https://quasar.dev/vue-components/button'
-                    }],
-                    'events': [{
-                        'name': 'click',
-                        'description': 'Emitted when clicked',
-                        'arguments': [{
-                            'name': 'evt',
-                            'type': 'Event',
-                            'description': 'JS event object'
-                        }]
-                    }]
-                }]
-            }
+    from nicegui_atlas.models import ComponentInfo, PropertyInfo, EventInfo, ArgumentInfo
+    
+    # Mock component data
+    mock_component = ComponentInfo(
+        name="QBtn",
+        type="quasar",
+        description="Button component",
+        doc_url="https://quasar.dev/vue-components/button",
+        properties={
+            "color": PropertyInfo(
+                name="color",
+                type="string",
+                description="Color name for component"
+            )
+        },
+        events={
+            "click": EventInfo(
+                name="click",
+                description="Emitted when clicked",
+                arguments=[
+                    ArgumentInfo(
+                        name="evt",
+                        type="Event",
+                        description="JS event object"
+                    )
+                ]
+            )
         }
-    }
+    )
+    mock_registry.get_quasar_component.return_value = mock_component
     
     # Execute command
     args = argparse.Namespace(
@@ -79,24 +84,24 @@ def test_qinfo_command_single_component(mock_get_web_types, qinfo_command, capsy
     assert "evt (Event): JS event object" in captured.out
 
 
-@patch('nicegui_atlas.commands.qinfo.get_cached_web_types')
-def test_qinfo_command_without_q_prefix(mock_get_web_types, qinfo_command, capsys):
+@patch('nicegui_atlas.commands.qinfo.registry')
+def test_qinfo_command_without_q_prefix(mock_registry, qinfo_command, capsys):
     """Test qinfo command with component name without Q prefix."""
-    # Mock web-types data
-    mock_get_web_types.return_value = {
-        'contributions': {
-            'html': {
-                'tags': [{
-                    'name': 'QBtn',
-                    'attributes': [{
-                        'name': 'color',
-                        'description': 'Color name for component',
-                        'value': {'type': 'string'}
-                    }]
-                }]
-            }
+    from nicegui_atlas.models import ComponentInfo, PropertyInfo
+    
+    # Mock component data
+    mock_component = ComponentInfo(
+        name="QBtn",
+        type="quasar",
+        properties={
+            "color": PropertyInfo(
+                name="color",
+                type="string",
+                description="Color name for component"
+            )
         }
-    }
+    )
+    mock_registry.get_quasar_component.return_value = mock_component
     
     # Execute command
     args = argparse.Namespace(
@@ -111,29 +116,30 @@ def test_qinfo_command_without_q_prefix(mock_get_web_types, qinfo_command, capsy
     assert "color (string): Color name for component" in captured.out
 
 
-@patch('nicegui_atlas.commands.qinfo.get_cached_web_types')
-def test_qinfo_command_with_sections(mock_get_web_types, qinfo_command, capsys):
+@patch('nicegui_atlas.commands.qinfo.registry')
+def test_qinfo_command_with_sections(mock_registry, qinfo_command, capsys):
     """Test qinfo command with specific sections."""
-    # Mock web-types data
-    mock_get_web_types.return_value = {
-        'contributions': {
-            'html': {
-                'tags': [{
-                    'name': 'QBtn',
-                    'attributes': [{
-                        'name': 'color',
-                        'description': 'Color name for component',
-                        'value': {'type': 'string'}
-                    }],
-                    'events': [{
-                        'name': 'click',
-                        'description': 'Emitted when clicked',
-                        'arguments': []
-                    }]
-                }]
-            }
+    from nicegui_atlas.models import ComponentInfo, PropertyInfo, EventInfo
+    
+    # Mock component data
+    mock_component = ComponentInfo(
+        name="QBtn",
+        type="quasar",
+        properties={
+            "color": PropertyInfo(
+                name="color",
+                type="string",
+                description="Color name for component"
+            )
+        },
+        events={
+            "click": EventInfo(
+                name="click",
+                description="Emitted when clicked"
+            )
         }
-    }
+    )
+    mock_registry.get_quasar_component.return_value = mock_component
     
     # Test properties only
     args = argparse.Namespace(
@@ -158,34 +164,43 @@ def test_qinfo_command_with_sections(mock_get_web_types, qinfo_command, capsys):
     assert "click: Emitted when clicked" in captured.out
 
 
-@patch('nicegui_atlas.commands.qinfo.get_cached_web_types')
-def test_qinfo_command_multiple_components(mock_get_web_types, qinfo_command, capsys):
+@patch('nicegui_atlas.commands.qinfo.registry')
+def test_qinfo_command_multiple_components(mock_registry, qinfo_command, capsys):
     """Test qinfo command with multiple components."""
-    # Mock web-types data
-    mock_get_web_types.return_value = {
-        'contributions': {
-            'html': {
-                'tags': [
-                    {
-                        'name': 'QBtn',
-                        'attributes': [{
-                            'name': 'color',
-                            'description': 'Color name for component',
-                            'value': {'type': 'string'}
-                        }]
-                    },
-                    {
-                        'name': 'QInput',
-                        'attributes': [{
-                            'name': 'type',
-                            'description': 'Input type',
-                            'value': {'type': 'string'}
-                        }]
-                    }
-                ]
-            }
+    from nicegui_atlas.models import ComponentInfo, PropertyInfo
+    
+    # Mock component data
+    mock_btn = ComponentInfo(
+        name="QBtn",
+        type="quasar",
+        properties={
+            "color": PropertyInfo(
+                name="color",
+                type="string",
+                description="Color name for component"
+            )
         }
-    }
+    )
+    mock_input = ComponentInfo(
+        name="QInput",
+        type="quasar",
+        properties={
+            "type": PropertyInfo(
+                name="type",
+                type="string",
+                description="Input type"
+            )
+        }
+    )
+    
+    def get_component(name):
+        if name in ["QBtn", "Btn"]:
+            return mock_btn
+        elif name in ["QInput", "Input"]:
+            return mock_input
+        return None
+    
+    mock_registry.get_quasar_component.side_effect = get_component
     
     # Execute command
     args = argparse.Namespace(
@@ -202,17 +217,10 @@ def test_qinfo_command_multiple_components(mock_get_web_types, qinfo_command, ca
     assert "type (string): Input type" in captured.out
 
 
-@patch('nicegui_atlas.commands.qinfo.get_cached_web_types')
-def test_qinfo_command_component_not_found(mock_get_web_types, qinfo_command, capsys):
+@patch('nicegui_atlas.commands.qinfo.registry')
+def test_qinfo_command_component_not_found(mock_registry, qinfo_command, capsys):
     """Test qinfo command with non-existent component."""
-    # Mock web-types data
-    mock_get_web_types.return_value = {
-        'contributions': {
-            'html': {
-                'tags': []
-            }
-        }
-    }
+    mock_registry.get_quasar_component.return_value = None
     
     # Execute command
     args = argparse.Namespace(
@@ -224,51 +232,3 @@ def test_qinfo_command_component_not_found(mock_get_web_types, qinfo_command, ca
     # Check output
     captured = capsys.readouterr()
     assert "Component QNonExistent not found" in captured.out
-
-
-def test_get_component_info():
-    """Test get_component_info function directly."""
-    web_types = {
-        'contributions': {
-            'html': {
-                'tags': [{
-                    'name': 'QBtn',
-                    'attributes': [{
-                        'name': 'color',
-                        'description': 'Color name for component',
-                        'value': {'type': 'string'},
-                        'doc-url': 'https://quasar.dev/vue-components/button'
-                    }],
-                    'events': [{
-                        'name': 'click',
-                        'description': 'Emitted when clicked',
-                        'arguments': [{
-                            'name': 'evt',
-                            'type': 'Event',
-                            'description': 'JS event object'
-                        }]
-                    }]
-                }]
-            }
-        }
-    }
-    
-    # Test with Q prefix
-    info = get_component_info(web_types, 'QBtn')
-    assert info['name'] == 'QBtn'
-    assert info['doc_url'] == 'https://quasar.dev/vue-components/button'
-    assert 'color' in info['properties']
-    assert 'click' in info['events']
-    
-    # Test without Q prefix
-    info = get_component_info(web_types, 'Btn')
-    assert info['name'] == 'QBtn'
-    
-    # Test with sections filter
-    info = get_component_info(web_types, 'QBtn', ['properties'])
-    assert 'properties' in info
-    assert 'events' in info  # Note: get_component_info always returns all sections
-    
-    # Test non-existent component
-    info = get_component_info(web_types, 'QNonExistent')
-    assert info is None
