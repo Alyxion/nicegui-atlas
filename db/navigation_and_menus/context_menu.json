@@ -8,5 +8,6 @@
   "quasar_components": [
     "QMenu"
   ],
-  "category": "Navigation and Menus"
+  "category": "Navigation and Menus",
+  "py_checksum": "a8d13214aa277aa6744cbf4b2af1c90e"
 }

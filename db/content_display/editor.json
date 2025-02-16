@@ -10,5 +10,7 @@
     "QEditor"
   ],
   "js_file": "editor.js",
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "516a33f45b4364830a1f585c1303558f",
+  "js_checksum": "cd9a68218352b39b0e4b954018192904"
 }

@@ -8,5 +8,6 @@
   "quasar_components": [
     "QChatMessage"
   ],
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "bcd75634ebd9e7e6e3d41ba99ccbdbae"
 }

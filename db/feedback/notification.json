@@ -9,5 +9,7 @@
     "QNotify"
   ],
   "js_file": "notification.js",
-  "category": "Feedback"
+  "category": "Feedback",
+  "py_checksum": "bcd0e7ab1157f838578ced8dce168be1",
+  "js_checksum": "daaf619c150b4ea1156cf9808a143e20"
 }

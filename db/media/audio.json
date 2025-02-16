@@ -9,5 +9,7 @@
     "Custom JS"
   ],
   "js_file": "audio.js",
-  "category": "Media"
+  "category": "Media",
+  "py_checksum": "5808f1236c9b40ff6377925c2e7ccac5",
+  "js_checksum": "448483534695a2e5505894e80e6dd5fe"
 }

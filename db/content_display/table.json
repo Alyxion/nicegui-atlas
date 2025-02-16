@@ -24,5 +24,7 @@
     }
   ],
   "js_file": "table.js",
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "8cb838dd5c19ca92fa28a25273ee82ca",
+  "js_checksum": "a0764a5f884957a779ec45227eab9815"
 }

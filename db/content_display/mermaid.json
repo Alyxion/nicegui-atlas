@@ -11,5 +11,17 @@
     }
   ],
   "js_file": "mermaid.js",
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "ab539f5cf6ed4422e87ff8f48b27b056",
+  "js_checksum": "330e86c752a298ff5fa04b652648aa31",
+  "lib_checksums": [
+    {
+      "path": "elements/lib/mermaid/mermaid.js",
+      "checksum": "68c64f6bcad8c1fc8e60ffb7fcb1bca8"
+    },
+    {
+      "path": "elements/lib/mermaid/mermaid.min.js",
+      "checksum": "757c0d33e84a9859fb2b605b65de504b"
+    }
+  ]
 }

@@ -8,5 +8,6 @@
   "quasar_components": [
     "QList"
   ],
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "6f3faf73ff3db785e434d5c8190e5ec6"
 }

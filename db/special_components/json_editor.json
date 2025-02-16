@@ -14,5 +14,7 @@
     "Custom JS"
   ],
   "js_file": "json_editor.js",
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "95b6313013fd245f7b3f22f10b18c20a",
+  "js_checksum": "ec83ea9db9490d7ee381b310f830064a"
 }

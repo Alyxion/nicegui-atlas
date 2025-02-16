@@ -8,5 +8,6 @@
   "quasar_components": [
     "QSkeleton"
   ],
-  "category": "Feedback"
+  "category": "Feedback",
+  "py_checksum": "20caffc3686719076e55c63811fb85af"
 }

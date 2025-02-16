@@ -173,5 +173,7 @@
     "Password entry",
     "Email addresses",
     "Usernames"
-  ]
+  ],
+  "py_checksum": "da6e8e0cbe893956db9330b9f417f23c",
+  "js_checksum": "65d60e94ec8c3cb5e1c53dd37aa430a1"
 }

@@ -19,5 +19,6 @@
       "url": "https://quasar.dev/vue-components/list-and-list-items"
     }
   ],
-  "category": "Navigation and Menus"
+  "category": "Navigation and Menus",
+  "py_checksum": "ccd2b043dba8eb842531c3e86f9f266c"
 }

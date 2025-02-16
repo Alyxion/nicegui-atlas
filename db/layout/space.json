@@ -67,5 +67,6 @@
   "python_props": {
     "__init__": {}
   },
-  "quasar_props": {}
+  "quasar_props": {},
+  "py_checksum": "85353172e54f658e3cae882b23de4d5d"
 }

@@ -8,5 +8,6 @@
   "quasar_components": [
     "QTree"
   ],
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "8a73f3fc1ed34853638f5f24707b63cb"
 }

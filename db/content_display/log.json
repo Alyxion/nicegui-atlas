@@ -8,5 +8,6 @@
   "internal_components": [
     "Label"
   ],
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "4b6506cd4229bb6a254e4715481c1e52"
 }

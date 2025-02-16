@@ -10,5 +10,6 @@
       "name": "docutils"
     }
   ],
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "b8f7656dd5d87ae68683610ff80124e0"
 }

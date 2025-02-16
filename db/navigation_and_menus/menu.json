@@ -11,5 +11,6 @@
   "internal_components": [
     "MenuItem"
   ],
-  "category": "Navigation and Menus"
+  "category": "Navigation and Menus",
+  "py_checksum": "c41e4f3452029d11f54dc26cba1bbaa7"
 }

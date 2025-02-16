@@ -14,5 +14,16 @@
     "Vue Component"
   ],
   "js_file": "plotly.vue",
-  "category": "Charts and Visualization"
+  "category": "Charts and Visualization",
+  "py_checksum": "bb73443d7e572c26ee1b4fca3f45327b",
+  "lib_checksums": [
+    {
+      "path": "elements/lib/plotly/plotly.min.js",
+      "checksum": "7dc779532c42714d84272ddf7d39eab9"
+    },
+    {
+      "path": "elements/lib/plotly/plotly.js",
+      "checksum": "a35052b92ae2337ab758c9f04f101e38"
+    }
+  ]
 }

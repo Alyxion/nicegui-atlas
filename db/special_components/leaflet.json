@@ -14,5 +14,17 @@
     "Custom JS"
   ],
   "js_file": "leaflet.js",
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "bc1efd79d55df8317ded05e72d92b8e1",
+  "js_checksum": "20bae5b82d70d4c01a88a7337a406ca2",
+  "lib_checksums": [
+    {
+      "path": "elements/lib/leaflet/leaflet/leaflet.js",
+      "checksum": "35b48eb991f383702f153452506e07b2"
+    },
+    {
+      "path": "elements/lib/leaflet/leaflet-draw/leaflet.draw.js",
+      "checksum": "f624d0207c4db92aa5c1731932c33629"
+    }
+  ]
 }

@@ -12,5 +12,485 @@
     }
   ],
   "js_file": "codemirror.js",
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "f9a507d81a27cc40f11655d86d3bad8a",
+  "js_checksum": "a82bd89047486617e6714446df1e3518",
+  "lib_checksums": [
+    {
+      "path": "elements/lib/codemirror/solr-78MBEUkU.js",
+      "checksum": "553d91eb63c4a411207c87c3ffde7d76"
+    },
+    {
+      "path": "elements/lib/codemirror/asn1-BhA3SgW2.js",
+      "checksum": "45dfa16fd787a6fa1f0d1763d7a34170"
+    },
+    {
+      "path": "elements/lib/codemirror/brainfuck-CtZaYBKt.js",
+      "checksum": "bb6576efad80488c29a559831d8bcb3a"
+    },
+    {
+      "path": "elements/lib/codemirror/sas-Bqaci40L.js",
+      "checksum": "14500915d7dd0b8762d29eb236a6ca01"
+    },
+    {
+      "path": "elements/lib/codemirror/ecl-DPFc0Uaf.js",
+      "checksum": "385022be7e5e60fb7ac0071d92835f68"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CUN-L9uH.js",
+      "checksum": "2a6e08c575fa5b9a8787f831332ec3d4"
+    },
+    {
+      "path": "elements/lib/codemirror/q-B0kTJ4cI.js",
+      "checksum": "e1bb4b406243d79fe1fe318bded8203a"
+    },
+    {
+      "path": "elements/lib/codemirror/oz-qQq7irPq.js",
+      "checksum": "15f6fe0f731380d5c58c8f3ed2970fa7"
+    },
+    {
+      "path": "elements/lib/codemirror/z80-D8p3gKXp.js",
+      "checksum": "d3b378f38f563bb218ff46023629231f"
+    },
+    {
+      "path": "elements/lib/codemirror/erlang-BuqgqA5h.js",
+      "checksum": "aeca22fdb269c20be80aa96b1b0b17a1"
+    },
+    {
+      "path": "elements/lib/codemirror/webidl-CGwyPRYs.js",
+      "checksum": "d69ea3e25ff8b6376217a0358668e9d0"
+    },
+    {
+      "path": "elements/lib/codemirror/index-C4TeAHpL.js",
+      "checksum": "44ae1d312b6c25f2bed03e58adc02c67"
+    },
+    {
+      "path": "elements/lib/codemirror/eiffel-DR5c0IrL.js",
+      "checksum": "32e44bb21e3f245c4c5af57d49a1ad7f"
+    },
+    {
+      "path": "elements/lib/codemirror/python-DD-Q2bae.js",
+      "checksum": "d4338da68d2cbe237392157df954864e"
+    },
+    {
+      "path": "elements/lib/codemirror/jinja2-DhgKlfW7.js",
+      "checksum": "1b33114d2e36787646b85148cebb2264"
+    },
+    {
+      "path": "elements/lib/codemirror/index-GtIxIVFm.js",
+      "checksum": "dd4229654d6806248b3fabce28e7b2bf"
+    },
+    {
+      "path": "elements/lib/codemirror/factor-D9hSz2Dc.js",
+      "checksum": "0f3514fac09f85c59da1a1cee4a6e809"
+    },
+    {
+      "path": "elements/lib/codemirror/index-NkaBMccj.js",
+      "checksum": "273e3e49939a755697d13d3681844cae"
+    },
+    {
+      "path": "elements/lib/codemirror/gherkin-B6X1vGSW.js",
+      "checksum": "1a20b5da8bee2c3d4f9e06d5489afa18"
+    },
+    {
+      "path": "elements/lib/codemirror/commonlisp-vq6DHwts.js",
+      "checksum": "0dc5e68516840d1102e7b8626f058e4b"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CgEMB2FB.js",
+      "checksum": "9be65abffb69d9f5565d3d73d1b50259"
+    },
+    {
+      "path": "elements/lib/codemirror/fcl-CVaBTCzQ.js",
+      "checksum": "808f50a110d641a69473961e55942a1e"
+    },
+    {
+      "path": "elements/lib/codemirror/tiddlywiki-BgR6AEZu.js",
+      "checksum": "a6d10b6b97cc88c7da6e44297a861d25"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CvY89YCL.js",
+      "checksum": "1a0442b6b5094053f14df47469712fe6"
+    },
+    {
+      "path": "elements/lib/codemirror/idl-pcmmZuaN.js",
+      "checksum": "66ce9dc25c47d2913ea8015dbeb9ef7c"
+    },
+    {
+      "path": "elements/lib/codemirror/xquery-BZBLoTvf.js",
+      "checksum": "63415c43b750556ac7719ca42e5a2ef2"
+    },
+    {
+      "path": "elements/lib/codemirror/yacas-I8QjZlxf.js",
+      "checksum": "ec9194bbecf1f2114bbb52484620d9f3"
+    },
+    {
+      "path": "elements/lib/codemirror/lua-8DXOpKDz.js",
+      "checksum": "6d443e772f5a754a4b3c20584aecf876"
+    },
+    {
+      "path": "elements/lib/codemirror/javascript-CQRKPXEM.js",
+      "checksum": "255e96348c1c1545752611fcbf6e166a"
+    },
+    {
+      "path": "elements/lib/codemirror/pascal-CZ0JYm71.js",
+      "checksum": "4fe85800e4fb00114b1af525b93d5b10"
+    },
+    {
+      "path": "elements/lib/codemirror/smalltalk-C7J3IyEP.js",
+      "checksum": "92d747edf1746c45a6de431c3c78c03e"
+    },
+    {
+      "path": "elements/lib/codemirror/mllike-B8DYu8SS.js",
+      "checksum": "dd935fd46c3a693b0fce3b46604385fc"
+    },
+    {
+      "path": "elements/lib/codemirror/cmake-DXn5xaP-.js",
+      "checksum": "8d6667812ad846930162dbe0f756a831"
+    },
+    {
+      "path": "elements/lib/codemirror/perl-tdMlh9QA.js",
+      "checksum": "a084b41e899d0e4c4937373f7a5fe903"
+    },
+    {
+      "path": "elements/lib/codemirror/dylan-CHJ5qNM_.js",
+      "checksum": "e0ac55b50f20d26004889a3d934f2248"
+    },
+    {
+      "path": "elements/lib/codemirror/index-BL_t_ntH.js",
+      "checksum": "4bb471ded625f1b58bf5a83793d0f7f0"
+    },
+    {
+      "path": "elements/lib/codemirror/protobuf-B4y9do6W.js",
+      "checksum": "ebd862547613ab2b89e644966353ad3f"
+    },
+    {
+      "path": "elements/lib/codemirror/pug-Zmekp7TD.js",
+      "checksum": "beb015a1ce1e473f45c08235496251f8"
+    },
+    {
+      "path": "elements/lib/codemirror/vhdl-BRDI21CQ.js",
+      "checksum": "0280f291f44507d043a55b959c71b7b9"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CYWhQqFb.js",
+      "checksum": "982e1a4eb5c33200a42bd20fb095723e"
+    },
+    {
+      "path": "elements/lib/codemirror/ttcn-cfg-Ce4xWtqN.js",
+      "checksum": "925fcf2a36c55ae6dd45a066c3bf5be4"
+    },
+    {
+      "path": "elements/lib/codemirror/octave-C4hdQ5Hf.js",
+      "checksum": "f6063531bb23ac85bd9be445259701c4"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CB606nqP.js",
+      "checksum": "53e0588f5d6c7cfc4a08aceac7757e1f"
+    },
+    {
+      "path": "elements/lib/codemirror/apl-CXdQSnD-.js",
+      "checksum": "fdce8e3f6699d29e01f3b67c6171199f"
+    },
+    {
+      "path": "elements/lib/codemirror/r-BA4EbLKE.js",
+      "checksum": "4fc9572d5d0e0a280c701cdec12ce19f"
+    },
+    {
+      "path": "elements/lib/codemirror/modelica-DSrSSXCg.js",
+      "checksum": "a02701b495e4d8a4dee55c63cf9581fb"
+    },
+    {
+      "path": "elements/lib/codemirror/ntriples-FFvkTduk.js",
+      "checksum": "795b622d779d3e702b9d7b29ffb841e5"
+    },
+    {
+      "path": "elements/lib/codemirror/mbox-z_N2Mo3d.js",
+      "checksum": "461e72a7ef234d3498bbd4eb4ede4d41"
+    },
+    {
+      "path": "elements/lib/codemirror/swift-Cbprqdc8.js",
+      "checksum": "0c89d086c3e5a51bdf12c0c2b3181d99"
+    },
+    {
+      "path": "elements/lib/codemirror/vb-coDLL1b7.js",
+      "checksum": "1cc23cfa1a507ce50d15259f892e6b86"
+    },
+    {
+      "path": "elements/lib/codemirror/vbscript-MdTt_wcJ.js",
+      "checksum": "034f0acbf5021f55f51fe658abb1eebb"
+    },
+    {
+      "path": "elements/lib/codemirror/haskell-CmdsSjFB.js",
+      "checksum": "f9d8816f63d38c594ef0a5f182879e1f"
+    },
+    {
+      "path": "elements/lib/codemirror/tcl-B2fODqDH.js",
+      "checksum": "2ef7ad49900b1b4d19937f9961600e1c"
+    },
+    {
+      "path": "elements/lib/codemirror/index-D6K4mE4a.js",
+      "checksum": "f5634a4987a2920703c56902a81e2e2c"
+    },
+    {
+      "path": "elements/lib/codemirror/stylus-3mOX9C7I.js",
+      "checksum": "b671e34baa7a22366d9b5cb37abf95c2"
+    },
+    {
+      "path": "elements/lib/codemirror/sieve-r025o_jW.js",
+      "checksum": "4773b67d71979f247338a24315663f48"
+    },
+    {
+      "path": "elements/lib/codemirror/dockerfile-DbSFhNEh.js",
+      "checksum": "72479d02af25ecd01be7abfb47196da1"
+    },
+    {
+      "path": "elements/lib/codemirror/simple-mode-VRHOsiuL.js",
+      "checksum": "9937dff85419f94b70ddaf92d0966ad9"
+    },
+    {
+      "path": "elements/lib/codemirror/ruby-CR-u2WLS.js",
+      "checksum": "9a87f7fc232033fd4bb5a366894bbd19"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CJB1zGqD.js",
+      "checksum": "84444d973ea7fefc1da9d6f2e6e4c13c"
+    },
+    {
+      "path": "elements/lib/codemirror/stex-Ba7Sj9VR.js",
+      "checksum": "633f50b0357b01e4bea91e18e003b95a"
+    },
+    {
+      "path": "elements/lib/codemirror/dtd-DI9Herc-.js",
+      "checksum": "fa3e2ad2d1df1871a4e29bee476defe5"
+    },
+    {
+      "path": "elements/lib/codemirror/puppet-Bc-yJKzi.js",
+      "checksum": "91a740a59ed4cb0de9d456fd0fce7ab2"
+    },
+    {
+      "path": "elements/lib/codemirror/index-BTAxP3mB.js",
+      "checksum": "577d4bfefab08b503a76e708adb7b561"
+    },
+    {
+      "path": "elements/lib/codemirror/elm-D7xaZ7Da.js",
+      "checksum": "951561851d94b881a10df81d56c95386"
+    },
+    {
+      "path": "elements/lib/codemirror/spreadsheet-CGlWr0eM.js",
+      "checksum": "8f115497ca26e53b65dcae5d38d2cdf2"
+    },
+    {
+      "path": "elements/lib/codemirror/editor.js",
+      "checksum": "e10dbd3ae9e8096a21d2b203853d4e77"
+    },
+    {
+      "path": "elements/lib/codemirror/clojure-DR_hEDJv.js",
+      "checksum": "3a31147fec0663c38036373cc699342f"
+    },
+    {
+      "path": "elements/lib/codemirror/troff-Ce85hlLp.js",
+      "checksum": "38d8d75e759e6ebea1dfe3198d9d5415"
+    },
+    {
+      "path": "elements/lib/codemirror/toml-BQXy8elZ.js",
+      "checksum": "77c9004b26ebf5bf36d7a27154a0a33d"
+    },
+    {
+      "path": "elements/lib/codemirror/cypher-gJDei3ni.js",
+      "checksum": "e3a78505f9f67e8ab776ca288df91322"
+    },
+    {
+      "path": "elements/lib/codemirror/tiki-CI-ztowC.js",
+      "checksum": "cbed12cd79aef645abf4fa60abcc29b2"
+    },
+    {
+      "path": "elements/lib/codemirror/cobol-DJhTY0fG.js",
+      "checksum": "a843286bedf1aecbeca5948675fc291f"
+    },
+    {
+      "path": "elements/lib/codemirror/index-DWxkS7ff.js",
+      "checksum": "f1a5fa3b7f2b8c2ca8ab6daf94b7fae6"
+    },
+    {
+      "path": "elements/lib/codemirror/index-DHm9fpZm.js",
+      "checksum": "f2c1f0cfa4339727a97021ca32d2fca0"
+    },
+    {
+      "path": "elements/lib/codemirror/sparql-BRLJFz69.js",
+      "checksum": "b075b474d8ab73403994b66b0f8a8f0a"
+    },
+    {
+      "path": "elements/lib/codemirror/rpm-DI_rRufH.js",
+      "checksum": "deb2c62d78794016486420c514348e59"
+    },
+    {
+      "path": "elements/lib/codemirror/haxe-75PMBtaN.js",
+      "checksum": "6387ab66dbeaada09367540052620e75"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CG3aUV_L.js",
+      "checksum": "51d1368225b0f6e17bb8d89b41c2461a"
+    },
+    {
+      "path": "elements/lib/codemirror/asterisk-B46aRdXb.js",
+      "checksum": "c880833177694c0413c7c1d59535b1e6"
+    },
+    {
+      "path": "elements/lib/codemirror/ttcn-C4reStyN.js",
+      "checksum": "d5e16320235da2191835988f349877e2"
+    },
+    {
+      "path": "elements/lib/codemirror/forth-Dri_5nFc.js",
+      "checksum": "cbf6b1e57ce53de4d611f42fe1ea5141"
+    },
+    {
+      "path": "elements/lib/codemirror/turtle-BkSuIpt-.js",
+      "checksum": "014115c8123ed0ad43ab0d293685dcc2"
+    },
+    {
+      "path": "elements/lib/codemirror/mirc-DkvFAiy5.js",
+      "checksum": "6641103f5330ac8a76d0672a244519c5"
+    },
+    {
+      "path": "elements/lib/codemirror/properties-_nPj978X.js",
+      "checksum": "5ab8614dab226ea7245a9e4ca998d208"
+    },
+    {
+      "path": "elements/lib/codemirror/verilog-B4LBqg_1.js",
+      "checksum": "7f661de1d70cfb0eec692f12fcd279d3"
+    },
+    {
+      "path": "elements/lib/codemirror/groovy-BfRUB6GO.js",
+      "checksum": "02144a8faa5d3d0cdfa02366e9162dae"
+    },
+    {
+      "path": "elements/lib/codemirror/editor-DzvLhhiW.js",
+      "checksum": "c27a9c529100e8904ae6b546a903f634"
+    },
+    {
+      "path": "elements/lib/codemirror/ebnf-B-Df8AvO.js",
+      "checksum": "1d29880f5f1aeb7a7066d49c5759d500"
+    },
+    {
+      "path": "elements/lib/codemirror/sql-BP5jFf-w.js",
+      "checksum": "d2c2618d423aae1b15005769b4149880"
+    },
+    {
+      "path": "elements/lib/codemirror/gas-5kEe4nk0.js",
+      "checksum": "80bbab73ed42e8e29d1925e678ec1b19"
+    },
+    {
+      "path": "elements/lib/codemirror/scheme-qjP0V5Ag.js",
+      "checksum": "28f7acddf2f94950a08626a15fbcf029"
+    },
+    {
+      "path": "elements/lib/codemirror/index-BJiyyGqZ.js",
+      "checksum": "fac1297b951a65433f2f083e9c676c2b"
+    },
+    {
+      "path": "elements/lib/codemirror/index-Ckjrdmtm.js",
+      "checksum": "c3e16d32674ba8893c468383c38d70b8"
+    },
+    {
+      "path": "elements/lib/codemirror/asciiarmor-D5V0T9Cu.js",
+      "checksum": "2c08edad0befdb4b8af2abdeb4b200ad"
+    },
+    {
+      "path": "elements/lib/codemirror/powershell-D1ly3AHC.js",
+      "checksum": "fc74c267071bde8e3f6f7bf3b25d31ae"
+    },
+    {
+      "path": "elements/lib/codemirror/fortran-DL7KluxX.js",
+      "checksum": "832b335d923b63d91c069be2e2993bda"
+    },
+    {
+      "path": "elements/lib/codemirror/mscgen-B2igx18G.js",
+      "checksum": "96511b4171d05ee50845c03ef35a4127"
+    },
+    {
+      "path": "elements/lib/codemirror/mathematica-IIbmv7SK.js",
+      "checksum": "3d12045e68dd31b009ebe8f2a10ed4a7"
+    },
+    {
+      "path": "elements/lib/codemirror/diff-UJJ5BM9S.js",
+      "checksum": "ac5995a110c2a03aef5d4dbb4f3989d3"
+    },
+    {
+      "path": "elements/lib/codemirror/index-CJhLK3a1.js",
+      "checksum": "2f1a6d595aecd16e93fec00c9ba6f3a7"
+    },
+    {
+      "path": "elements/lib/codemirror/http-BKJkqRj4.js",
+      "checksum": "96f89669667f6820f61c5ef82bbc1036"
+    },
+    {
+      "path": "elements/lib/codemirror/clike-BPCXT8V3.js",
+      "checksum": "119b44f9068436ad97f3592faad17ad6"
+    },
+    {
+      "path": "elements/lib/codemirror/julia-DjdwvFuI.js",
+      "checksum": "8930ff7c330ae6755a3a0d9b57c89751"
+    },
+    {
+      "path": "elements/lib/codemirror/crystal-CRzZ78HM.js",
+      "checksum": "89b1f888a8220c4e2ca09ffe316d9d74"
+    },
+    {
+      "path": "elements/lib/codemirror/textile-BuVhTOzU.js",
+      "checksum": "8fb777274414dfb2e81e073ca15367db"
+    },
+    {
+      "path": "elements/lib/codemirror/index-Ctywxs9F.js",
+      "checksum": "005874bff4d483715e7df7f9299a1de6"
+    },
+    {
+      "path": "elements/lib/codemirror/nginx-B4hAVlXN.js",
+      "checksum": "c1a7307b4c3e07c5a8e01c0d9d6894ab"
+    },
+    {
+      "path": "elements/lib/codemirror/d-BShv7fp-.js",
+      "checksum": "1d66336efbf6959c153d0fd83803f39a"
+    },
+    {
+      "path": "elements/lib/codemirror/index-B7tHWccP.js",
+      "checksum": "6fd2d792c8fc1c69d244c24611cac624"
+    },
+    {
+      "path": "elements/lib/codemirror/index-anbJ5y0U.js",
+      "checksum": "ede4a951b2723c5c1266d4acac17be4e"
+    },
+    {
+      "path": "elements/lib/codemirror/livescript-B19OIWEP.js",
+      "checksum": "7e60cc92b9c2f1f93f9b04652ab79c4f"
+    },
+    {
+      "path": "elements/lib/codemirror/mumps-zvxmGV4l.js",
+      "checksum": "4d315b4490fccd5ebddfd3f1cdbba562"
+    },
+    {
+      "path": "elements/lib/codemirror/coffeescript-BTDxI-eT.js",
+      "checksum": "59274fa5fcd294cec2d557d63a6cba50"
+    },
+    {
+      "path": "elements/lib/codemirror/css-ZjFoif2m.js",
+      "checksum": "cf21b6b31242d0e84a1bcd8914e2026e"
+    },
+    {
+      "path": "elements/lib/codemirror/shell-BLav31RL.js",
+      "checksum": "889588e95b05e007cdfcfac8cc27b237"
+    },
+    {
+      "path": "elements/lib/codemirror/pig-CwGJVRC4.js",
+      "checksum": "1f1dd3b1a7aaf33db3ca8c10ca732484"
+    },
+    {
+      "path": "elements/lib/codemirror/nsis-CKXvuz-E.js",
+      "checksum": "bdecc10877b81dff28b18e862592d290"
+    },
+    {
+      "path": "elements/lib/codemirror/velocity-BdD_26Jv.js",
+      "checksum": "3cf4578af06e62dd8be3b308a644987b"
+    }
+  ]
 }

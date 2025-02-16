@@ -10,5 +10,6 @@
       "name": "matplotlib"
     }
   ],
-  "category": "Charts and Visualization"
+  "category": "Charts and Visualization",
+  "py_checksum": "391fcbc8d9058de64dd3ab10b41899a8"
 }

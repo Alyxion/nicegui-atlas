@@ -3,7 +3,13 @@
   "category": "Charts and Visualization",
   "description": "Use for creating interactive data visualizations and charts using Chart.js library.",
   "source_path": "$NICEGUI_PATH/elements/chart.py",
-  "direct_ancestors": ["Element"],
-  "libraries": [{"name": "chart.js"}],
+  "direct_ancestors": [
+    "Element"
+  ],
+  "libraries": [
+    {
+      "name": "chart.js"
+    }
+  ],
   "js_file": "chart.js"
 }

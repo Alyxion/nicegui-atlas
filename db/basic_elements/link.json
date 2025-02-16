@@ -69,5 +69,7 @@
   },
   "quasar_components": [],
   "quasar_props": {},
-  "common_use_cases": []
+  "common_use_cases": [],
+  "py_checksum": "9e40224f8c22c5e4766f59420e8c7b97",
+  "js_checksum": "be06d44ae006bf4074161519b60a42fe"
 }

@@ -16,5 +16,7 @@
     "Custom JS"
   ],
   "js_file": "scene.js",
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "586d5778dc91917716a4d51a56837126",
+  "js_checksum": "f1c3a4a5d35f487e1aa3d0befa07a0fb"
 }

@@ -9,5 +9,7 @@
     "Custom JS"
   ],
   "js_file": "router_frame.js",
-  "category": "Navigation and Menus"
+  "category": "Navigation and Menus",
+  "py_checksum": "2c1c35b0a2c56cf948ed18dcdb47fe66",
+  "js_checksum": "747b6e0d0340ac45dc9c850b0def85f4"
 }

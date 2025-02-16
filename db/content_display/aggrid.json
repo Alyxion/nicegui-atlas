@@ -11,5 +11,17 @@
     }
   ],
   "js_file": "aggrid.js",
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "34101036be6866deb5540c9d232696ff",
+  "js_checksum": "2cdbad2423f3a8903b5ff08b1e6e508a",
+  "lib_checksums": [
+    {
+      "path": "elements/lib/aggrid/ag-grid-community.min.js",
+      "checksum": "52d5230b6895477cec76baf14fa1158a"
+    },
+    {
+      "path": "elements/lib/aggrid/ag-grid-community.js",
+      "checksum": "da56e448bb6f004956e6b6009ccdc35a"
+    }
+  ]
 }

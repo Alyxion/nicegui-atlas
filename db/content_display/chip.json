@@ -14,5 +14,6 @@
   "quasar_components": [
     "QChip"
   ],
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "ea5561ea888e3becc94ae017110a0f42"
 }

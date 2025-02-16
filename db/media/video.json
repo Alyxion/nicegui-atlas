@@ -9,5 +9,7 @@
     "Custom JS"
   ],
   "js_file": "video.js",
-  "category": "Media"
+  "category": "Media",
+  "py_checksum": "b64ec3847011f63fa5deabd5cf8d9389",
+  "js_checksum": "274d89c931483c3e6fcef9b07e82ab57"
 }

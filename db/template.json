@@ -188,5 +188,33 @@
         }
       }
     }
+  },
+  "py_checksum": {
+    "type": "string",
+    "required": false,
+    "description": "MD5 checksum of the Python source file"
+  },
+  "js_checksum": {
+    "type": "string",
+    "required": false,
+    "description": "MD5 checksum of the component's JavaScript file"
+  },
+  "lib_checksums": {
+    "type": "array",
+    "required": false,
+    "description": "MD5 checksums of library files",
+    "items": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to library file relative to nicegui package"
+        },
+        "checksum": {
+          "type": "string",
+          "description": "MD5 checksum of the library file"
+        }
+      }
+    }
   }
 }

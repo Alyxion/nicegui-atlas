@@ -10,5 +10,7 @@
     "Custom JS"
   ],
   "js_file": "timer.js",
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "1d1026cca5043744475dafc638f29f1c",
+  "js_checksum": "e7e903292711dd5aeb5a8c50deb849a6"
 }

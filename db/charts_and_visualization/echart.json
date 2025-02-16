@@ -14,5 +14,7 @@
     "Custom JS"
   ],
   "js_file": "echart.js",
-  "category": "Charts and Visualization"
+  "category": "Charts and Visualization",
+  "py_checksum": "5b4788ac1354b7fcbbc344616f08f662",
+  "js_checksum": "8e636524386dced4e5f5eda67ee6bd65"
 }

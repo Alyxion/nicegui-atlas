@@ -14,5 +14,6 @@
     "Vue Component"
   ],
   "js_file": "joystick.vue",
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "d5377dc54613b8ce87325e83e83c8e86"
 }

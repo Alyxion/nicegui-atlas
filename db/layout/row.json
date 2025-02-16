@@ -78,5 +78,6 @@
     "Responsive grids (with col-* classes)"
   ],
   "quasar_components": [],
-  "quasar_props": {}
+  "quasar_props": {},
+  "py_checksum": "d4be9b97dd4a15ea48bfadc5743820a3"
 }

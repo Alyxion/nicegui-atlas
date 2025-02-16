@@ -9,5 +9,7 @@
     "Custom JS"
   ],
   "js_file": "dark_mode.js",
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "95d6c521f28c8989d7025e014a01d4eb",
+  "js_checksum": "de0aac98e90d1ed27e24d54cb1aa4a1c"
 }

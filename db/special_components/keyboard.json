@@ -9,5 +9,7 @@
     "Custom JS"
   ],
   "js_file": "keyboard.js",
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "af15fca541171a20f5b10c8273bca568",
+  "js_checksum": "d9e880f7010152bac73445c538a0342d"
 }

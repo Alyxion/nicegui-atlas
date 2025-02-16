@@ -110,5 +110,6 @@
   "quasar_components": [],
   "python_props": {
     "__init__": {}
-  }
+  },
+  "py_checksum": "c8306a3518fad8b7c672da242c24c15e"
 }

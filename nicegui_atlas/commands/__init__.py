@@ -1,6 +1,6 @@
 """Command plugins for NiceGUI Atlas."""
 
 from .base import registry, CommandPlugin
-from . import info, index, verify, build, qinfo
+from . import info, index, verify, build, qinfo, backup
 
 __all__ = ['registry', 'CommandPlugin']

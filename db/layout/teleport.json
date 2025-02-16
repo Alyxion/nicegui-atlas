@@ -68,5 +68,7 @@
     "Layout reorganization"
   ],
   "quasar_components": [],
-  "quasar_props": {}
+  "quasar_props": {},
+  "py_checksum": "a71176e4e05572c9cacd23fb7b9f860c",
+  "js_checksum": "b8bbb7370f7a75c2bbf6efad7b38dba1"
 }

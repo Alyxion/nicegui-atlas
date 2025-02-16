@@ -11,5 +11,7 @@
     }
   ],
   "js_file": "markdown.js",
-  "category": "Content Display"
+  "category": "Content Display",
+  "py_checksum": "4d0636bda89ab333ab91a341db702312",
+  "js_checksum": "56bbae2d45bfdd24dfe2c2e1097ecd71"
 }

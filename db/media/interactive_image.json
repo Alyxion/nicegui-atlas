@@ -15,5 +15,7 @@
     "Custom JS"
   ],
   "js_file": "interactive_image.js",
-  "category": "Media"
+  "category": "Media",
+  "py_checksum": "a12cd15c9b7442602d33394630a4fef1",
+  "js_checksum": "165da521da5d4397a18dbe5f6bd80e71"
 }

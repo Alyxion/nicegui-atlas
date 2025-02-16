@@ -21,5 +21,6 @@
       "url": "https://quasar.dev/vue-components/stepper/"
     }
   ],
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "f823239e1561f62af95360397f697aea"
 }

@@ -10,5 +10,6 @@
   "quasar_components": [
     "QKnob"
   ],
-  "category": "Special Components"
+  "category": "Special Components",
+  "py_checksum": "f19e5e6f81d456e5de8e9666a36d8741"
 }
