@@ -64,6 +64,12 @@ class QuasarComponentInfo(BaseModel):
     url: Optional[str] = None
 
 
+class LibraryChecksum(BaseModel):
+    """Information about a library file's checksum."""
+    path: str
+    checksum: str
+
+
 class ComponentInfo(BaseModel):
     """Unified component information model."""
     name: str
@@ -83,6 +89,10 @@ class ComponentInfo(BaseModel):
     internal_components: List[str] = Field(default_factory=list)
     html_element: Optional[str] = None
     js_file: Optional[str] = None
+    # Checksum fields
+    py_checksum: Optional[str] = None
+    js_checksum: Optional[str] = None
+    lib_checksums: List[LibraryChecksum] = Field(default_factory=list)
 
 
 class CategoryInfo(BaseModel):

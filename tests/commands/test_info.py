@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import Mock, patch
 from nicegui_atlas.commands.info import InfoCommand
 from nicegui_atlas.models import (
-    NiceGuiComponentInfo,
+    ComponentInfo,
     QuasarComponentInfo,
     LibraryInfo,
 )
@@ -14,7 +14,7 @@ from nicegui_atlas.models import (
 @pytest.fixture
 def mock_component():
     """Create a mock component with test data."""
-    return NiceGuiComponentInfo(
+    return ComponentInfo(
         name="nicegui.ui.test_component",
         source_path="elements/test.py",
         description="Test component description",
