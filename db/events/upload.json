@@ -1,0 +1,37 @@
+{
+  "name": "UploadEventArguments",
+  "description": "Arguments for Upload events",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "name": "sender",
+      "type": "Element",
+      "description": "The sender value for the event",
+      "required": true
+    },
+    "client": {
+      "name": "client",
+      "type": "Client",
+      "description": "The client value for the event",
+      "required": true
+    },
+    "content": {
+      "name": "content",
+      "type": "BinaryIO",
+      "description": "The content value for the event",
+      "required": true
+    },
+    "name": {
+      "name": "name",
+      "type": "str",
+      "description": "The name value for the event",
+      "required": true
+    },
+    "type": {
+      "name": "type",
+      "type": "str",
+      "description": "The type value for the event",
+      "required": true
+    }
+  }
+}

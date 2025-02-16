@@ -1,0 +1,37 @@
+{
+  "name": "MultiUploadEventArguments",
+  "description": "Arguments for MultiUpload events",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "name": "sender",
+      "type": "Element",
+      "description": "The sender value for the event",
+      "required": true
+    },
+    "client": {
+      "name": "client",
+      "type": "Client",
+      "description": "The client value for the event",
+      "required": true
+    },
+    "contents": {
+      "name": "contents",
+      "type": "List[BinaryIO]",
+      "description": "The contents value for the event",
+      "required": true
+    },
+    "names": {
+      "name": "names",
+      "type": "List[str]",
+      "description": "The names value for the event",
+      "required": true
+    },
+    "types": {
+      "name": "types",
+      "type": "List[str]",
+      "description": "The types value for the event",
+      "required": true
+    }
+  }
+}

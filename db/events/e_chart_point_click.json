@@ -1,0 +1,73 @@
+{
+  "name": "EChartPointClickEventArguments",
+  "description": "Arguments for EChartPointClick events",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "name": "sender",
+      "type": "Element",
+      "description": "The sender value for the event",
+      "required": true
+    },
+    "client": {
+      "name": "client",
+      "type": "Client",
+      "description": "The client value for the event",
+      "required": true
+    },
+    "component_type": {
+      "name": "component_type",
+      "type": "str",
+      "description": "The component_type value for the event",
+      "required": true
+    },
+    "series_type": {
+      "name": "series_type",
+      "type": "str",
+      "description": "The series_type value for the event",
+      "required": true
+    },
+    "series_index": {
+      "name": "series_index",
+      "type": "int",
+      "description": "The series_index value for the event",
+      "required": true
+    },
+    "series_name": {
+      "name": "series_name",
+      "type": "str",
+      "description": "The series_name value for the event",
+      "required": true
+    },
+    "name": {
+      "name": "name",
+      "type": "str",
+      "description": "The name value for the event",
+      "required": true
+    },
+    "data_index": {
+      "name": "data_index",
+      "type": "int",
+      "description": "The data_index value for the event",
+      "required": true
+    },
+    "data": {
+      "name": "data",
+      "type": "Union[float, int, str]",
+      "description": "The data value for the event",
+      "required": true
+    },
+    "data_type": {
+      "name": "data_type",
+      "type": "str",
+      "description": "The data_type value for the event",
+      "required": true
+    },
+    "value": {
+      "name": "value",
+      "type": "Union[float, int, list]",
+      "description": "The value value for the event",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "UiEventArguments",
+  "description": "Arguments for Ui events",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "name": "sender",
+      "type": "Element",
+      "description": "The sender value for the event",
+      "required": true
+    },
+    "client": {
+      "name": "client",
+      "type": "Client",
+      "description": "The client value for the event",
+      "required": true
+    }
+  }
+}
