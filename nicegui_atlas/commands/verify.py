@@ -12,6 +12,7 @@ from nicegui import ui
 
 from .base import CommandPlugin, registry as command_registry
 from ..registry import ComponentRegistry
+from ..models import ComponentInfo
 
 
 # Force colors even when output is redirected
@@ -246,12 +247,18 @@ class VerifyCommand(CommandPlugin):
             "Verify a specific component:",
             "  python -m nicegui_atlas verify upload",
             "",
+            "Verify multiple components:",
+            "  python -m nicegui_atlas verify button input checkbox",
+            "",
+            "Verify components using wildcards:",
+            "  python -m nicegui_atlas verify button*",
+            "",
             "Show JSON code to fix missing events:",
             "  python -m nicegui_atlas verify upload --fix"
         ]
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
-        parser.add_argument('component', help='Component to verify')
+        parser.add_argument('components', nargs='+', help='Components to verify (supports wildcards, e.g., button*)')
         parser.add_argument('--fix', action='store_true', help='Show JSON code to fix missing events')
     
     def execute(self, args: argparse.Namespace) -> None:
@@ -259,131 +266,189 @@ class VerifyCommand(CommandPlugin):
         registry = ComponentRegistry()
         registry.initialize()
         
-        # Convert component name to full name if needed (e.g., 'button' to 'nicegui.ui.button')
-        full_name = args.component
-        if not full_name.startswith('nicegui.'):
-            if full_name.startswith('ui.'):
-                full_name = f'nicegui.{full_name}'
+        # Track if any components had errors
+        had_errors = False
+        
+        # Process each component pattern
+        for pattern in args.components:
+            # Convert pattern to full name if needed
+            if not pattern.startswith('nicegui.'):
+                if pattern.startswith('ui.'):
+                    pattern = f'nicegui.{pattern}'
+                else:
+                    pattern = f'nicegui.ui.{pattern}'
+            
+            # Get all components from JSON files
+            from ..component_finder import ComponentFinder
+            finder = ComponentFinder()
+            
+            # If using wildcard, get all components
+            if '*' in pattern:
+                component_paths = finder.find_all()
+                matching_components = []
+                for path in component_paths:
+                    with open(path) as f:
+                        data = json.load(f)
+                        if 'name' in data:
+                            matching_components.append(data['name'])
             else:
-                full_name = f'nicegui.ui.{full_name}'
+                # For specific components, use the registry
+                matching_components = []
+                for component_name in registry.nicegui_component_index.components.keys():
+                    if self._matches_pattern(component_name, pattern):
+                        matching_components.append(component_name)
             
-        # Get component info and class
-        component_info = registry.get_nicegui_component(full_name)
-        if not component_info:
-            print(f"{Colors.RED}Error: Component '{args.component}' not found{Colors.ENDC}")
-            sys.exit(1)
+            if not matching_components:
+                print(f"{Colors.RED}Error: No components found matching '{pattern}'{Colors.ENDC}")
+                had_errors = True
+                continue
             
-        # Get component class from ui module (strip nicegui.ui. prefix)
-        component_name = component_info.name.replace('nicegui.ui.', '')
+            # Sort components for consistent output
+            matching_components.sort()
+            
+            # Process each matching component
+            for full_name in matching_components:
+                print(f"\n{Colors.BOLD}Verifying component: {full_name}{Colors.ENDC}")
+                
+                # Get component info
+                component_info = registry.get_nicegui_component(full_name)
+                if not component_info:
+                    print(f"{Colors.RED}Error: Component info not found{Colors.ENDC}")
+                    had_errors = True
+                    continue
+                
+                try:
+                    self._verify_component(component_info, args.fix)
+                except Exception as e:
+                    print(f"{Colors.RED}Error: {str(e)}{Colors.ENDC}")
+                    had_errors = True
         
-        # Verify component exists in nicegui.ui
+        if had_errors:
+            sys.exit(1)
+    
+    def _matches_pattern(self, name: str, pattern: str) -> bool:
+        """Check if a component name matches a pattern with wildcards."""
+        import fnmatch
+        return fnmatch.fnmatch(name, pattern)
+    
+    def _verify_component(self, component_info: ComponentInfo, show_fix: bool) -> bool:
+        """Verify a single component. Returns True if verification succeeded."""
         try:
-            component_class = getattr(ui, component_name)
-        except AttributeError:
-            print(f"{Colors.RED}Error: Component '{component_name}' does not exist in nicegui.ui module{Colors.ENDC}")
-            sys.exit(1)
+            # Get component class from ui module (strip nicegui.ui. prefix)
+            component_name = component_info.name.replace('nicegui.ui.', '')
             
-        # Verify component class name matches JSON name
-        expected_name = f"nicegui.ui.{component_name}"
-        if component_info.name != expected_name:
-            print(f"{Colors.RED}Error: Component name mismatch{Colors.ENDC}")
-            print(f"  JSON name: {Colors.YELLOW}{component_info.name}{Colors.ENDC}")
-            print(f"  Actual name: {Colors.YELLOW}{expected_name}{Colors.ENDC}")
-            sys.exit(1)
-        
-        # Create verifier with component info
-        from ..component_finder import ComponentFinder
-        finder = ComponentFinder()
-        component_paths = finder.find_by_name(component_name)
-        
-        if not component_paths:
-            print(f"{Colors.RED}Error: Component JSON file not found{Colors.ENDC}")
-            sys.exit(1)
+            # Verify component exists in nicegui.ui
+            try:
+                component_class = getattr(ui, component_name)
+            except AttributeError:
+                print(f"{Colors.RED}Error: Component '{component_name}' does not exist in nicegui.ui module{Colors.ENDC}")
+                return False
+                
+            # Verify component class name matches JSON name
+            expected_name = f"nicegui.ui.{component_name}"
+            if component_info.name != expected_name:
+                print(f"{Colors.RED}Error: Component name mismatch{Colors.ENDC}")
+                print(f"  JSON name: {Colors.YELLOW}{component_info.name}{Colors.ENDC}")
+                print(f"  Actual name: {Colors.YELLOW}{expected_name}{Colors.ENDC}")
+                return False
             
-        verifier = ComponentVerifier(
-            component_paths[0],  # Use the first matching JSON file
-            component_class
-        )
-        
-        # Get component info
-        info = verifier.get_component_info()
-        
-        # Print component overview
-        print(f"\n{Colors.BOLD}{Colors.HEADER}Component: {info['name']}{Colors.ENDC}")
-        if info['doc']:
-            print(f"{Colors.CYAN}{info['doc']}{Colors.ENDC}\n")
-        
-        # Print initializer parameters
-        print(f"{Colors.BOLD}Initializer Parameters:{Colors.ENDC}")
-        if info['init_params']:
-            for param in info['init_params']:
-                default = f" = {param['default']}" if param['default'] is not None else ""
-                print(f"  {Colors.GREEN}{param['name']}{Colors.ENDC}: {Colors.BLUE}{format_type(param['type'])}{Colors.ENDC}{Colors.YELLOW}{default}{Colors.ENDC}")
-                if param['doc']:
-                    print(f"    {Colors.CYAN}{param['doc']}{Colors.ENDC}")
-        else:
-            print(f"  {Colors.CYAN}None{Colors.ENDC}")
-        
-        # Print events
-        print(f"\n{Colors.BOLD}Events:{Colors.ENDC}")
-        
-        # Initializer Events
-        print(f"\n{Colors.BOLD}  Initializer Events:{Colors.ENDC}")
-        if info['events']['init']:
-            for event in info['events']['init']:
-                print(f"    {Colors.YELLOW}{event['name']}{Colors.ENDC}: {Colors.BLUE}{format_type(event['type'])}{Colors.ENDC}")
-                if event['doc']:
-                    print(f"      {Colors.CYAN}{event['doc']}{Colors.ENDC}")
-        else:
-            print(f"    {Colors.CYAN}None{Colors.ENDC}")
-        
-        # Method Events
-        print(f"\n{Colors.BOLD}  Method Events:{Colors.ENDC}")
-        if info['events']['methods']:
-            for event in info['events']['methods']:
-                print(f"    {Colors.YELLOW}{event['name']}{Colors.ENDC}")
-                if event['doc']:
-                    print(f"      {Colors.CYAN}{event['doc']}{Colors.ENDC}")
-        else:
-            print(f"    {Colors.CYAN}None{Colors.ENDC}")
-        
-        # Check for documentation issues
-        missing = verifier.find_undocumented_events()
-        orphaned = verifier.find_orphaned_events()
-        
-        if missing['init_params'] or missing['methods']:
-            print(f"\n{Colors.BOLD}{Colors.RED}Undocumented Events:{Colors.ENDC}")
+            # Create verifier with component info
+            from ..component_finder import ComponentFinder
+            finder = ComponentFinder()
+            component_paths = finder.find_by_name(component_name)
             
-            if missing['init_params']:
-                print(f"\n{Colors.RED}Missing __init__ parameters:{Colors.ENDC}")
-                for param, _ in missing['init_params']:
-                    print(f"  - {Colors.YELLOW}{param}{Colors.ENDC}")
+            if not component_paths:
+                print(f"{Colors.RED}Error: Component JSON file not found{Colors.ENDC}")
+                return False
+                
+            verifier = ComponentVerifier(
+                component_paths[0],  # Use the first matching JSON file
+                component_class
+            )
+            info = verifier.get_component_info()
             
-            if missing['methods']:
-                print(f"\n{Colors.RED}Missing method events:{Colors.ENDC}")
-                for method, _ in missing['methods']:
-                    print(f"  - {Colors.YELLOW}{method}{Colors.ENDC}")
+            # Print component overview
+            print(f"\n{Colors.BOLD}{Colors.HEADER}Component: {info['name']}{Colors.ENDC}")
+            if info['doc']:
+                print(f"{Colors.CYAN}{info['doc']}{Colors.ENDC}\n")
             
-            if args.fix:
-                print(f"\n{Colors.BOLD}JSON code to fix missing events:{Colors.ENDC}")
-                print(verifier.generate_fix_json(missing))
-        
-        if orphaned['init_params'] or orphaned['methods']:
-            print(f"\n{Colors.BOLD}{Colors.RED}Orphaned Events (in JSON but not in Python):{Colors.ENDC}")
+            # Print initializer parameters
+            print(f"{Colors.BOLD}Initializer Parameters:{Colors.ENDC}")
+            if info['init_params']:
+                for param in info['init_params']:
+                    default = f" = {param['default']}" if param['default'] is not None else ""
+                    print(f"  {Colors.GREEN}{param['name']}{Colors.ENDC}: {Colors.BLUE}{format_type(param['type'])}{Colors.ENDC}{Colors.YELLOW}{default}{Colors.ENDC}")
+                    if param['doc']:
+                        print(f"    {Colors.CYAN}{param['doc']}{Colors.ENDC}")
+            else:
+                print(f"  {Colors.CYAN}None{Colors.ENDC}")
             
-            if orphaned['init_params']:
-                print(f"\n{Colors.RED}Orphaned __init__ parameters:{Colors.ENDC}")
-                for param in orphaned['init_params']:
-                    print(f"  - {Colors.YELLOW}{param}{Colors.ENDC}")
+            # Print events
+            print(f"\n{Colors.BOLD}Events:{Colors.ENDC}")
             
-            if orphaned['methods']:
-                print(f"\n{Colors.RED}Orphaned method events:{Colors.ENDC}")
-                for method in orphaned['methods']:
-                    print(f"  - {Colors.YELLOW}{method}{Colors.ENDC}")
-        
-        if not (missing['init_params'] or missing['methods'] or 
-                orphaned['init_params'] or orphaned['methods']):
-            print(f"\n{Colors.GREEN}All events are properly documented.{Colors.ENDC}")
+            # Initializer Events
+            print(f"\n{Colors.BOLD}  Initializer Events:{Colors.ENDC}")
+            if info['events']['init']:
+                for event in info['events']['init']:
+                    print(f"    {Colors.YELLOW}{event['name']}{Colors.ENDC}: {Colors.BLUE}{format_type(event['type'])}{Colors.ENDC}")
+                    if event['doc']:
+                        print(f"      {Colors.CYAN}{event['doc']}{Colors.ENDC}")
+            else:
+                print(f"    {Colors.CYAN}None{Colors.ENDC}")
+            
+            # Method Events
+            print(f"\n{Colors.BOLD}  Method Events:{Colors.ENDC}")
+            if info['events']['methods']:
+                for event in info['events']['methods']:
+                    print(f"    {Colors.YELLOW}{event['name']}{Colors.ENDC}")
+                    if event['doc']:
+                        print(f"      {Colors.CYAN}{event['doc']}{Colors.ENDC}")
+            else:
+                print(f"    {Colors.CYAN}None{Colors.ENDC}")
+            
+            # Check for documentation issues
+            missing = verifier.find_undocumented_events()
+            orphaned = verifier.find_orphaned_events()
+            
+            if missing['init_params'] or missing['methods']:
+                print(f"\n{Colors.BOLD}{Colors.RED}Undocumented Events:{Colors.ENDC}")
+                
+                if missing['init_params']:
+                    print(f"\n{Colors.RED}Missing __init__ parameters:{Colors.ENDC}")
+                    for param, _ in missing['init_params']:
+                        print(f"  - {Colors.YELLOW}{param}{Colors.ENDC}")
+                
+                if missing['methods']:
+                    print(f"\n{Colors.RED}Missing method events:{Colors.ENDC}")
+                    for method, _ in missing['methods']:
+                        print(f"  - {Colors.YELLOW}{method}{Colors.ENDC}")
+                
+                if show_fix:
+                    print(f"\n{Colors.BOLD}JSON code to fix missing events:{Colors.ENDC}")
+                    print(verifier.generate_fix_json(missing))
+            
+            if orphaned['init_params'] or orphaned['methods']:
+                print(f"\n{Colors.BOLD}{Colors.RED}Orphaned Events (in JSON but not in Python):{Colors.ENDC}")
+                
+                if orphaned['init_params']:
+                    print(f"\n{Colors.RED}Orphaned __init__ parameters:{Colors.ENDC}")
+                    for param in orphaned['init_params']:
+                        print(f"  - {Colors.YELLOW}{param}{Colors.ENDC}")
+                
+                if orphaned['methods']:
+                    print(f"\n{Colors.RED}Orphaned method events:{Colors.ENDC}")
+                    for method in orphaned['methods']:
+                        print(f"  - {Colors.YELLOW}{method}{Colors.ENDC}")
+            
+            if not (missing['init_params'] or missing['methods'] or 
+                    orphaned['init_params'] or orphaned['methods']):
+                print(f"\n{Colors.GREEN}All events are properly documented.{Colors.ENDC}")
+            
+            return True
+            
+        except Exception as e:
+            print(f"{Colors.RED}Error verifying component: {str(e)}{Colors.ENDC}")
+            return False
 
 
 # Register the plugin
