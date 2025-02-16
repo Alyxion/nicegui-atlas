@@ -15,28 +15,29 @@ from nicegui_atlas.models import (
 def mock_component():
     """Create a mock component with test data."""
     return ComponentInfo(
-        name="nicegui.ui.test_component",
-        source_path="elements/test.py",
-        description="Test component description",
-        direct_ancestors=["BaseElement"],
-        quasar_components=[
-            QuasarComponentInfo(
-                name="QTest",
-                url="https://quasar.dev/components/test"
-            )
-        ],
-        libraries=[
-            LibraryInfo(
-                name="test-lib"
-            )
-        ],
-        internal_components=["InternalTest"],
-        html_element="div",
-        js_file=None,
-        properties={},
-        events={},
-        functions={}
-    )
+            name="nicegui.ui.test_component",
+            type="nicegui",  # Required field
+            source_path="elements/test.py",
+            description="Test component description",
+            direct_ancestors=["BaseElement"],
+            quasar_components=[
+                QuasarComponentInfo(
+                    name="QTest",
+                    url="https://quasar.dev/components/test"
+                )
+            ],
+            libraries=[
+                LibraryInfo(
+                    name="test-lib"
+                )
+            ],
+            internal_components=["InternalTest"],
+            html_element="div",
+            js_file=None,
+            properties={},
+            events={},
+            functions={}
+        )
 
 
 @pytest.fixture
@@ -48,7 +49,7 @@ def info_command():
 def test_info_command_properties(info_command):
     """Test info command basic properties."""
     assert info_command.name == "info"
-    assert info_command.help == "Show information about specific components"
+    assert info_command.help == "Show information about NiceGUI or Quasar components"
     assert len(info_command.examples) > 0
 
 
@@ -58,10 +59,18 @@ def test_info_command_parser_setup():
     parser = argparse.ArgumentParser()
     cmd.setup_parser(parser)
     
-    args = parser.parse_args(['ui.test', '--filter', 'test', '--output', 'test.md'])
+    args = parser.parse_args([
+        'ui.test',
+        '--filter', 'test',
+        '--output', 'test.md',
+        '--sections', 'properties,events',
+        '--quasar'
+    ])
     assert args.components == 'ui.test'
     assert args.filter == 'test'
     assert args.output == 'test.md'
+    assert args.sections == 'properties,events'
+    assert args.quasar is True
 
 
 @patch('nicegui_atlas.commands.info.registry')
@@ -74,7 +83,9 @@ def test_info_command_single_component(mock_registry, info_command, mock_compone
     args = argparse.Namespace(
         components="ui.test_component",
         filter=None,
-        output=None
+        output=None,
+        quasar=False,
+        sections=None
     )
     
     # Execute command
@@ -98,7 +109,9 @@ def test_info_command_with_filter(mock_registry, info_command, mock_component, c
     args = argparse.Namespace(
         components="ui.test_component",
         filter="test,base",
-        output=None
+        output=None,
+        quasar=False,
+        sections=None
     )
     
     # Execute command
@@ -122,7 +135,9 @@ def test_info_command_with_output_file(mock_registry, info_command, mock_compone
     args = argparse.Namespace(
         components="ui.test_component",
         filter=None,
-        output=str(output_file)
+        output=str(output_file),
+        quasar=False,
+        sections=None
     )
     
     # Execute command
@@ -147,7 +162,9 @@ def test_info_command_no_components_found(mock_registry, info_command, capsys):
     args = argparse.Namespace(
         components="ui.nonexistent",
         filter=None,
-        output=None
+        output=None,
+        quasar=False,
+        sections=None
     )
     
     # Execute command
@@ -168,7 +185,9 @@ def test_info_command_multiple_components(mock_registry, info_command, mock_comp
     args = argparse.Namespace(
         components="ui.test_component;ui.other_component",
         filter=None,
-        output=None
+        output=None,
+        quasar=False,
+        sections=None
     )
     
     # Execute command

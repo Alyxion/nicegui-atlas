@@ -20,10 +20,10 @@ def mock_category():
 def mock_component():
     """Create a mock component with test data."""
     component = Mock(
-        source_path="elements/test.py",
+        source_path="test.py",
         description="Test component description",
         direct_ancestors=["BaseElement"],
-        quasar_components=[{"name": "QTest", "url": "https://quasar.dev/components/test"}],
+        quasar_components=["QTest"],  # Changed to match implementation
         libraries=[{"name": "test-lib"}],
         internal_components=["InternalTest"],
         html_element="div",
@@ -143,7 +143,7 @@ def test_index_command_multiple_components(mock_atlas, index_command, mock_categ
     """Test index command with multiple components in category."""
     # Create second component with a different name for sorting
     second_component = Mock(
-        source_path="elements/other.py",
+        source_path="other.py",
         description="Other component description",
         direct_ancestors=["BaseElement"],
         quasar_components=[],

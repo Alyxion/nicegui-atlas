@@ -38,12 +38,12 @@ class VerifyCommand(CommandPlugin):
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
         group = parser.add_mutually_exclusive_group()
-        group.add_argument('component', nargs='?', help='Component name (e.g., "ui.button")')
-        group.add_argument('--filter', help='Filter pattern (e.g., "basic/*", "input/*")')
-        group.add_argument('--all', action='store_true', help='Verify all components')
+        group.add_argument('component', nargs='?', default=None, help='Component name (e.g., "ui.button")')
+        group.add_argument('--filter', default=None, help='Filter pattern (e.g., "basic/*", "input/*")')
+        group.add_argument('--all', action='store_true', default=False, help='Verify all components')
         parser.add_argument('--quasar-version', default='2.16.9', help='Quasar version to verify against')
         parser.add_argument('--vue-version', default='3.4.38', help='Vue version to verify against')
-        parser.add_argument('-o', '--output', help='Output file for detailed report')
+        parser.add_argument('-o', '--output', default=None, help='Output file for detailed report')
     
     def execute(self, args: argparse.Namespace) -> None:
         finder = ComponentFinder()

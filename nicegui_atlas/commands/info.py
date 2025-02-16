@@ -41,10 +41,10 @@ class InfoCommand(CommandPlugin):
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
         parser.add_argument('components', help='Component names (semicolon-separated, e.g., "ui.button;ui.checkbox")')
-        parser.add_argument('-q', '--quasar', action='store_true', help='Show Quasar component info')
-        parser.add_argument('-s', '--sections', help='Sections to show (comma-separated: properties,events,functions)')
-        parser.add_argument('-f', '--filter', help='Filter components by terms (comma-separated)')
-        parser.add_argument('-o', '--output', help='Output file path')
+        parser.add_argument('-q', '--quasar', action='store_true', default=False, help='Show Quasar component info')
+        parser.add_argument('-s', '--sections', default=None, help='Sections to show (comma-separated: properties,events,functions)')
+        parser.add_argument('-f', '--filter', default=None, help='Filter components by terms (comma-separated)')
+        parser.add_argument('-o', '--output', default=None, help='Output file path')
     
     def get_component(self, name: str, is_quasar: bool = False) -> Optional[ComponentInfo]:
         """Get a component by name."""
@@ -60,32 +60,25 @@ class InfoCommand(CommandPlugin):
         components = [c.strip() for c in args.components.split(';')]
         
         # Parse sections if provided
-        sections = None
-        if args.sections:
-            sections = [s.strip() for s in args.sections.split(',')]
+        sections = [s.strip() for s in args.sections.split(',')] if args.sections else None
         
-        # Apply filter if provided
-        if args.filter:
-            filter_terms = [term.lower() for term in args.filter.split(',')]
-            filtered_components = []
-            for comp_name in components:
-                component = self.get_component(comp_name, args.quasar)
-                if component:
-                    # Check if any filter term is in component text
+        # Get components
+        components_to_show = []
+        for comp_name in components:
+            component = self.get_component(comp_name, args.quasar)
+            if component:
+                # Apply filter if provided
+                if args.filter:
+                    filter_terms = [term.lower() for term in args.filter.split(',')]
                     component_text = (
-                        f"{component.name} {component.description} "
+                        f"{component.name} {component.description or ''} "
                         f"{' '.join(component.direct_ancestors or [])} "
                         f"{' '.join(str(c) for c in (component.quasar_components or []))}"
                     ).lower()
                     if any(term in component_text for term in filter_terms):
-                        filtered_components.append(component)
-            components_to_show = filtered_components
-        else:
-            components_to_show = [
-                self.get_component(name, args.quasar)
-                for name in components
-            ]
-            components_to_show = [c for c in components_to_show if c]  # Remove None values
+                        components_to_show.append(component)
+                else:
+                    components_to_show.append(component)
         
         if not components_to_show:
             print("No components found matching the criteria.")

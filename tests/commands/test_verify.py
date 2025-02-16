@@ -38,13 +38,12 @@ def test_verify_command_parser_setup():
 
 
 @patch('nicegui_atlas.commands.verify.verify_components')
-@patch('os.path.exists')
-@patch('os.path.join')
-def test_verify_command_single_component(mock_join, mock_exists, mock_verify, verify_command, capsys):
+@patch('nicegui_atlas.commands.verify.ComponentFinder')
+def test_verify_command_single_component(mock_finder_class, mock_verify, verify_command, capsys):
     """Test verify command with a single component."""
     # Set up mocks
-    mock_exists.return_value = True
-    mock_join.side_effect = lambda *args: '/'.join(args)
+    mock_finder = mock_finder_class.return_value
+    mock_finder.find_by_name.return_value = ['db/basic_elements/button.json']
     mock_verify.return_value = {
         'button.json': []  # No issues
     }
@@ -54,9 +53,7 @@ def test_verify_command_single_component(mock_join, mock_exists, mock_verify, ve
         component="ui.button",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=None,
-        filter=None,
-        all=False
+        output=None
     )
     
     # Execute command
@@ -73,13 +70,12 @@ def test_verify_command_single_component(mock_join, mock_exists, mock_verify, ve
 
 
 @patch('nicegui_atlas.commands.verify.verify_components')
-@patch('os.path.exists')
-@patch('os.path.join')
-def test_verify_command_with_issues(mock_join, mock_exists, mock_verify, verify_command, capsys):
+@patch('nicegui_atlas.commands.verify.ComponentFinder')
+def test_verify_command_with_issues(mock_finder_class, mock_verify, verify_command, capsys):
     """Test verify command when issues are found."""
     # Set up mocks
-    mock_exists.return_value = True
-    mock_join.side_effect = lambda *args: '/'.join(args)
+    mock_finder = mock_finder_class.return_value
+    mock_finder.find_by_name.return_value = ['db/basic_elements/button.json']
     mock_verify.return_value = {
         'button.json': ['Missing property "color"', 'Invalid type for "size"']
     }
@@ -89,9 +85,7 @@ def test_verify_command_with_issues(mock_join, mock_exists, mock_verify, verify_
         component="ui.button",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=None,
-        filter=None,
-        all=False
+        output=None
     )
     
     # Execute command
@@ -103,10 +97,9 @@ def test_verify_command_with_issues(mock_join, mock_exists, mock_verify, verify_
 
 
 @patch('nicegui_atlas.commands.verify.verify_components')
-@patch('os.path.exists')
-@patch('os.path.join')
+@patch('nicegui_atlas.commands.verify.ComponentFinder')
 @patch('builtins.open', new_callable=unittest.mock.mock_open)
-def test_verify_command_with_output_file(mock_open, mock_join, mock_exists, mock_verify, verify_command, tmp_path):
+def test_verify_command_with_output_file(mock_open, mock_finder_class, mock_verify, verify_command, tmp_path):
     """Test verify command writing to output file."""
     # Set up mock for both file operations
     mapping_content = '{"ui.button": "db/basic_elements/button.json"}'
@@ -120,8 +113,8 @@ def test_verify_command_with_output_file(mock_open, mock_join, mock_exists, mock
     
     mock_open.side_effect = side_effect
     # Set up mocks
-    mock_exists.return_value = True
-    mock_join.side_effect = lambda *args: '/'.join(args)
+    mock_finder = mock_finder_class.return_value
+    mock_finder.find_by_name.return_value = ['db/basic_elements/button.json']
     mock_verify.return_value = {
         'button.json': ['Missing property "color"']
     }
@@ -131,9 +124,7 @@ def test_verify_command_with_output_file(mock_open, mock_join, mock_exists, mock
         component="ui.button",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=str(tmp_path / "report.md"),
-        filter=None,
-        all=False
+        output=str(tmp_path / "report.md")
     )
     
     # Execute command
@@ -151,27 +142,27 @@ def test_verify_command_with_output_file(mock_open, mock_join, mock_exists, mock
 
 
 @patch('nicegui_atlas.commands.verify.verify_components')
-@patch('os.path.exists')
-@patch('os.path.join')
-@patch('os.listdir')
-def test_verify_command_all_components(mock_listdir, mock_join, mock_exists, mock_verify, verify_command, capsys):
+@patch('nicegui_atlas.commands.verify.ComponentFinder')
+def test_verify_command_all_components(mock_finder_class, mock_verify, verify_command, capsys):
     """Test verify command with no specific components (verify all)."""
     # Set up mocks
-    mock_exists.return_value = True
-    mock_join.side_effect = lambda *args: '/'.join(args)
-    mock_listdir.return_value = ['button.json', 'checkbox.json', 'categories.json']
+    mock_finder = mock_finder_class.return_value
+    mock_finder.find_all.return_value = [
+        'db/basic_elements/button.json',
+        'db/basic_elements/checkbox.json'
+    ]
     mock_verify.return_value = {
         'button.json': [],
         'checkbox.json': []
     }
     
-    # Create args
+    # Create args with all required attributes
     args = argparse.Namespace(
         component=None,
+        filter=None,  # Add filter attribute with default value
         quasar_version="2.16.9",
         vue_version="3.4.38",
         output=None,
-        filter=None,
         all=True
     )
     
@@ -189,22 +180,19 @@ def test_verify_command_all_components(mock_listdir, mock_join, mock_exists, moc
 
 
 @patch('nicegui_atlas.commands.verify.verify_components')
-@patch('os.path.exists')
-@patch('os.path.join')
-def test_verify_command_component_not_found(mock_join, mock_exists, mock_verify, verify_command, capsys):
+@patch('nicegui_atlas.commands.verify.ComponentFinder')
+def test_verify_command_component_not_found(mock_finder_class, mock_verify, verify_command, capsys):
     """Test verify command when component is not found."""
     # Set up mocks
-    mock_exists.return_value = False
-    mock_join.side_effect = lambda *args: '/'.join(args)
+    mock_finder = mock_finder_class.return_value
+    mock_finder.find_by_name.return_value = []
     
     # Create args
     args = argparse.Namespace(
         component="ui.nonexistent",
         quasar_version="2.16.9",
         vue_version="3.4.38",
-        output=None,
-        filter=None,
-        all=False
+        output=None
     )
     
     # Execute command

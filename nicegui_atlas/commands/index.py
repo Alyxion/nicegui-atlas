@@ -28,8 +28,8 @@ class IndexCommand(CommandPlugin):
         ]
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
-        parser.add_argument('-o', '--output', help='Output file path')
-        parser.add_argument('-q', '--quiet', action='store_true', help='Suppress console output')
+        parser.add_argument('-o', '--output', default=None, help='Output file path')
+        parser.add_argument('-q', '--quiet', action='store_true', default=False, help='Suppress console output')
     
     def format_component(self, component):
         """Format a component for display."""

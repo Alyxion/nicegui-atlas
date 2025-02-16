@@ -1,10 +1,11 @@
 """Unit tests for the backup command."""
 
+import argparse
 import json
 import os
 import shutil
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, mock_open
 
 import pytest
 
@@ -88,15 +89,38 @@ def test_get_referenced_files(mock_env):
 
 def test_backup_component(mock_env):
     """Test backing up a single component."""
+    # Create source files in nicegui/elements
+    elements_path = mock_env["nicegui_path"] / "nicegui" / "elements"
+    elements_path.mkdir(parents=True, exist_ok=True)
+    
+    # Create Python file
+    (elements_path / "button.py").write_text("class Button: pass")
+    # Create JS file
+    (elements_path / "button.js").write_text("// Button JS")
+    # Create lib file
+    lib_path = elements_path / "lib" / "button"
+    lib_path.mkdir(parents=True, exist_ok=True)
+    (lib_path / "button.js").write_text("// Button lib")
+    
+    # Create db directory with component JSON
+    db_path = mock_env["root"] / "db" / "basic_elements"
+    db_path.mkdir(parents=True, exist_ok=True)
+    component_data = {
+        "name": "nicegui.ui.button",
+        "source_path": "elements/button.py",
+        "description": "Button component"
+    }
+    json_path = db_path / "button.json"
+    with open(json_path, 'w') as f:
+        json.dump(component_data, f)
+    
+    # Initialize backup
     backup = Backup(
         nicegui_path=str(mock_env["nicegui_path"]),
         output_dir=str(mock_env["backup_path"])
     )
     
-    json_path = mock_env["db_path"] / "button.json"
-    with open(json_path) as f:
-        component_data = json.load(f)
-    
+    # Execute backup
     with patch("pathlib.Path.cwd", return_value=mock_env["root"]):
         files = backup.get_referenced_files()
         updated_data = backup.backup_component(json_path, component_data, files)
@@ -139,30 +163,70 @@ def test_backup_command():
     cmd = BackupCommand()
     
     assert cmd.name == "backup"
-    assert cmd.help
-    assert cmd.examples
+    assert cmd.help == "Create backups of NiceGUI component files"
+    assert len(cmd.examples) > 0
     
     # Test parser setup
-    parser = MagicMock()
+    parser = argparse.ArgumentParser()
     cmd.setup_parser(parser)
-    parser.add_argument.assert_called()
+    
+    args = parser.parse_args(['--output-dir', 'custom_backups', '--clean'])
+    assert args.output_dir == 'custom_backups'
+    assert args.clean is True
+    
+    args = parser.parse_args([])  # Test defaults
+    assert args.output_dir == 'backups'
+    assert args.clean is False
 
 
-def test_backup_command_execute(mock_env):
-    """Test backup command execution."""
+def test_backup_command_execute_with_env_file(mock_env, tmp_path):
+    """Test backup command execution with .env file."""
     cmd = BackupCommand()
     args = MagicMock()
     args.output_dir = str(mock_env["backup_path"])
     args.clean = True
     
-    # Mock environment variables
-    env_vars = {
-        "NICEGUI_PATH": str(mock_env["nicegui_path"])
-    }
+    # Create mock .env file
+    env_file = tmp_path / ".env"
+    env_file.write_text(f"NICEGUI_PATH={mock_env['nicegui_path']}")
     
-    with patch.dict(os.environ, env_vars):
-        with patch("pathlib.Path.cwd", return_value=mock_env["root"]):
-            cmd.execute(args)
+    with patch("pathlib.Path.cwd", return_value=tmp_path):
+        cmd.execute(args)
     
     # Check backup was created
     assert (mock_env["backup_path"] / "elements/button.py").exists()
+
+
+def test_backup_command_execute_without_env_file(mock_env, capsys):
+    """Test backup command execution without .env file."""
+    cmd = BackupCommand()
+    args = MagicMock()
+    args.output_dir = str(mock_env["backup_path"])
+    args.clean = True
+
+    with patch("pathlib.Path.cwd", return_value=mock_env["root"]):
+        with patch("builtins.open", side_effect=FileNotFoundError):
+            cmd.execute(args)
+
+    # Check error message
+    captured = capsys.readouterr()
+    assert "Error loading .env file" in captured.out
+
+
+def test_backup_command_execute_with_invalid_env(mock_env, tmp_path, capsys):
+    """Test backup command execution with invalid .env file."""
+    cmd = BackupCommand()
+    args = MagicMock()
+    args.output_dir = str(mock_env["backup_path"])
+    args.clean = True
+
+    # Mock open to return invalid .env content
+    mock_env_file = mock_open(read_data="INVALID_ENV_FILE")
+    
+    with patch("pathlib.Path.cwd", return_value=tmp_path):
+        with patch("builtins.open", mock_env_file):
+            cmd.execute(args)
+
+    # Check error message
+    captured = capsys.readouterr()
+    assert "Error loading .env file" in captured.out
