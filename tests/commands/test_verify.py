@@ -37,7 +37,7 @@ def test_verify_command_parser_setup():
 def test_component_verifier_with_upload():
     """Test ComponentVerifier with real Upload component."""
     verifier = ComponentVerifier(
-        str(Path('db/special_components/upload.json')),
+        str(Path('db/components/upload.json')),
         Upload
     )
     
@@ -111,7 +111,7 @@ def test_verify_command_fix_output(verify_command, capsys):
 def test_generate_fix_json():
     """Test JSON generation for missing events."""
     verifier = ComponentVerifier(
-        str(Path('db/special_components/upload.json')),
+        str(Path('db/components/upload.json')),
         Upload
     )
     

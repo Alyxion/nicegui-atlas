@@ -168,7 +168,7 @@ def scan_nicegui_component(data: dict) -> Optional[ComponentInfo]:
         events=events,
         functions=functions,
         category=data.get("category"),
-        source_path=data["source_path"],
+        source_path=data.get("source_path", ""),
         direct_ancestors=data.get("direct_ancestors", []),
         quasar_components=quasar_components,
         libraries=libraries,
@@ -199,13 +199,13 @@ def create_nicegui_index(db_path: str = "db") -> ComponentIndex:
     with open(db_dir / "categories.json") as f:
         categories_data = json.load(f)
     
-    # Load all component files
+    # Load all component files from the components directory
     component_files = {}
-    for subdir in db_dir.iterdir():
-        if subdir.is_dir():
-            for file_path in subdir.glob("*.json"):
-                with open(file_path) as f:
-                    component_files[str(file_path)] = json.load(f)
+    components_dir = db_dir / "components"
+    if components_dir.exists():
+        for file_path in components_dir.glob("*.json"):
+            with open(file_path) as f:
+                component_files[str(file_path)] = json.load(f)
     
     # Convert to our models
     categories = scan_nicegui_categories(categories_data)

@@ -8,9 +8,10 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple, Any
 
-from nicegui.elements.upload import Upload  # For testing with upload component
+from nicegui import ui
 
 from .base import CommandPlugin, registry as command_registry
+from ..registry import ComponentRegistry
 
 
 # Force colors even when output is redirected
@@ -254,10 +255,54 @@ class VerifyCommand(CommandPlugin):
         parser.add_argument('--fix', action='store_true', help='Show JSON code to fix missing events')
     
     def execute(self, args: argparse.Namespace) -> None:
-        # For now, hardcoded to test with Upload component
+        # Get component info from registry
+        registry = ComponentRegistry()
+        registry.initialize()
+        
+        # Convert component name to full name if needed (e.g., 'button' to 'nicegui.ui.button')
+        full_name = args.component
+        if not full_name.startswith('nicegui.'):
+            if full_name.startswith('ui.'):
+                full_name = f'nicegui.{full_name}'
+            else:
+                full_name = f'nicegui.ui.{full_name}'
+            
+        # Get component info and class
+        component_info = registry.get_nicegui_component(full_name)
+        if not component_info:
+            print(f"{Colors.RED}Error: Component '{args.component}' not found{Colors.ENDC}")
+            sys.exit(1)
+            
+        # Get component class from ui module (strip nicegui.ui. prefix)
+        component_name = component_info.name.replace('nicegui.ui.', '')
+        
+        # Verify component exists in nicegui.ui
+        try:
+            component_class = getattr(ui, component_name)
+        except AttributeError:
+            print(f"{Colors.RED}Error: Component '{component_name}' does not exist in nicegui.ui module{Colors.ENDC}")
+            sys.exit(1)
+            
+        # Verify component class name matches JSON name
+        expected_name = f"nicegui.ui.{component_name}"
+        if component_info.name != expected_name:
+            print(f"{Colors.RED}Error: Component name mismatch{Colors.ENDC}")
+            print(f"  JSON name: {Colors.YELLOW}{component_info.name}{Colors.ENDC}")
+            print(f"  Actual name: {Colors.YELLOW}{expected_name}{Colors.ENDC}")
+            sys.exit(1)
+        
+        # Create verifier with component info
+        from ..component_finder import ComponentFinder
+        finder = ComponentFinder()
+        component_paths = finder.find_by_name(component_name)
+        
+        if not component_paths:
+            print(f"{Colors.RED}Error: Component JSON file not found{Colors.ENDC}")
+            sys.exit(1)
+            
         verifier = ComponentVerifier(
-            'db/special_components/upload.json',
-            Upload
+            component_paths[0],  # Use the first matching JSON file
+            component_class
         )
         
         # Get component info

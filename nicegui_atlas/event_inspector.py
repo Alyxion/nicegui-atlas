@@ -40,11 +40,7 @@ def get_event_arguments(event_class_name: str) -> List[ArgumentInfo]:
     """Get argument information for a specific event class."""
     # Initialize event info cache if needed
     if not hasattr(get_event_arguments, '_event_info'):
-        print(f"Initializing event info cache...")
         get_event_arguments._event_info = get_event_class_info()
-        print(f"Found event classes: {list(get_event_arguments._event_info.keys())}")
     
     # Return cached info for the event class
-    args = get_event_arguments._event_info.get(event_class_name, [])
-    print(f"Event class {event_class_name} has arguments: {[f'{a.name}: {a.type}' for a in args]}")
-    return args
+    return get_event_arguments._event_info.get(event_class_name, [])

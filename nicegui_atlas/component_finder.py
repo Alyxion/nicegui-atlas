@@ -45,27 +45,21 @@ class ComponentFinder:
                 if name in url_mappings:
                     name = url_mappings[name]
         
-        # Search for the component file
+        # Search for the component file in the components directory
         paths = []
+        components_dir = self.db_path / "components"
         
         # First, try exact match
-        for category in self.db_path.iterdir():
-            if category.is_dir() and not category.name.startswith('.'):
-                json_path = category / f"{name}.json"
-                if json_path.exists():
-                    paths.append(str(json_path))
+        json_path = components_dir / f"{name}.json"
+        if json_path.exists():
+            paths.append(str(json_path))
         
         # If no exact match, try fuzzy match
         if not paths:
-            for category in self.db_path.iterdir():
-                if category.is_dir() and not category.name.startswith('.'):
-                    for json_path in category.glob("*.json"):
-                        # Skip special files
-                        if json_path.name in ['categories.json', 'template.json', 'component_mappings.json']:
-                            continue
-                        # Check if component name is part of the file name
-                        if name.lower() in json_path.stem.lower():
-                            paths.append(str(json_path))
+            for json_path in components_dir.glob("*.json"):
+                # Check if component name is part of the file name
+                if name.lower() in json_path.stem.lower():
+                    paths.append(str(json_path))
         
         return paths
     
@@ -80,21 +74,10 @@ class ComponentFinder:
         """
         paths = []
         
-        # Handle directory filters
-        if '/' in filter_str:
-            dir_name, pattern = filter_str.split('/', 1)
-            dir_path = self.db_path / dir_name
-            if dir_path.exists() and dir_path.is_dir():
-                for json_path in dir_path.glob(f"{pattern}.json"):
-                    if json_path.name not in ['categories.json', 'template.json', 'component_mappings.json']:
-                        paths.append(str(json_path))
-        else:
-            # Search in all directories
-            for category in self.db_path.iterdir():
-                if category.is_dir() and not category.name.startswith('.'):
-                    for json_path in category.glob(f"{filter_str}.json"):
-                        if json_path.name not in ['categories.json', 'template.json', 'component_mappings.json']:
-                            paths.append(str(json_path))
+        # Search in components directory
+        components_dir = self.db_path / "components"
+        for json_path in components_dir.glob(f"{filter_str}.json"):
+            paths.append(str(json_path))
         
         return paths
     
@@ -104,10 +87,6 @@ class ComponentFinder:
         Returns:
             List of paths to all component files.
         """
-        paths = []
-        for category in self.db_path.iterdir():
-            if category.is_dir() and not category.name.startswith('.'):
-                for json_path in category.glob("*.json"):
-                    if json_path.name not in ['categories.json', 'template.json', 'component_mappings.json']:
-                        paths.append(str(json_path))
+        components_dir = self.db_path / "components"
+        paths = [str(p) for p in components_dir.glob("*.json")]
         return paths
