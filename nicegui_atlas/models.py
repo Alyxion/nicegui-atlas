@@ -4,15 +4,6 @@ from typing import Dict, List, Optional, Union, Any
 from pydantic import BaseModel, Field
 
 
-class EventTypeInfo(BaseModel):
-    """Information about an event type."""
-    name: str
-    description: str
-    type: str = "event"
-    arguments: Dict[str, ArgumentInfo] = Field(default_factory=dict)
-    ancestors: List[str] = Field(default_factory=list)
-
-
 class Example(BaseModel):
     """Example usage of a property, event, or function."""
     code: str
@@ -118,3 +109,12 @@ class ComponentIndex(BaseModel):
     version: str
     categories: Dict[str, CategoryInfo] = Field(default_factory=dict)
     components: Dict[str, ComponentInfo] = Field(default_factory=dict)
+
+
+class EventTypeInfo(BaseModel):
+    """Information about an event type."""
+    name: str
+    description: str
+    type: str = "event"
+    arguments: Dict[str, ArgumentInfo] = Field(default_factory=dict)
+    ancestors: List[str] = Field(default_factory=list)

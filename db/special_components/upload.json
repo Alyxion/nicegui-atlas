@@ -13,6 +13,39 @@
   ],
   "js_file": "upload.js",
   "category": "Special Components",
+  "events": {
+    "__init__": {
+      "on_upload": {
+        "description": "Callback to execute for each uploaded file",
+        "arguments": "UploadEventArguments(sender=self, client=self.client, content=file, name=filename, type=content_type)"
+      },
+      "on_multi_upload": {
+        "description": "Callback to execute after multiple files have been uploaded",
+        "arguments": "MultiUploadEventArguments(sender=self, client=self.client, contents=files, names=filenames, types=content_types)"
+      },
+      "on_rejected": {
+        "description": "Callback to execute for each rejected file",
+        "arguments": "UiEventArguments(sender=self, client=self.client)"
+      }
+    },
+    "methods": {
+      "on_upload": {
+        "description": "Add a callback to be invoked when a file is uploaded",
+        "arguments": "UploadEventArguments(sender=self, client=self.client, content=file, name=filename, type=content_type)",
+        "returns": "Self (for method chaining)"
+      },
+      "on_multi_upload": {
+        "description": "Add a callback to be invoked when multiple files have been uploaded",
+        "arguments": "MultiUploadEventArguments(sender=self, client=self.client, contents=files, names=filenames, types=content_types)",
+        "returns": "Self (for method chaining)"
+      },
+      "on_rejected": {
+        "description": "Add a callback to be invoked when a file is rejected",
+        "arguments": "UiEventArguments(sender=self, client=self.client)",
+        "returns": "Self (for method chaining)"
+      }
+    }
+  },
   "py_checksum": "236deb497de14629be1f08d472c14d46",
   "js_checksum": "40658eb3fadc5d831484e697a13b142c"
 }
