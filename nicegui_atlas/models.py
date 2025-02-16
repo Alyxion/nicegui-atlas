@@ -1,7 +1,16 @@
 """Shared data models for NiceGUI Atlas."""
 
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union, Any
 from pydantic import BaseModel, Field
+
+
+class EventTypeInfo(BaseModel):
+    """Information about an event type."""
+    name: str
+    description: str
+    type: str = "event"
+    arguments: Dict[str, ArgumentInfo] = Field(default_factory=dict)
+    ancestors: List[str] = Field(default_factory=list)
 
 
 class Example(BaseModel):

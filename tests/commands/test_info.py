@@ -1,6 +1,7 @@
 """Tests for the info command plugin."""
 
 import argparse
+import json
 import pytest
 from unittest.mock import Mock, patch
 from nicegui_atlas.commands.info import InfoCommand
@@ -64,13 +65,15 @@ def test_info_command_parser_setup():
         '--filter', 'test',
         '--output', 'test.md',
         '--sections', 'properties,events',
-        '--quasar'
+        '--quasar',
+        '--raw'
     ])
     assert args.components == 'ui.test'
     assert args.filter == 'test'
     assert args.output == 'test.md'
     assert args.sections == 'properties,events'
     assert args.quasar is True
+    assert args.raw is True
 
 
 @patch('nicegui_atlas.commands.info.registry')
@@ -85,7 +88,8 @@ def test_info_command_single_component(mock_registry, info_command, mock_compone
         filter=None,
         output=None,
         quasar=False,
-        sections=None
+        sections=None,
+        raw=False
     )
     
     # Execute command
@@ -111,7 +115,8 @@ def test_info_command_with_filter(mock_registry, info_command, mock_component, c
         filter="test,base",
         output=None,
         quasar=False,
-        sections=None
+        sections=None,
+        raw=False
     )
     
     # Execute command
@@ -137,7 +142,8 @@ def test_info_command_with_output_file(mock_registry, info_command, mock_compone
         filter=None,
         output=str(output_file),
         quasar=False,
-        sections=None
+        sections=None,
+        raw=False
     )
     
     # Execute command
@@ -164,7 +170,8 @@ def test_info_command_no_components_found(mock_registry, info_command, capsys):
         filter=None,
         output=None,
         quasar=False,
-        sections=None
+        sections=None,
+        raw=False
     )
     
     # Execute command
@@ -187,7 +194,8 @@ def test_info_command_multiple_components(mock_registry, info_command, mock_comp
         filter=None,
         output=None,
         quasar=False,
-        sections=None
+        sections=None,
+        raw=False
     )
     
     # Execute command
@@ -196,3 +204,32 @@ def test_info_command_multiple_components(mock_registry, info_command, mock_comp
     # Check output
     captured = capsys.readouterr()
     assert captured.out.count("Test component description") == 2
+
+
+@patch('nicegui_atlas.commands.info.registry')
+def test_info_command_raw_output(mock_registry, info_command, mock_component, capsys):
+    """Test info command with raw JSON output."""
+    # Set up mock
+    mock_registry.get_nicegui_component.return_value = mock_component
+    
+    # Create args
+    args = argparse.Namespace(
+        components="ui.test_component",
+        filter=None,
+        output=None,
+        quasar=False,
+        sections=None,
+        raw=True
+    )
+    
+    # Execute command
+    info_command.execute(args)
+    
+    # Check output
+    captured = capsys.readouterr()
+    output = json.loads(captured.out)
+    assert isinstance(output, list)
+    assert len(output) == 1
+    assert output[0]["name"] == "nicegui.ui.test_component"
+    assert output[0]["description"] == "Test component description"
+    assert output[0]["direct_ancestors"] == ["BaseElement"]

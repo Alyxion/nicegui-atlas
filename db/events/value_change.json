@@ -1,0 +1,23 @@
+{
+  "name": "ValueChangeEventArguments",
+  "description": "Arguments for value change events",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "type": "Element",
+      "description": "The element that triggered the event",
+      "required": true
+    },
+    "client": {
+      "type": "Client",
+      "description": "The client that triggered the event",
+      "required": true
+    },
+    "value": {
+      "type": "Any",
+      "description": "The new value",
+      "required": true
+    }
+  },
+  "ancestors": ["EventArguments"]
+}

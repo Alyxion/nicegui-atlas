@@ -1,6 +1,7 @@
 """Info command plugin for displaying component information."""
 
 import argparse
+import json
 from typing import List, Optional
 
 from .base import CommandPlugin, registry as command_registry
@@ -36,7 +37,10 @@ class InfoCommand(CommandPlugin):
             "  python -m nicegui_atlas info ui.button --sections properties,events",
             "",
             "Show filtered components:",
-            "  python -m nicegui_atlas info \"ui.button;ui.checkbox\" --filter \"form,input\""
+            "  python -m nicegui_atlas info \"ui.button;ui.checkbox\" --filter \"form,input\"",
+            "",
+            "Show raw JSON output:",
+            "  python -m nicegui_atlas info ui.button --raw"
         ]
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
@@ -45,6 +49,7 @@ class InfoCommand(CommandPlugin):
         parser.add_argument('-s', '--sections', default=None, help='Sections to show (comma-separated: properties,events,functions)')
         parser.add_argument('-f', '--filter', default=None, help='Filter components by terms (comma-separated)')
         parser.add_argument('-o', '--output', default=None, help='Output file path')
+        parser.add_argument('-r', '--raw', action='store_true', default=False, help='Output raw JSON instead of formatted text')
     
     def get_component(self, name: str, is_quasar: bool = False) -> Optional[ComponentInfo]:
         """Get a component by name."""
@@ -84,10 +89,14 @@ class InfoCommand(CommandPlugin):
             print("No components found matching the criteria.")
             return
         
-        # Format each component
-        output = ""
-        for component in components_to_show:
-            output += format_component(component, sections)
+        if args.raw:
+            # Convert components to JSON
+            output = json.dumps([comp.dict() for comp in components_to_show], indent=2)
+        else:
+            # Format each component as text
+            output = ""
+            for component in components_to_show:
+                output += format_component(component, sections)
         
         if args.output:
             with open(args.output, 'w') as f:

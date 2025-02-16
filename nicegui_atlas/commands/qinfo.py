@@ -1,6 +1,7 @@
 """Command for fetching Quasar component information."""
 
 import argparse
+import json
 from typing import List, Optional
 
 from .base import CommandPlugin, registry as command_registry
@@ -74,7 +75,8 @@ class QInfoCommand(CommandPlugin):
         return [
             "nicegui-atlas qinfo QBtn",
             "nicegui-atlas qinfo QTable QSelect --sections properties",
-            "nicegui-atlas qinfo QInput --sections events"
+            "nicegui-atlas qinfo QInput --sections events",
+            "nicegui-atlas qinfo QBtn --raw"
         ]
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
@@ -89,14 +91,32 @@ class QInfoCommand(CommandPlugin):
             choices=['properties', 'events'],
             help='Specific sections to include (default: all)'
         )
+        parser.add_argument(
+            '-r', '--raw',
+            action='store_true',
+            default=False,
+            help='Output raw JSON instead of formatted text'
+        )
     
     def execute(self, args: argparse.Namespace) -> None:
+        components = []
         for component_name in args.components:
             component = registry.get_quasar_component(component_name)
             if component:
-                print(format_component_info(component, args.sections))
+                components.append(component)
             else:
                 print(f"\nComponent {component_name} not found.")
+        
+        if not components:
+            return
+
+        if args.raw:
+            # Output raw JSON
+            print(json.dumps([comp.dict() for comp in components], indent=2))
+        else:
+            # Output formatted text
+            for component in components:
+                print(format_component_info(component, args.sections))
 
 
 # Register the command

@@ -1,0 +1,23 @@
+{
+  "name": "ColorPickEventArguments",
+  "description": "Arguments for color picker events",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "type": "Element",
+      "description": "The element that triggered the event",
+      "required": true
+    },
+    "client": {
+      "type": "Client",
+      "description": "The client that triggered the event",
+      "required": true
+    },
+    "color": {
+      "type": "str",
+      "description": "The selected color value",
+      "required": true
+    }
+  },
+  "ancestors": ["EventArguments"]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "EventArguments",
+  "description": "Base class for all event arguments",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "name": "sender",
+      "type": "Element",
+      "description": "The element that triggered the event",
+      "required": true,
+      "examples": []
+    },
+    "client": {
+      "name": "client",
+      "type": "Client",
+      "description": "The client that triggered the event",
+      "required": true,
+      "examples": []
+    }
+  },
+  "ancestors": []
+}

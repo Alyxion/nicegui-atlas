@@ -1,6 +1,7 @@
 """Tests for the qinfo command plugin."""
 
 import argparse
+import json
 import pytest
 from unittest.mock import patch, MagicMock
 from nicegui_atlas.commands.qinfo import QInfoCommand
@@ -28,10 +29,12 @@ def test_qinfo_command_parser_setup():
     args = parser.parse_args(['QBtn'])
     assert args.components == ['QBtn']
     assert args.sections is None
+    assert not args.raw
     
-    args = parser.parse_args(['QBtn', '--sections', 'properties', 'events'])
+    args = parser.parse_args(['QBtn', '--sections', 'properties', 'events', '--raw'])
     assert args.components == ['QBtn']
     assert args.sections == ['properties', 'events']
+    assert args.raw
 
 
 @patch('nicegui_atlas.commands.qinfo.registry')
@@ -71,7 +74,8 @@ def test_qinfo_command_single_component(mock_registry, qinfo_command, capsys):
     # Execute command
     args = argparse.Namespace(
         components=['QBtn'],
-        sections=None
+        sections=None,
+        raw=False
     )
     qinfo_command.execute(args)
     
@@ -106,7 +110,8 @@ def test_qinfo_command_without_q_prefix(mock_registry, qinfo_command, capsys):
     # Execute command
     args = argparse.Namespace(
         components=['Btn'],
-        sections=None
+        sections=None,
+        raw=False
     )
     qinfo_command.execute(args)
     
@@ -144,7 +149,8 @@ def test_qinfo_command_with_sections(mock_registry, qinfo_command, capsys):
     # Test properties only
     args = argparse.Namespace(
         components=['QBtn'],
-        sections=['properties']
+        sections=['properties'],
+        raw=False
     )
     qinfo_command.execute(args)
     captured = capsys.readouterr()
@@ -155,7 +161,8 @@ def test_qinfo_command_with_sections(mock_registry, qinfo_command, capsys):
     # Test events only
     args = argparse.Namespace(
         components=['QBtn'],
-        sections=['events']
+        sections=['events'],
+        raw=False
     )
     qinfo_command.execute(args)
     captured = capsys.readouterr()
@@ -205,7 +212,8 @@ def test_qinfo_command_multiple_components(mock_registry, qinfo_command, capsys)
     # Execute command
     args = argparse.Namespace(
         components=['QBtn', 'QInput'],
-        sections=None
+        sections=None,
+        raw=False
     )
     qinfo_command.execute(args)
     
@@ -225,10 +233,59 @@ def test_qinfo_command_component_not_found(mock_registry, qinfo_command, capsys)
     # Execute command
     args = argparse.Namespace(
         components=['QNonExistent'],
-        sections=None
+        sections=None,
+        raw=False
     )
     qinfo_command.execute(args)
     
     # Check output
     captured = capsys.readouterr()
     assert "Component QNonExistent not found" in captured.out
+
+
+@patch('nicegui_atlas.commands.qinfo.registry')
+def test_qinfo_command_raw_output(mock_registry, qinfo_command, capsys):
+    """Test qinfo command with raw JSON output."""
+    from nicegui_atlas.models import ComponentInfo, PropertyInfo, EventInfo
+    
+    # Mock component data
+    mock_component = ComponentInfo(
+        name="QBtn",
+        type="quasar",
+        description="Button component",
+        doc_url="https://quasar.dev/vue-components/button",
+        properties={
+            "color": PropertyInfo(
+                name="color",
+                type="string",
+                description="Color name for component"
+            )
+        },
+        events={
+            "click": EventInfo(
+                name="click",
+                description="Emitted when clicked"
+            )
+        }
+    )
+    mock_registry.get_quasar_component.return_value = mock_component
+    
+    # Execute command
+    args = argparse.Namespace(
+        components=['QBtn'],
+        sections=None,
+        raw=True
+    )
+    qinfo_command.execute(args)
+    
+    # Check output
+    captured = capsys.readouterr()
+    output = json.loads(captured.out)
+    assert isinstance(output, list)
+    assert len(output) == 1
+    assert output[0]["name"] == "QBtn"
+    assert output[0]["type"] == "quasar"
+    assert output[0]["description"] == "Button component"
+    assert output[0]["doc_url"] == "https://quasar.dev/vue-components/button"
+    assert "color" in output[0]["properties"]
+    assert "click" in output[0]["events"]

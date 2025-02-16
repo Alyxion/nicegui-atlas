@@ -1,0 +1,28 @@
+{
+  "name": "ScrollEventArguments",
+  "description": "Arguments for scroll events with position and size information",
+  "type": "event",
+  "arguments": {
+    "sender": {
+      "type": "Element",
+      "description": "The element that triggered the event",
+      "required": true
+    },
+    "client": {
+      "type": "Client",
+      "description": "The client that triggered the event",
+      "required": true
+    },
+    "position": {
+      "type": "Dict[str, float]",
+      "description": "The scroll position (x, y coordinates)",
+      "required": true
+    },
+    "size": {
+      "type": "Dict[str, float]",
+      "description": "The viewport size (width, height)",
+      "required": true
+    }
+  },
+  "ancestors": ["EventArguments"]
+}
