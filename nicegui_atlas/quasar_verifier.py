@@ -2,57 +2,25 @@
 
 import json
 import os
-from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Set, Tuple
-import urllib.request
 from packaging import version
 
-CACHE_DIR = Path.home() / ".cache" / "nicegui-atlas"
-CACHE_DURATION = timedelta(days=1)
 CONFIG_FILE = Path(__file__).parent / "config.json"
+WEB_TYPES_FILE = Path(__file__).parent.parent / "db" / "quasar-web-types.json"
 
 def load_config() -> dict:
     """Load configuration from JSON file."""
     with open(CONFIG_FILE, 'r') as f:
         return json.load(f)
 
-def get_web_types_url() -> str:
-    """Get the URL for web-types.json based on configured version."""
-    config = load_config()
-    return f"https://unpkg.com/quasar@{config['quasar_version']}/dist/web-types/web-types.json"
-
-def get_cached_web_types() -> dict:
-    """Get web-types.json from cache or download if needed."""
-    # Create cache directory if it doesn't exist
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    
-    # Create cache file path
-    cache_file = CACHE_DIR / "web-types.json"
-    
-    # Check if cache exists and is fresh
-    if cache_file.exists():
-        mtime = datetime.fromtimestamp(cache_file.stat().st_mtime)
-        if datetime.now() - mtime < CACHE_DURATION:
-            with open(cache_file, 'r') as f:
-                return json.load(f)
-    
-    # Download new content
-    url = get_web_types_url()
-    print(f"Downloading web-types.json from {url}...")
-    
+def get_web_types() -> dict:
+    """Get web-types.json from the repository."""
     try:
-        with urllib.request.urlopen(url) as response:
-            content = response.read()
-            web_types = json.loads(content)
-            
-            # Cache the content
-            with open(cache_file, 'w') as f:
-                json.dump(web_types, f, indent=2)
-            
-            return web_types
+        with open(WEB_TYPES_FILE, 'r') as f:
+            return json.load(f)
     except Exception as e:
-        raise Exception(f"Failed to download web-types.json: {str(e)}")
+        raise Exception(f"Failed to load web-types.json: {str(e)}")
 
 def load_component_mappings() -> tuple[dict, dict]:
     """Load component mappings from JSON file."""
@@ -103,18 +71,15 @@ def extract_quasar_props(comp_name: str, web_types: dict) -> Dict[str, str]:
                 prop_desc = prop.get('description', '')
                 if prop_name:
                     props[prop_name] = prop_desc
-            break
-            
-    # If not found in types-syntax, try tags
-    if not props:
-        for tag in web_types.get('contributions', {}).get('html', {}).get('tags', []):
-            if tag.get('name', '').lower() == f"q-{search_name.lower()}":
-                for attr in tag.get('attributes', []):
-                    prop_name = attr.get('name', '')
-                    prop_desc = attr.get('description', '')
-                    if prop_name:
-                        props[prop_name] = prop_desc
-                break
+    
+    # Also check tags for additional properties
+    for tag in web_types.get('contributions', {}).get('html', {}).get('tags', []):
+        if tag.get('name', '').lower() == f"q-{search_name.lower()}":
+            for attr in tag.get('attributes', []):
+                prop_name = attr.get('name', '')
+                prop_desc = attr.get('description', '')
+                if prop_name:
+                    props[prop_name] = prop_desc
     
     return props
 
@@ -176,7 +141,7 @@ def verify_components(component_files: list[str]) -> dict:
     
     try:
         # Load web-types once for all components
-        web_types = get_cached_web_types()
+        web_types = get_web_types()
         
         for file_path in component_files:
             if not os.path.exists(file_path):
@@ -191,20 +156,21 @@ def verify_components(component_files: list[str]) -> dict:
             
             # Check Quasar components
             if "quasar_components" in component_data:
+                file_issues = []
                 for quasar_comp in component_data["quasar_components"]:
                     if isinstance(quasar_comp, dict):
-                        comp_name = quasar_comp.get("name", "")
-                        comp_url = quasar_comp.get("url", "").rstrip('/')
+                        comp_name = quasar_comp["name"]
+                        comp_url = quasar_comp["url"].rstrip('/')
                     else:
                         comp_name = quasar_comp.rstrip(',')  # Remove trailing comma if present
                         comp_url = get_quasar_url(comp_name)
                     
                     comp_issues = verify_component(comp_name, comp_url, component_data, web_types)
-                    
                     if comp_issues:
-                        if os.path.basename(file_path) not in issues:
-                            issues[os.path.basename(file_path)] = []
-                        issues[os.path.basename(file_path)].extend(comp_issues)
+                        file_issues.extend(comp_issues)
+                
+                if file_issues:
+                    issues[os.path.basename(file_path)] = file_issues
     
     except Exception as e:
         print(f"Error during verification: {str(e)}")

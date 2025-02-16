@@ -27,13 +27,7 @@ def test_verify_command_parser_setup():
     parser = argparse.ArgumentParser()
     cmd.setup_parser(parser)
     
-    args = parser.parse_args([
-        '--quasar-version', '2.16.9',
-        '--vue-version', '3.4.38',
-        '--output', 'report.md'
-    ])
-    assert args.quasar_version == '2.16.9'
-    assert args.vue_version == '3.4.38'
+    args = parser.parse_args(['--output', 'report.md'])
     assert args.output == 'report.md'
 
 
@@ -51,8 +45,6 @@ def test_verify_command_single_component(mock_finder_class, mock_verify, verify_
     # Create args
     args = argparse.Namespace(
         component="ui.button",
-        quasar_version="2.16.9",
-        vue_version="3.4.38",
         output=None
     )
     
@@ -65,8 +57,6 @@ def test_verify_command_single_component(mock_finder_class, mock_verify, verify_
     
     # Verify mock calls
     mock_verify.assert_called_once()
-    assert mock_verify.call_args[1]['quasar_version'] == '2.16.9'
-    assert mock_verify.call_args[1]['vue_version'] == '3.4.38'
 
 
 @patch('nicegui_atlas.commands.verify.verify_components')
@@ -83,8 +73,6 @@ def test_verify_command_with_issues(mock_finder_class, mock_verify, verify_comma
     # Create args
     args = argparse.Namespace(
         component="ui.button",
-        quasar_version="2.16.9",
-        vue_version="3.4.38",
         output=None
     )
     
@@ -122,8 +110,6 @@ def test_verify_command_with_output_file(mock_open, mock_finder_class, mock_veri
     # Create args
     args = argparse.Namespace(
         component="ui.button",
-        quasar_version="2.16.9",
-        vue_version="3.4.38",
         output=str(tmp_path / "report.md")
     )
     
@@ -160,8 +146,6 @@ def test_verify_command_all_components(mock_finder_class, mock_verify, verify_co
     args = argparse.Namespace(
         component=None,
         filter=None,  # Add filter attribute with default value
-        quasar_version="2.16.9",
-        vue_version="3.4.38",
         output=None,
         all=True
     )
@@ -190,8 +174,6 @@ def test_verify_command_component_not_found(mock_finder_class, mock_verify, veri
     # Create args
     args = argparse.Namespace(
         component="ui.nonexistent",
-        quasar_version="2.16.9",
-        vue_version="3.4.38",
         output=None
     )
     

@@ -30,10 +30,7 @@ class VerifyCommand(CommandPlugin):
             "  python -m nicegui_atlas verify --filter input/*",
             "",
             "Verify all components:",
-            "  python -m nicegui_atlas verify --all",
-            "",
-            "Verify with specific versions:",
-            "  python -m nicegui_atlas verify ui.button --quasar-version 2.16.9 --vue-version 3.4.38"
+            "  python -m nicegui_atlas verify --all"
         ]
     
     def setup_parser(self, parser: argparse.ArgumentParser) -> None:
@@ -41,8 +38,6 @@ class VerifyCommand(CommandPlugin):
         group.add_argument('component', nargs='?', default=None, help='Component name (e.g., "ui.button")')
         group.add_argument('--filter', default=None, help='Filter pattern (e.g., "basic/*", "input/*")')
         group.add_argument('--all', action='store_true', default=False, help='Verify all components')
-        parser.add_argument('--quasar-version', default='2.16.9', help='Quasar version to verify against')
-        parser.add_argument('--vue-version', default='3.4.38', help='Vue version to verify against')
         parser.add_argument('-o', '--output', default=None, help='Output file for detailed report')
     
     def execute(self, args: argparse.Namespace) -> None:
@@ -69,11 +64,7 @@ class VerifyCommand(CommandPlugin):
             return
         
         # Verify components
-        results = verify_components(
-            paths,
-            quasar_version=args.quasar_version,
-            vue_version=args.vue_version
-        )
+        results = verify_components(paths)
         
         # Print summary
         total_issues = sum(len(issues) for issues in results.values())

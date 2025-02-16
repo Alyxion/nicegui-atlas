@@ -53,8 +53,8 @@ class ComponentRegistry:
         self._nicegui_component_index = create_nicegui_index(db_path)
         
         # Load Quasar web-types data
-        from .quasar_verifier import get_cached_web_types
-        self._quasar_web_types = get_cached_web_types()
+        from .quasar_verifier import get_web_types
+        self._quasar_web_types = get_web_types()
         
         # Create Quasar index
         self._quasar_index = create_quasar_index(self._quasar_web_types)
